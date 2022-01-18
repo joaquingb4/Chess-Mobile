@@ -1,4 +1,4 @@
-# Chess-Android
+# Chess-Mobile
 
 **Group members**
 --
