@@ -11,17 +11,16 @@ import java.util.ArrayList;
 
 public class ActivityBoard extends AppCompatActivity {
     //Attributes
-    Piece[][] boxes = new ImageView[2][2];
-
+    ImageView[][] boxes = new ImageView[2][2];
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
+
     }
+
 
     public void clickBoard(View view) {
         Log.i("testboard", "hola click");
