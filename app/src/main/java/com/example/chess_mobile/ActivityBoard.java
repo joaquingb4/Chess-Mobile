@@ -2,6 +2,7 @@ package com.example.chess_mobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,11 +12,20 @@ import java.util.ArrayList;
 
 public class ActivityBoard extends AppCompatActivity {
     //Attributes
+    int a = 0;
+    int b = 1;
+    int c = 2;
+
     ImageView[][] boxes = new ImageView[3][3];
     Driver driver = new Driver();
 
+    public void buildImages(){
+        for (int i = 0; i <boxes.length ; i++) {
 
+        }
+        boxes[0][0].setImageDrawable(getDrawable(R.drawable.t));
 
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +42,13 @@ public class ActivityBoard extends AppCompatActivity {
         boxes[2][2] = findViewById(R.id.box9);
         Log.i("hola","funciona" + boxes[0][1]);
         driver.buildPieces();
+        buildImages();
     }
 
 
     //Write on the log the box clicked
     public void clickBoard(View view) {
-        Log.i("testboard", "Has hecho click en la casilla: " + view.getTag()+ ", Que tiene un " + driver. );
+        Log.i("testboard", "Has hecho click en la casilla: " + view.getTag()+ ", Que tiene un " + driver.getDataBox(view.getTag().toString()));
     }
 
 }
