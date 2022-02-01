@@ -1,12 +1,9 @@
 package com.example.chess_mobile;
 
 public abstract class Piece {
+    //Attributes
+    private String name;
     //Methods
-    String name;
-
-
     public abstract String getName();
-
-   // public abstract move
 
 }
