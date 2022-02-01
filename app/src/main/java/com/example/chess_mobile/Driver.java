@@ -7,7 +7,7 @@ public class Driver {
     int[] letters = new int[]{'a', 'b', 'c','d','e','f','g','h'};
     Box[][] board = new Box[3][3];
 
-    //
+    //Traduce de letra a número
     public  int letterToInt(char letter){
         for (int i = 0; i < letters.length; i++) {
             if (letters[i]==letter){
