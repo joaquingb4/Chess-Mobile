@@ -5,7 +5,7 @@ import android.util.Log;
 public class Driver {
     //Attributes
     int[] letters = new int[]{'a', 'b', 'c','d','e','f','g','h'};
-    Box[][] board = new Box[3][3];
+    Box[][] board = new Box[24][24];
 
     //Traduce de letra a número
     public  int letterToInt(char letter){
@@ -47,12 +47,24 @@ public class Driver {
         //A---1||
         //Towers
         board[0][0].setPiece(new Tower());
-        board[1][0].setPiece(new Tower());
-        board[2][0].setPiece(new Tower());
+        board[7][0].setPiece(new Tower());
+        //Horses
+        board[1][0].setPiece(new Horse());
+        board[6][0].setPiece(new Horse());
+
         //Pawns
         board[0][1].setPiece(new Pawn());
         board[1][1].setPiece(new Pawn());
         board[2][1].setPiece(new Pawn());
+        board[3][1].setPiece(new Pawn());
+        board[4][1].setPiece(new Pawn());
+        board[5][1].setPiece(new Pawn());
+        board[6][1].setPiece(new Pawn());
+
+
+
+
+
     }
 
 }
