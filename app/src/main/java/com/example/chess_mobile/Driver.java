@@ -5,7 +5,7 @@ import android.util.Log;
 public class Driver {
     //Attributes
     int[] letters = new int[]{'a', 'b', 'c','d','e','f','g','h'};
-    Box[][] board = new Box[24][24];
+    Box[][] board = new Box[8][8];
 
     //Traduce de letra a número
     public  int letterToInt(char letter){
@@ -39,6 +39,7 @@ public class Driver {
         for (int i = 0; i < board.length ; i++) {
             for (int u = 0; u < board[i].length; u++) {
                 board[i][u] = new Box(""+letters[u]+""+i);
+                Log.i("prueba",""+i+ "::"+u);
             }
         }
     }
