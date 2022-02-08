@@ -5,5 +5,6 @@ public abstract class Piece {
     private String name;
     //Methods
     public abstract String getName();
+    public abstract int[] movility();
 
 }

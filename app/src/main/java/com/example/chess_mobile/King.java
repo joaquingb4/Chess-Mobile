@@ -6,4 +6,9 @@ public class King extends Piece {
     public String getName() {
         return this.name;
     }
+
+    @Override
+    public int[] movility() {
+        return new int[0];
+    }
 }

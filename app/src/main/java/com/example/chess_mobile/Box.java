@@ -30,4 +30,13 @@ public class Box {
         this.piece = piece;
     }
 
+    //Methods
+    public boolean haveAPiece(){
+        if (this.piece != null){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

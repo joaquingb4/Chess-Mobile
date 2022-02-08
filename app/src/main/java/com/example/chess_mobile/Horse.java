@@ -6,4 +6,9 @@ public class Horse extends Piece {
     public String getName() {
         return name;
     }
+
+    @Override
+    public int[] movility() {
+        return new int[];
+    }
 }

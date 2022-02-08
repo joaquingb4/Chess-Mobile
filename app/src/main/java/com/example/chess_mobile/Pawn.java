@@ -7,4 +7,11 @@ public class Pawn extends Piece {
     public String getName() {
         return this.name;
     }
+
+    @Override
+    public String[][] movility() {
+        String[][] instructions;
+        instructions[]
+        return instructions ;
+    }
 }

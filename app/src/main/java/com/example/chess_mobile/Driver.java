@@ -79,6 +79,11 @@ public class Driver {
             board[i][6].setPiece(new Pawn());
         }
     }
+
     //Lista las posiciones a las que la pieza en su casilla puede moverse
-    //public int[]
+    public int[][] canMoveto(int letter, int number ){
+        (board[letter][number].haveAPiece()){
+
+        }
+    }
 }
