@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Chess-Mobile</string>
-    <string name="boxSize">45</string>
+    <string name="boxSize">25dp</string>
 </resources>

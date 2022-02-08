@@ -10,7 +10,7 @@
     <androidx.gridlayout.widget.GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/lightBrown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,19 +19,18 @@
 
         <ImageView
             android:id="@+id/box1"
-            android:layout_width="49dp"
-            android:layout_height="49dp"
-            android:background="@color/orange"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
             android:onClick="clickBoard"
             android:tag="a1"
             app:layout_column="0"
-            app:layout_row="7">
-        </ImageView>
+            app:layout_row="7"></ImageView>
 
         <ImageView
             android:id="@+id/box2"
-            android:layout_width="49dp"
-            android:layout_height="49dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
             android:onClick="clickBoard"
             android:tag="b1"
             app:layout_column="1"
@@ -41,9 +40,9 @@
 
         <ImageView
             android:id="@+id/box3"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
-            android:background="@color/orange"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
             android:onClick="clickBoard"
             android:tag="c1"
             app:layout_column="2"
@@ -53,8 +52,9 @@
 
         <ImageView
             android:id="@+id/box4"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
             android:tag="d1"
             app:layout_column="3"
             app:layout_row="7"
@@ -64,9 +64,10 @@
 
         <ImageView
             android:id="@+id/box5"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
-            android:background="@color/orange"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
             android:tag="e1"
             app:layout_column="4"
             app:layout_row="7"
@@ -76,8 +77,9 @@
 
         <ImageView
             android:id="@+id/box6"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
             android:tag="f1"
             app:layout_column="5"
             app:layout_row="7"
@@ -87,9 +89,10 @@
 
         <ImageView
             android:id="@+id/box7"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
-            android:background="@color/orange"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
             android:tag="g1"
             app:layout_column="6"
             app:layout_row="7"
@@ -99,8 +102,9 @@
 
         <ImageView
             android:id="@+id/box8"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
             android:tag="h1"
             app:layout_column="7"
             app:layout_row="7"
@@ -110,8 +114,8 @@
 
         <ImageView
             android:id="@+id/box9"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
             android:onClick="clickBoard"
             android:tag="a2"
             app:layout_column="0"
@@ -120,9 +124,9 @@
 
         <ImageView
             android:id="@+id/box10"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
-            android:background="@color/orange"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
             android:onClick="clickBoard"
             android:tag="b2"
             app:layout_column="1"
@@ -131,8 +135,8 @@
 
         <ImageView
             android:id="@+id/box11"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
             android:onClick="clickBoard"
             android:tag="c2"
             app:layout_column="2"
@@ -141,9 +145,10 @@
 
         <ImageView
             android:id="@+id/box12"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
-            android:background="@color/orange"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
             android:tag="d2"
             app:layout_column="3"
             app:layout_row="6"
@@ -153,8 +158,9 @@
 
         <ImageView
             android:id="@+id/box13"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
             android:tag="e2"
             app:layout_column="4"
             app:layout_row="6"
@@ -164,9 +170,10 @@
 
         <ImageView
             android:id="@+id/box14"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
-            android:background="@color/orange"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
             android:tag="f2"
             app:layout_column="5"
             app:layout_row="6">
@@ -175,8 +182,9 @@
 
         <ImageView
             android:id="@+id/box15"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
             android:tag="g2"
             app:layout_column="6"
             app:layout_row="6"
@@ -186,9 +194,9 @@
 
         <ImageView
             android:id="@+id/box17"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
-            android:background="@color/orange"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
             android:onClick="clickBoard"
             android:tag="a3"
             app:layout_column="0"
@@ -196,9 +204,10 @@
 
         <ImageView
             android:id="@+id/box16"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
-            android:background="@color/orange"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
             android:tag="h2"
             app:layout_column="7"
             app:layout_row="6"
@@ -208,8 +217,8 @@
 
         <ImageView
             android:id="@+id/box18"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
             android:onClick="clickBoard"
             android:tag="b3"
             app:layout_column="1"
@@ -217,11 +226,9 @@
 
         <ImageView
             android:id="@+id/box19"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
-            android:background="@color/orange"
-            android:clickable="false"
-            android:contextClickable="false"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
             android:onClick="clickBoard"
             android:tag="c3"
             app:layout_column="2"
@@ -229,8 +236,9 @@
 
         <ImageView
             android:id="@+id/box20"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
             android:tag="d3"
             app:layout_column="3"
             app:layout_row="5"
@@ -240,9 +248,10 @@
 
         <ImageView
             android:id="@+id/box21"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
-            android:background="@color/orange"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
             android:tag="e3"
             app:layout_column="4"
             app:layout_row="5"
@@ -253,8 +262,9 @@
 
         <ImageView
             android:id="@+id/box22"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
             android:tag="f3"
             app:layout_column="5"
             app:layout_row="5"
@@ -264,9 +274,10 @@
 
         <ImageView
             android:id="@+id/box23"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
-            android:background="@color/orange"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
             android:tag="g3"
             app:layout_column="6"
             app:layout_row="5"
@@ -277,145 +288,190 @@
 
         <ImageView
             android:id="@+id/box24"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
-            android:tag="h2"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="h3"
             app:layout_column="7"
             app:layout_row="5"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box25"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="a4"
             app:layout_column="0"
             app:layout_row="4"
             app:srcCompat="@drawable/ic_launcher_foreground"></ImageView>
 
         <ImageView
             android:id="@+id/box26"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="b4"
             app:layout_column="1"
             app:layout_row="4"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box27"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="c4"
             app:layout_column="2"
             app:layout_row="4"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box28"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="d4"
             app:layout_column="3"
             app:layout_row="4"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box29"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="e4"
             app:layout_column="4"
             app:layout_row="4"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box30"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="f4"
             app:layout_column="5"
             app:layout_row="4"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box31"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="g4"
             app:layout_column="6"
             app:layout_row="4"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box32"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="h4"
             app:layout_column="7"
             app:layout_row="4"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box33"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="a5"
             app:layout_column="0"
             app:layout_row="3"
-            app:srcCompat="@drawable/ic_launcher_foreground"></ImageView>
+            app:srcCompat="@drawable/ic_launcher_foreground">
+
+        </ImageView>
 
         <ImageView
             android:id="@+id/box34"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="b5"
             app:layout_column="1"
             app:layout_row="3"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box35"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="c5"
             app:layout_column="2"
             app:layout_row="3"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box36"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="d5"
             app:layout_column="3"
             app:layout_row="3"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box37"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="e5"
             app:layout_column="4"
             app:layout_row="3"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box38"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="f5"
             app:layout_column="5"
             app:layout_row="3"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box39"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="g5"
             app:layout_column="6"
             app:layout_row="3"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box40"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="h5"
             app:layout_column="7"
             app:layout_row="3"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box41"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="a6"
             app:layout_column="0"
             app:layout_row="2"
             app:srcCompat="@drawable/ic_launcher_foreground">
@@ -424,56 +480,74 @@
 
         <ImageView
             android:id="@+id/box42"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="b6"
             app:layout_column="1"
             app:layout_row="2"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box43"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="c6"
             app:layout_column="2"
             app:layout_row="2"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box44"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="d6"
             app:layout_column="3"
             app:layout_row="2"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box45"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="e6"
             app:layout_column="4"
             app:layout_row="2"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box46"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="f6"
             app:layout_column="5"
             app:layout_row="2"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box47"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="g6"
             app:layout_column="6"
             app:layout_row="2"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <ImageView
             android:id="@+id/box48"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="h6"
             app:layout_column="7"
             app:layout_row="2"
             app:srcCompat="@drawable/ic_launcher_foreground" />
@@ -481,8 +555,11 @@
 
         <ImageView
             android:id="@+id/box49"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="a7"
             app:layout_column="0"
             app:layout_row="1"
             app:srcCompat="@drawable/ic_launcher_foreground">
@@ -491,64 +568,83 @@
 
         <ImageView
             android:id="@+id/box50"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="b7"
             app:layout_column="1"
             app:layout_row="1"
             app:srcCompat="@drawable/ic_launcher_foreground"></ImageView>
 
         <ImageView
             android:id="@+id/box51"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="c7"
             app:layout_column="2"
             app:layout_row="1"
             app:srcCompat="@drawable/ic_launcher_foreground"></ImageView>
 
         <ImageView
             android:id="@+id/box52"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="d7"
             app:layout_column="3"
             app:layout_row="1"
             app:srcCompat="@drawable/ic_launcher_foreground"></ImageView>
 
         <ImageView
             android:id="@+id/box53"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="e7"
             app:layout_column="4"
             app:layout_row="1"
             app:srcCompat="@drawable/ic_launcher_foreground"></ImageView>
 
         <ImageView
             android:id="@+id/box54"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="f7"
             app:layout_column="5"
             app:layout_row="1"
             app:srcCompat="@drawable/ic_launcher_foreground"></ImageView>
 
         <ImageView
             android:id="@+id/box55"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="g7"
             app:layout_column="6"
             app:layout_row="1"
             app:srcCompat="@drawable/ic_launcher_foreground"></ImageView>
 
         <ImageView
             android:id="@+id/box56"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="h7"
             app:layout_column="7"
             app:layout_row="1"
             app:srcCompat="@drawable/ic_launcher_foreground"></ImageView>
 
         <ImageView
             android:id="@+id/box57"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="a8"
             app:layout_column="0"
             app:layout_row="0"
             app:srcCompat="@drawable/ic_launcher_foreground">
@@ -557,8 +653,11 @@
 
         <ImageView
             android:id="@+id/box58"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="b8"
             app:layout_column="1"
             app:layout_row="0"
             app:srcCompat="@drawable/ic_launcher_foreground">
@@ -567,8 +666,10 @@
 
         <ImageView
             android:id="@+id/box59"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="c8"
             app:layout_column="2"
             app:layout_row="0"
             app:srcCompat="@drawable/ic_launcher_foreground">
@@ -577,8 +678,11 @@
 
         <ImageView
             android:id="@+id/box60"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="d8"
             app:layout_column="3"
             app:layout_row="0"
             app:srcCompat="@drawable/ic_launcher_foreground">
@@ -587,8 +691,10 @@
 
         <ImageView
             android:id="@+id/box61"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="e8"
             app:layout_column="4"
             app:layout_row="0"
             app:srcCompat="@drawable/ic_launcher_foreground">
@@ -597,8 +703,11 @@
 
         <ImageView
             android:id="@+id/box62"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="f8"
             app:layout_column="5"
             app:layout_row="0"
             app:srcCompat="@drawable/ic_launcher_foreground">
@@ -607,8 +716,10 @@
 
         <ImageView
             android:id="@+id/box63"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:onClick="clickBoard"
+            android:tag="g8"
             app:layout_column="6"
             app:layout_row="0"
             app:srcCompat="@drawable/ic_launcher_foreground">
@@ -617,13 +728,14 @@
 
         <ImageView
             android:id="@+id/box64"
-            android:layout_width="51dp"
-            android:layout_height="51dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="@color/brown"
+            android:onClick="clickBoard"
+            android:tag="h8"
             app:layout_column="7"
             app:layout_row="0"
-            app:srcCompat="@drawable/ic_launcher_foreground">
-
-        </ImageView>
+            app:srcCompat="@drawable/ic_launcher_foreground"></ImageView>
 
     </androidx.gridlayout.widget.GridLayout>
 
