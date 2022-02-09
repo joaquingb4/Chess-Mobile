@@ -81,9 +81,12 @@ public class Driver {
     }
 
     //Lista las posiciones a las que la pieza en su casilla puede moverse
-    public int[][] canMoveto(int letter, int number ){
+    public int[][] canMoveto(int letter, int number ){      //<--Estoy aquí
         (board[letter][number].haveAPiece()){
+            Piece piece = board[letter][number].getPiece();
+            for (int i = 0; i < piece.movility().length ; i++) {
 
+            }
         }
     }
 }
