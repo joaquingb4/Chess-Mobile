@@ -7,8 +7,8 @@ public class King extends Piece {
         return this.name;
     }
 
-    @Override
-    public int[] movility() {
-        return new int[0];
-    }
+    //@Override
+    //public int[] movility() {
+      //  return new int[0];
+    //}
 }

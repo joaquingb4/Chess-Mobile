@@ -13,10 +13,12 @@ public class Pawn extends Piece {
         return this.name;
     }
 
-    @Override
+    /*@Override
     public int[] movility() {
         int[] instructions;
         instructions = new int[]{up,down,left,right};
         return instructions ;
     }
+
+     */
 }

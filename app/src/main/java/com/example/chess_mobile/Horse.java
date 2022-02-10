@@ -7,8 +7,8 @@ public class Horse extends Piece {
         return name;
     }
 
-    @Override
-    public int[] movility() {
-        return new int[];
-    }
+    //@Override
+    //public int[] movility() {
+     //   return new int[];
+    //}
 }

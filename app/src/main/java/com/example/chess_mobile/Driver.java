@@ -2,6 +2,8 @@ package com.example.chess_mobile;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+
 public class Driver {
     //Attributes
     int a = 0;
@@ -26,14 +28,14 @@ public class Driver {
         return 0;
     }
     //
-    public String getDataBox(String tag){
+    public String getBoxPieceName(String tag){
 
         int column = letterToInt(tag.charAt(0));
         int row = Character.getNumericValue(tag.charAt(1))-1;//Se le quita uno por la nomenclatura del ajedrez
-        return getDataBox(column, row);
+        return getBoxPieceName(column, row);
     }
     //Devuelve el nombre de la pieza que tiene una casilla determinada
-    public String getDataBox(int column , int row ) {
+    public String getBoxPieceName(int column , int row ) {
         Log.i("hola", "" + column + " ___ " + row);
 
         if (board[column][row].getPiece()==null){
@@ -41,6 +43,10 @@ public class Driver {
         }else{
             return board[column][row].getPiece().getName();
         }
+    }
+    //Devuelve las posiciones de una determinada pieza
+    public int[] getBoxPosition(String tag){
+        return new int[]{letterToInt(tag.charAt(0)), tag.charAt(1)};//La letra hay que traducirla a la nomenclatura del ajedrez
     }
 
     //Llena el tablero de casillas
@@ -81,12 +87,17 @@ public class Driver {
     }
 
     //Lista las posiciones a las que la pieza en su casilla puede moverse
-    public int[][] canMoveto(int letter, int number ){      //<--Estoy aquí
-        (board[letter][number].haveAPiece()){
-            Piece piece = board[letter][number].getPiece();
-            for (int i = 0; i < piece.movility().length ; i++) {
-
+    public ArrayList<String> canMoveto(int letter, int number ){
+        ArrayList<String> positions = new ArrayList<>();
+        for (int i = 1; i <= 2; i++) {//Prueba peon
+            int suma = letter+i;
+            Log.i("prueba posiciones "+letter+" "+number+": ",letter+" "+suma);
+            if (board[letter][suma].haveAPiece()){////<----------------------Estoy aquí
+                positions.add(letters[letter], ""+suma);
             }
         }
+        return positions;
     }
+    // ¿Puede moverse una pieza determinada?
+    
 }
