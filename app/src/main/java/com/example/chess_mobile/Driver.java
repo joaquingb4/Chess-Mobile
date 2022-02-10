@@ -46,7 +46,12 @@ public class Driver {
     }
     //Devuelve las posiciones de una determinada pieza
     public int[] getBoxPosition(String tag){
-        return new int[]{letterToInt(tag.charAt(0)), tag.charAt(1)};//La letra hay que traducirla a la nomenclatura del ajedrez
+        Log.i("prueba",tag);
+        Log.i("prueba",""+tag.charAt(0));
+        int[] positions = new int[2];
+        positions[0] = letterToInt(tag.charAt(0));
+        positions[1] = letterToInt(tag.charAt(1));
+        return positions;//La letra hay que traducirla a la nomenclatura del ajedrez
     }
 
     //Llena el tablero de casillas
@@ -89,15 +94,10 @@ public class Driver {
     //Lista las posiciones a las que la pieza en su casilla puede moverse
     public ArrayList<String> canMoveto(int letter, int number ){
         ArrayList<String> positions = new ArrayList<>();
-        for (int i = 1; i <= 2; i++) {//Prueba peon
-            int suma = letter+i;
-            Log.i("prueba posiciones "+letter+" "+number+": ",letter+" "+suma);
-            if (board[letter][suma].haveAPiece()){////<----------------------Estoy aquí
-                positions.add(letters[letter], ""+suma);
-            }
+        for (int i = 1; i <= 2; i++) {
+            positions.add(letters[letter]+""+(number+i));
         }
         return positions;
     }
     // ¿Puede moverse una pieza determinada?
-    
 }
