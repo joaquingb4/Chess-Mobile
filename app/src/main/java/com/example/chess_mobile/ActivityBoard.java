@@ -145,10 +145,15 @@ public class ActivityBoard extends AppCompatActivity {
     //Write on the log the box clicked
     public void clickBoard(View view) {
         Log.i("testboard", "Has hecho click en la casilla: " + view.getTag()+ ", Que tiene un " + driver.getBoxPieceName(view.getTag().toString()));
-        int[] positions = driver.getBoxPosition(view.getTag().toString());
-        ArrayList<String> positionsList = driver.canMoveto(positions[0],positions[1]);
-        for (int i = 0; i < positionsList.size() ; i++) {
-            Log.i("Posicion" +(i),""+positionsList.get(i));
+
+        if (!driver.getBox(view.getTag().toString()).haveAPiece()){
+            return;
+        }else{
+            int[] postion = Tools.withNotation(view.getTag().toString());
+            Box[] positions = driver.canMoveto(postion[0],postion[1]);
+            for (int i = 0; i < positions.length ; i++) {
+                Log.i("Posicion" + (i), "" + positions[i].getName());
+            }
         }
     }
 

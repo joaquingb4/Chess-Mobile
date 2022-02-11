@@ -1,5 +1,7 @@
 package com.example.chess_mobile;
 
+import static com.example.chess_mobile.Tools.movementRulesPiece;
+
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -17,20 +19,10 @@ public class Driver {
     char[] letters = new char[]{'a', 'b', 'c','d','e','f','g','h'};
     Box[][] board = new Box[8][8];
 
-    //Traduce de letra a número
-    public  int letterToInt(char letter){
-        for (int i = 0; i < letters.length; i++) {
-            if (letters[i]==letter){
-                Log.i("hola",""+i);
-                return i;
-            }
-        }
-        return 0;
-    }
     //
     public String getBoxPieceName(String tag){
 
-        int column = letterToInt(tag.charAt(0));
+        int column = Tools.getInt(tag.charAt(0));
         int row = Character.getNumericValue(tag.charAt(1))-1;//Se le quita uno por la nomenclatura del ajedrez
         return getBoxPieceName(column, row);
     }
@@ -44,13 +36,17 @@ public class Driver {
             return board[column][row].getPiece().getName();
         }
     }
+    public Box getBox(String a1){
+        int[] box = Tools.withNotation(a1);
+        return board[box[0]][box[1]];
+    }
     //Devuelve las posiciones de una determinada pieza
     public int[] getBoxPosition(String tag){
         Log.i("prueba",tag);
         Log.i("prueba",""+tag.charAt(0));
         int[] positions = new int[2];
-        positions[0] = letterToInt(tag.charAt(0));
-        positions[1] = letterToInt(tag.charAt(1));
+        positions[0] = Tools.getInt(tag.charAt(0));
+        positions[1] = Tools.getInt(tag.charAt(1));
         return positions;//La letra hay que traducirla a la nomenclatura del ajedrez
     }
 
@@ -92,12 +88,19 @@ public class Driver {
     }
 
     //Lista las posiciones a las que la pieza en su casilla puede moverse
-    public ArrayList<String> canMoveto(int letter, int number ){
-        ArrayList<String> positions = new ArrayList<>();
-        for (int i = 1; i <= 2; i++) {
-            positions.add(letters[letter]+""+(number+i));
+    public Box[] canMoveto(int column, int row ){
+        Box box = board[column][row];
+        if (box.haveAPiece()) {
+            Piece piece = board[column][row].getPiece();
+            int numberOfPositions = Tools.movementRulesPiece(piece, box);
+            Box[] postions = new Box[numberOfPositions];
+            for (int i = 0; i < numberOfPositions; i++) {
+                postions[i] = board[column][row + i];
+            }
+            return postions;
+        }else {
+            return  null;
         }
-        return positions;
     }
     // ¿Puede moverse una pieza determinada?
 }
