@@ -16,11 +16,11 @@ public class Tools {
     static int g = 6;
     static int h = 7;
     static char[] letters = new char[]{'a', 'b', 'c','d','e','f','g','h'};
+
     //Le doy una letra y me devuelve un número
     public static int getInt(char letter){
         for (int i = 0; i < letters.length; i++) {
             if (letters[i]==letter){
-                Log.i("hola",""+i);
                 return i;
             }
         }
@@ -37,6 +37,8 @@ public class Tools {
         position[1] = (Character.getNumericValue(A1.charAt(1)))-1;
         return position;
     }
+    //De notatación de ajedrez a posición en el array de casillas
+
     //
     public static int movementRulesPiece(Piece piece, Box box){
         switch(piece.getName()) {

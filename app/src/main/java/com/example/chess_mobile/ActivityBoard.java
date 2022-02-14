@@ -147,7 +147,7 @@ public class ActivityBoard extends AppCompatActivity {
         Log.i("testboard", "Has hecho click en la casilla: " + view.getTag()+ ", Que tiene un " + driver.getBoxPieceName(view.getTag().toString()));
 
         if (!driver.getBox(view.getTag().toString()).haveAPiece()){
-            return;
+
         }else{
             int[] postion = Tools.withNotation(view.getTag().toString());
             Box[] positions = driver.canMoveto(postion[0],postion[1]);
@@ -156,5 +156,4 @@ public class ActivityBoard extends AppCompatActivity {
             }
         }
     }
-
 }

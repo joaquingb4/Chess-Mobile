@@ -12,13 +12,18 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
+    Driver driver;
     @Before
     public  void primero(){
-        Driver driver = new Driver();
+        driver = new Driver();
     }
     @Test
-    public void translatetoNotation() {
-        dr
-        assertEquals(4, 2 + 2);
+    public void stringToNumber() {
+        assertEquals(0, Tools.withNotation("a1")[0]);
+        assertEquals(0, Tools.withNotation("a1")[1]);
     }
+//Estoy aquí
+    @Test
+    public void string
+
 }
