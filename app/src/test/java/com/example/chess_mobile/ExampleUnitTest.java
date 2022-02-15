@@ -34,5 +34,13 @@ public class ExampleUnitTest {
     public void testNextBoxes(){
         assertEquals(0, driver.canMoveTo(0,0)[0][0]);
         assertEquals(1, driver.canMoveTo(0,0)[0][1]);
+        assertEquals(0, driver.canMoveTo(0,0)[1][0]);
+        assertEquals(2, driver.canMoveTo(0,0)[1][1]);
     }
+    @Test
+    public void hola(){
+        assertEquals("a2", driver.canMoveTo(0,0)[0]);
+
+    }
+
 }

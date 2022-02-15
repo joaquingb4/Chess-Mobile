@@ -91,17 +91,20 @@ public class Driver {
     //Lista las posiciones a las que la pieza en su casilla puede moverse
 
     //Refactorización
+    //Devuelve la casilla que se le pide
     public Box getBox(int column, int row){
         return board[column][row];
     }
-    public int[][] canMoveTo(int column, int row){
-        int[][] respuesta = new int[2][2];
-        int tmp=0;
+    public Box getBox(int[] position){return board[position[0]][position[1]];}
+
+    public Box[] canMoveTo(int column, int row){
+        Box[] boxes = new Box[2];
+        int tmp = 0;
         for (int i = row+1; i <= row+2; i++) {
-            respuesta[tmp][0] = column ;//column
-            respuesta[tmp][1] = i;//row
+            boxes[tmp] = getBox(column,i);
+            tmp++;
         }
-        return respuesta;
+        return boxes;
     }
 
     // ¿Puede moverse una pieza determinada?
