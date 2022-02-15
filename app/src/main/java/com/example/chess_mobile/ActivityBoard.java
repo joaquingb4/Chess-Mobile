@@ -145,7 +145,7 @@ public class ActivityBoard extends AppCompatActivity {
     //Write on the log the box clicked
     public void clickBoard(View view) {
         Log.i("testboard", "Has hecho click en la casilla: " + view.getTag()+ ", Que tiene un " + driver.getBoxPieceName(view.getTag().toString()));
-
+        /*
         if (!driver.getBox(view.getTag().toString()).haveAPiece()){
 
         }else{
@@ -155,5 +155,7 @@ public class ActivityBoard extends AppCompatActivity {
                 Log.i("Posicion" + (i), "" + positions[i].getName());
             }
         }
+
+         */
     }
 }

@@ -3,8 +3,12 @@ package com.example.chess_mobile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import android.util.Log;
+
 
 import static org.junit.Assert.*;
+
+import android.util.Log;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -16,14 +20,19 @@ public class ExampleUnitTest {
     @Before
     public  void primero(){
         driver = new Driver();
+        driver.buildBoxes();
+        driver.buildPieces();
     }
     @Test
     public void stringToNumber() {
         assertEquals(0, Tools.withNotation("a1")[0]);
         assertEquals(0, Tools.withNotation("a1")[1]);
     }
-//Estoy aquí
-    @Test
-    public void string
 
+    //Estoy aquí
+    @Test
+    public void testNextBoxes(){
+        assertEquals(0, driver.canMoveTo(0,0)[0][0]);
+        assertEquals(1, driver.canMoveTo(0,0)[0][1]);
+    }
 }

@@ -36,6 +36,8 @@ public class Driver {
             return board[column][row].getPiece().getName();
         }
     }
+
+
     public Box getBox(String a1){
         int[] box = Tools.withNotation(a1);
         return board[box[0]][box[1]];
@@ -55,7 +57,7 @@ public class Driver {
         for (int i = 0; i < board.length ; i++) {
             for (int u = 0; u < board[i].length; u++) {
                 board[i][u] = new Box(""+letters[u]+""+(i+1));
-                Log.i("prueba"+ "cassilla: "+i,""+letters[i]+ "::"+u);
+              //  Log.i("prueba"+ "cassilla: "+i,""+letters[i]+ "::"+u);
             }
         }
     }
@@ -86,21 +88,21 @@ public class Driver {
             board[i][6].setPiece(new Pawn());
         }
     }
-
     //Lista las posiciones a las que la pieza en su casilla puede moverse
-    public Box[] canMoveto(int column, int row ){
-        Box box = board[column][row];
-        if (box.haveAPiece()) {
-            Piece piece = board[column][row].getPiece();
-            int numberOfPositions = Tools.movementRulesPiece(piece, box);
-            Box[] postions = new Box[numberOfPositions];
-            for (int i = 0; i < numberOfPositions; i++) {
-                postions[i] = board[column][row + i];
-            }
-            return postions;
-        }else {
-            return  null;
-        }
+
+    //Refactorización
+    public Box getBox(int column, int row){
+        return board[column][row];
     }
+    public int[][] canMoveTo(int column, int row){
+        int[][] respuesta = new int[2][2];
+        int tmp=0;
+        for (int i = row+1; i <= row+2; i++) {
+            respuesta[tmp][0] = column ;//column
+            respuesta[tmp][1] = i;//row
+        }
+        return respuesta;
+    }
+
     // ¿Puede moverse una pieza determinada?
 }
