@@ -25,7 +25,7 @@ public class ExampleUnitTest {
     }
     @Test
     public void getBox(){
-        assertEquals("a2", driver.getBox(0,1).getName());
+        assertEquals("a2", driver.getBox(0,1).getName());//Hay un error aquí
     }
 
     @Test
