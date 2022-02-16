@@ -95,8 +95,8 @@ public class Driver {
     public Box getBox(int column, int row){
         return board[column][row];
     }
-    public Box getBox(int[] position){return board[position[0]][position[1]];}
-
+    public Box getBox(int[] position){ return board[position[0]][position[1]]; }
+    //Devuelve las dos casillas que tiene delante una pieza
     public Box[] canMoveTo(int column, int row){
         Box[] boxes = new Box[2];
         int tmp = 0;
