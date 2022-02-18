@@ -1,63 +1,48 @@
 package com.example.chess_mobile;
 
-import static com.example.chess_mobile.Tools.movementRulesPiece;
-
 import android.util.Log;
-
-import java.util.ArrayList;
 
 public class Driver {
     //Attributes
-    int a = 0;
-    int b = 1;
-    int c = 2;
-    int d = 3;
-    int e = 4;
-    int f = 5;
-    int g = 6;
-    int h = 7;
-    char[] letters = new char[]{'a', 'b', 'c','d','e','f','g','h'};
     Box[][] board = new Box[8][8];
 
-    //
+    //Devulve el nombre de la pieza, si es que tiene
     public String getBoxPieceName(String tag){
+        Box box = getBox(tag);
+        int column = box.getFirstNameCharacter();//Se le quita uno por la notación del ajedrez
+        int row = Character.getNumericValue(box.getSecondNameCharacter());
 
-        int column = Tools.getInt(tag.charAt(0));
-        int row = Character.getNumericValue(tag.charAt(1))-1;//Se le quita uno por la nomenclatura del ajedrez
-        return getBoxPieceName(column, row);
-    }
-    //Devuelve el nombre de la pieza que tiene una casilla determinada
-    public String getBoxPieceName(int column , int row ) {
-        Log.i("hola", "" + column + " ___ " + row);
-
-        if (board[column][row].getPiece()==null){
-            return "empty";
-        }else{
+        if (!getBox(tag).isEmpty()){
             return board[column][row].getPiece().getName();
-        }
+        }else{
+            return "empty";        }
     }
-
-
+    //Devuelve una casilla determinada
     public Box getBox(String a1){
-        int[] box = Tools.withNotation(a1);
+        int[] box = Tools.tagToChessNotation(a1);
         return board[box[0]][box[1]];
     }
     //Devuelve las posiciones de una determinada pieza
     public int[] getBoxPosition(String tag){
-        Log.i("prueba",tag);
-        Log.i("prueba",""+tag.charAt(0));
         int[] positions = new int[2];
         positions[0] = Tools.getInt(tag.charAt(0));
         positions[1] = Tools.getInt(tag.charAt(1));
         return positions;//La letra hay que traducirla a la nomenclatura del ajedrez
     }
 
+    public int[] getBoxPosition(Box box){
+        String tag = box.getName();//<--Hacer prueba
+        int[] positions = new int[2];
+        positions[0] = Tools.getInt(tag.charAt(0));
+        positions[1] = Tools.getInt(tag.charAt(1));
+        return positions;//La letra hay que traducirla a la notación del ajedrez
+    }
+
     //Llena el tablero de casillas
     public void buildBoxes(){
         for (int i = 0; i < board.length ; i++) {
             for (int u = 0; u < board[i].length; u++) {
-                board[i][u] = new Box(""+letters[u]+""+(i+1));
-              //  Log.i("prueba"+ "cassilla: "+i,""+letters[i]+ "::"+u);
+                board[i][u] = new Box(Tools.translate(new int[]{i, u}));
             }
         }
     }
@@ -65,11 +50,12 @@ public class Driver {
     public void buildPieces(){
         //A---1||
         //Towers-----------
-        board[a][0].setPiece(new Tower());  //W
-        board[h][0].setPiece(new Tower());  //B
-        board[a][7].setPiece(new Tower());  //W
-        board[h][7].setPiece(new Tower());  //B
+        getBox("a1").setPiece(new Tower());
+        getBox("h1").setPiece(new Tower());
+        getBox("a8").setPiece(new Tower());
+        getBox("h8").setPiece(new Tower());
         //Horses-----------
+        //Estoy aquí haciendo refactorin
         board[b][0].setPiece(new Horse());
         board[g][0].setPiece(new Horse());
         board[b][7].setPiece(new Horse());
@@ -96,8 +82,15 @@ public class Driver {
         return board[column][row];
     }
     public Box getBox(int[] position){ return board[position[0]][position[1]]; }
+
+
     //Devuelve las dos casillas que tiene delante una pieza
-    public Box[] canMoveTo(int column, int row){
+    public Box[] canMoveTo(Box box){
+        int[] boxNumbers = Tools.tagToChessNotation(box.getName());
+
+        int column = boxNumbers[0];
+        int row = boxNumbers[1];
+
         Box[] boxes = new Box[2];
         int tmp = 0;
         for (int i = row+1; i <= row+2; i++) {
@@ -106,6 +99,5 @@ public class Driver {
         }
         return boxes;
     }
-
     // ¿Puede moverse una pieza determinada?
 }

@@ -9,6 +9,13 @@ public class Box {
         return name;
     }
 
+    public char getFirstNameCharacter() {
+        return name.charAt(0);
+    }
+    public char getSecondNameCharacter() {
+        return name.charAt(1);
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -16,6 +23,8 @@ public class Box {
     public Piece getPiece() {
         return piece;
     }
+
+
 
     public void setPiece(Piece piece) {
         this.piece = piece;
@@ -31,8 +40,8 @@ public class Box {
     }
 
     //Methods
-    public boolean haveAPiece(){
-        if (this.piece != null){
+    public boolean isEmpty(){
+        if (this.piece == null){
             return true;
         }else{
             return false;

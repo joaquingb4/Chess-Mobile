@@ -31,7 +31,7 @@ public class Tools {
         return letters[x];
     }
     //Traduce de la notación del ajedrez a una posición numérica
-    public static int[] withNotation(String A1){
+    public static int[] tagToChessNotation(String A1){
         int[] position = new int[2];
         position[0] = getInt(A1.charAt(0));
         position[1] = (Character.getNumericValue(A1.charAt(1)))-1;
@@ -51,6 +51,22 @@ public class Tools {
         }
         return 0;
     }
+
+    //Traduce de notación de ajedrez a posición de array
+    public static int[] translate(String tag){
+        int column = getInt(tag.charAt(0));
+        int row = getInt(tag.charAt(1));
+        return new int[]{column, row};
+    }
+    //Traduce de una posición a notación de ajedrez
+    public static String translate(int[] axes){
+        char column = getLetter(axes[0]);
+        char row = Character.forDigit(axes[1],10);
+        return new String(column+""+row);
+    }
+
+
+
 
 
 }
