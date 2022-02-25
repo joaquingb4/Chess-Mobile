@@ -1,6 +1,11 @@
 package com.example.chess_mobile;
 
-import android.util.Log;
+import ChessPieces.Bishop;
+import ChessPieces.Horse;
+import ChessPieces.King;
+import ChessPieces.Pawn;
+import ChessPieces.Queen;
+import ChessPieces.Tower;
 
 public class Driver {
     //Attributes
@@ -47,28 +52,32 @@ public class Driver {
     public void buildPieces(){
         //A---1||
         //Towers-----------
-        getBox("a1").setPiece(new Tower());
-        getBox("h1").setPiece(new Tower());
-        getBox("a8").setPiece(new Tower());
-        getBox("h8").setPiece(new Tower());
+        getBox("a1").setPiece(new Tower("white"));
+        getBox("h1").setPiece(new Tower("white"));
+        getBox("a8").setPiece(new Tower("black"));
+        getBox("h8").setPiece(new Tower("black"));
         //Horses-----------
-        //Estoy aquí haciendo refactorin
-        getBox("b1").setPiece(new Horse());
-        getBox("g1").setPiece(new Horse());
-        getBox("b8").setPiece(new Horse());
-        getBox("g8").setPiece(new Horse());
+        getBox("b1").setPiece(new Horse("white"));
+        getBox("g1").setPiece(new Horse("white"));
+        getBox("b8").setPiece(new Horse("black"));
+        getBox("g8").setPiece(new Horse("black"));
+        //Bishops-----------
+        getBox("a3").setPiece(new Bishop("black"));
+        getBox("a6").setPiece(new Bishop("black"));
+        getBox("h3").setPiece(new Bishop("black"));
+        getBox("h6").setPiece(new Bishop("black"));
         //Kings------------
-        getBox("e1").setPiece(new King());
-        getBox("e7").setPiece(new King());
+        getBox("e1").setPiece(new King("white"));
+        getBox("e7").setPiece(new King("black"));
         //Queens-----------
-        getBox("d1").setPiece(new Queen());
-        getBox("d8").setPiece(new Queen());
+        getBox("d1").setPiece(new Queen("white"));
+        getBox("d8").setPiece(new Queen("black"));
         //Pawns------------
         for (int i = 0; i < 8; i++) {
-            getBox(Tools.getLetter(i)+"2").setPiece(new Pawn());
+            getBox(Tools.getLetter(i)+"2").setPiece(new Pawn("white"));
         }
         for (int i = 0; i < 8; i++) {
-            getBox(Tools.getLetter(i)+"7").setPiece(new Pawn());
+            getBox(Tools.getLetter(i)+"7").setPiece(new Pawn("black"));
         }
     }
     //Lista las posiciones a las que la pieza en su casilla puede moverse

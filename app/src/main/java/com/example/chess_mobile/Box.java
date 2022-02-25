@@ -1,5 +1,7 @@
 package com.example.chess_mobile;
 
+import ChessPieces.Piece;
+
 public class Box {
     //Attibutes
     private String name;

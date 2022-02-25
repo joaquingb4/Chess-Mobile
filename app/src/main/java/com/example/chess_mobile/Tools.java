@@ -1,9 +1,6 @@
 package com.example.chess_mobile;
 
-import android.util.Log;
-import android.widget.Switch;
-
-import java.util.ArrayList;
+import ChessPieces.Piece;
 
 //Herrarmientas
 public class Tools {

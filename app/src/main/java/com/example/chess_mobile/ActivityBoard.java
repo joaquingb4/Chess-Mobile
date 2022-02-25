@@ -126,10 +126,11 @@ public class ActivityBoard extends AppCompatActivity {
 
     //Write on the log the box clicked
     public void clickBoard(View view) {
+        //Poner una variable que muestre el tag para debugear
         String tag = driver.getBoxPieceName(view.getTag().toString());
         Log.i("testboard", "Has hecho click en la casilla: " + view.getTag()+ ", Que tiene un "+driver.getBoxPieceName(tag));
 
-        if (driver.getBox(view.getTag().toString()).isEmpty()){
+        if (driver.getBox(view.getTag().toString()).isEmpty()){ //Error
             //Con el tag obtengo las posiciones
             int[] postions = driver.getBoxPosition(tag);
             //Obtengo la casilla con ello

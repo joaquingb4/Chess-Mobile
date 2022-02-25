@@ -23,7 +23,8 @@ public class ExampleUnitTest {
         //TagChessNotation()
         assertEquals("a1", driver.getBox(Tools.tagToArrayNotation("a1")).getName());
         assertEquals("h1", driver.getBox(Tools.tagToArrayNotation("h1")).getName());
-        assertEquals("h8", driver.getBox(Tools.tagToArrayNotation("h8")).getName());
+        assertEquals(7, Tools.tagToArrayNotation("h8")[0]);
+        assertEquals(7, Tools.tagToArrayNotation("h8")[1]);
         assertEquals("h8", driver.getBox(Tools.tagToArrayNotation("h8")).getName());
         //---
         assertEquals(0, Tools.tagToArrayNotation("a8")[0]);
