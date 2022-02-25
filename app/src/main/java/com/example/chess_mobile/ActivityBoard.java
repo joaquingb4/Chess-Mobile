@@ -10,16 +10,6 @@ import android.widget.ImageView;
 
 public class ActivityBoard extends AppCompatActivity {
     //Attributes
-    int a = 0;
-    int b = 1;
-    int c = 2;
-    int d = 3;
-    int e = 4;
-    int f = 5;
-    int g = 6;
-    int h = 7;
-    char[] letters = new char[]{'a', 'b', 'c','d','e','f','g','h'};
-
     ImageView[][] visualBoxes = new ImageView[8][8];
     Driver driver = new Driver();
 
@@ -125,6 +115,7 @@ public class ActivityBoard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
+
         buildBoxes();
 
         Log.i("hola","funciona" + visualBoxes[0][1]);

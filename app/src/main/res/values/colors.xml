@@ -11,4 +11,21 @@
     <color name="lowOrange">#FFC78B</color>
     <color name="brown">#855E42</color>
     <color name="lightBrown">#EAA760</color>
+
+    <color name="blackLow">#404040</color>
+    <color name="goodOrange">#e76f51</color>
+    <color name="turquesa">#2a9d8f</color>
+    <color name="lightBlue">#007a99</color>
+
+    <color name="marine">#002147</color>
+    <color name="lowBLue">#40586d</color>
+    <color name="carmin">#730e4c</color>
+
+    <color name="pintaLabios">#b80d48</color>
+    <color name="ZumoDeNaranja">#f29724</color>
+    <color name="verdeAlcantarilla">#2b6a6c</color>
+
+    <color name="ColorCasillasNegras">#404040</color>
+    <color name="ColorCasillasBlancas">#FFFFFFFF</color>
+
 </resources>
