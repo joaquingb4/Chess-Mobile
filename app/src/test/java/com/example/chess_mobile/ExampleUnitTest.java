@@ -36,6 +36,8 @@ public class ExampleUnitTest {
     //Prueba que la función "getBox" me devuelva la casilla esperada
     @Test
     public void getBox(){
+       // assertFalse(driver.getBox("c2").isEmpty());
+        assertEquals("c2", driver.getBox("c2").getName());
         assertEquals("a1", driver.getBox(0,0).getName());
         assertEquals("h1", driver.getBox(7,0).getName());
         assertEquals("a8", driver.getBox(0,7).getName());
@@ -50,9 +52,9 @@ public class ExampleUnitTest {
     //Prueba la función "canMoveTo"
     @Test
     public void testNextBoxes(){
-        assertEquals("a2", driver.canMoveTo(driver.getBox(new int[]{0,0}))[0].getName());
-        assertEquals("a3", driver.canMoveTo(driver.getBox(new int[]{0,0}))[1].getName());
-        assertEquals("b2", driver.canMoveTo(driver.getBox(new int[]{1,0}))[0].getName());
-        assertEquals("b3", driver.canMoveTo(driver.getBox(new int[]{1,0}))[1].getName());
+        assertEquals("a2", driver.getAvailablePositions(driver.getBox(new int[]{0,0}))[0].getName());
+        assertEquals("a3", driver.getAvailablePositions(driver.getBox(new int[]{0,0}))[1].getName());
+        assertEquals("b2", driver.getAvailablePositions(driver.getBox(new int[]{1,0}))[0].getName());
+        assertEquals("b3", driver.getAvailablePositions(driver.getBox(new int[]{1,0}))[1].getName());
     }
 }

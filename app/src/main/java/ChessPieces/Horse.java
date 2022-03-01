@@ -1,5 +1,10 @@
 package ChessPieces;
 
+import android.util.Log;
+
+import com.example.chess_mobile.Box;
+import com.example.chess_mobile.Driver;
+
 public class Horse extends Piece {
     //Attributes
     private final String name = "Horse";
@@ -26,4 +31,24 @@ public class Horse extends Piece {
     public String setColor() {
         return this.color;
     }
+
+    @Override
+    public void getMovements(Box[][] board, int x, int y) {
+
+    }
+
+    /*public void getMovements(Driver b, int x, int y){
+        Log.i("testBoard", b.getBoard()[x][y].getPiece().getName());
+
+        Box[][] board =b.getBoard();
+
+        if(x-1>=0 && y-2>=0){
+            if(board[x-1][y-2].isEmpty()){
+                board[x-1][y-2].setPiece("");
+            }
+        }
+
+    }
+    */
+
 }

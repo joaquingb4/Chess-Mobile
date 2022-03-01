@@ -1,5 +1,7 @@
 package ChessPieces;
 
+import com.example.chess_mobile.Box;
+
 public class Pawn extends Piece {
     //Attributes
     private final String name = "Pawn";
@@ -24,5 +26,10 @@ public class Pawn extends Piece {
     @Override
     public String setColor() {
         return this.color;
+    }
+
+    @Override
+    public void getMovements(Box[][] board, int x, int y) {
+
     }
 }

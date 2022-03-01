@@ -126,22 +126,31 @@ public class ActivityBoard extends AppCompatActivity {
 
     //Write on the log the box clicked
     public void clickBoard(View view) {
+        String tag = view.getTag().toString();
         //Poner una variable que muestre el tag para debugear
-        String tag = driver.getBoxPieceName(view.getTag().toString());
-        Log.i("testboard", "Has hecho click en la casilla: " + view.getTag()+ ", Que tiene un "+driver.getBoxPieceName(tag));
+        String pieceName = driver.getBoxPieceName(view.getTag().toString());
+        Log.i("Info", " Has hecho click en la casilla: " + view.getTag()+ ", Que tiene un ["+pieceName+"]");
 
-        if (driver.getBox(view.getTag().toString()).isEmpty()){ //Error
+        if (!driver.getBox(view.getTag().toString()).isEmpty()){
             //Con el tag obtengo las posiciones
             int[] postions = driver.getBoxPosition(tag);
             //Obtengo la casilla con ello
             Box box = driver.getBox(postions);
             //Calculo las posiciones posibles
-            Box[] positions = driver.canMoveTo(box);
+            driver.getBoard()[3][3].getPiece().getMovements(driver.getBoard(), 3,3);
+           // Box[] positions = driver.canMoveTo(box);
             //Las imprimo por el log
-            for (int i = 0; i < positions.length ; i++) {
-                Log.i("Posición disponible ["+ i + "]", positions[i].getName());
+            /*for (int i = 0; i < positions.length ; i++) {
+                Log.i("Posición disponible", positions[i].getName());
             }
+
+             */
+
+
             //Si resulta que no hay salta un mensaje
+
+            //Repintamos el tablero
+            updateImages();
         }else{
             Log.i("Alerta: ", "No hay movimientos disponibles");
         }
