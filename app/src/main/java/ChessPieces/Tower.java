@@ -33,15 +33,17 @@ public class Tower extends Piece {
     }
 
 
-    public void getMovements(Box[][] board, int x, int y) {
+    public int getMovements(Box[][] board, int x, int y) {
+        int availablePositions = 0;
 
         //Movimentos a la derecha
         boolean emptyBox = true;
         int cord1 = x;
-        while (emptyBox == true && (cord1 + 1) < 8) {
+        while (emptyBox && (cord1 + 1) < 8) {
             if (board[cord1 + 1][y].isEmpty()) {
                 board[cord1 + 1][y].setPiece(new Tower("white"));
                 cord1 = cord1 + 1;
+                //ESTOY AQUÍ : hacer que las casillas tengan opción de ser disponibles
             } else {
                 emptyBox = false;
             }
@@ -50,7 +52,7 @@ public class Tower extends Piece {
         //Movimientos a la izquierda
         emptyBox = true;
         cord1 = x;
-        while (emptyBox == true && (cord1 -1) >= 0) {
+        while (emptyBox && (cord1 - 1) >= 0) {
             if (board[cord1 - 1][y].isEmpty()) {
                 board[cord1 - 1][y].setPiece(new Tower("white"));
                 cord1 = cord1 - 1;
@@ -62,7 +64,7 @@ public class Tower extends Piece {
         //Movimientos arriba
         emptyBox = true;
         int cord2 = y;
-        while (emptyBox == true && (cord2 + 1) < 8) {
+        while (emptyBox && (cord2 + 1) < 8) {
             if (board[x][cord2 + 1].isEmpty()) {
                 board[x][cord2 + 1].setPiece(new Tower("white"));
                 cord2 = cord2 + 1;
@@ -74,7 +76,7 @@ public class Tower extends Piece {
         //Movimientos abajo
         emptyBox = true;
         cord2 = y;
-        while (emptyBox == true && (cord2 - 1)>=0) {
+        while (emptyBox && (cord2 - 1)>=0) {
             if (board[x][cord2 - 1].isEmpty()) {
                 board[x][cord2 - 1].setPiece(new Tower("white"));
                 cord2 = cord2 - 1;
@@ -82,10 +84,6 @@ public class Tower extends Piece {
                 emptyBox = false;
             }
         }
+        return positions;
     }
-
-
-
-
-
 }

@@ -101,8 +101,6 @@ public class Driver {
         }
         Piece piece = box.getPiece();
 
-
-
         int[] boxNumbers = Tools.tagToArrayNotation(box.getName());
 
         int column = boxNumbers[0];
@@ -115,15 +113,5 @@ public class Driver {
             tmp++;
         }
         return boxes;
-    }
-    public void getRules(Piece piece){
-        switch (piece.getName()){
-            case "Pawn":
-                return;
-            case "King":
-                return;
-            default:
-                ;
-        }
     }
 }

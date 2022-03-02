@@ -137,7 +137,11 @@ public class ActivityBoard extends AppCompatActivity {
             //Obtengo la casilla con ello
             Box box = driver.getBox(postions);
             //Calculo las posiciones posibles
-            driver.getBoard()[3][3].getPiece().getMovements(driver.getBoard(), 3,3);
+            driver.getBox(tag).getPiece().getMovements(driver.getBoard(),
+                    Tools.tagToArrayNotation(tag)[0],
+                    Tools.tagToArrayNotation(tag)[1] );
+          ///  driver.getBoard()[3][3].getPiece().getMovements(driver.getBoard(), 3,3);
+
            // Box[] positions = driver.canMoveTo(box);
             //Las imprimo por el log
             /*for (int i = 0; i < positions.length ; i++) {
