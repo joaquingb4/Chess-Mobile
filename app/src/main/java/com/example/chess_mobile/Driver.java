@@ -29,6 +29,8 @@ public class Driver {
         int[] boxCoordinates = Tools.tagToArrayNotation(a1);
         return board[boxCoordinates[0]][boxCoordinates[1]];//>ERROR
     }
+    //No funciona
+    /*
     //Devuelve las posiciones de una determinada pieza
     public int[] getBoxPosition(String tag){
         int[] positions = new int[2];
@@ -36,6 +38,8 @@ public class Driver {
         positions[1] = Tools.getInt(tag.charAt(1));
         return positions;//La letra hay que traducirla a la nomenclatura del ajedrez
     }
+
+     */
 
     public int[] getBoxPosition(Box box){
         String tag = box.getName();//<--Hacer prueba

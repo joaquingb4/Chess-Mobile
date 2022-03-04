@@ -42,6 +42,7 @@ public class ExampleUnitTest {
         assertEquals("h1", driver.getBox(7,0).getName());
         assertEquals("a8", driver.getBox(0,7).getName());
         assertEquals("h8", driver.getBox(7,7).getName());
+
     }
     //Prueba que se pueda pasar de String a número
     @Test
@@ -57,4 +58,6 @@ public class ExampleUnitTest {
         assertEquals("b2", driver.getAvailablePositions(driver.getBox(new int[]{1,0}))[0].getName());
         assertEquals("b3", driver.getAvailablePositions(driver.getBox(new int[]{1,0}))[1].getName());
     }
+
+
 }

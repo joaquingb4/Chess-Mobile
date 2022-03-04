@@ -33,9 +33,10 @@ public class Horse extends Piece {
     }
 
     @Override
-    public void getMovements(Box[][] board, int x, int y) {
-
+    public int getAvailableMovements(Box[][] board, int x, int y) {
+        return 0;
     }
+
 
     /*public void getMovements(Driver b, int x, int y){
         Log.i("testBoard", b.getBoard()[x][y].getPiece().getName());

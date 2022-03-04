@@ -15,6 +15,5 @@ public abstract class Piece {
 
     public abstract String getColor();
     public abstract String setColor();
-
-    public abstract void getMovements(Box[][] board, int x, int y);
-}
+    public abstract int getAvailableMovements(Box[][] board, int x, int y);
+    }

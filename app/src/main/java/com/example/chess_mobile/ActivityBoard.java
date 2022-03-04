@@ -17,7 +17,7 @@ public class ActivityBoard extends AppCompatActivity {
     public void updateImages(){
         for (int i = 0; i < visualBoxes.length ; i++) {
             for (int u = 0; u < visualBoxes[i].length; u++) {
-                Log.i("Miramos  ", u+ " :: " + i);
+              //  Log.i("Miramos  ", u+ " :: " + i);
                 visualBoxes[i][u].setImageDrawable(getImage(driver.getBox(new int[]{i, u})));
             }
         }
@@ -127,34 +127,33 @@ public class ActivityBoard extends AppCompatActivity {
     //Write on the log the box clicked
     public void clickBoard(View view) {
         String tag = view.getTag().toString();
-        //Poner una variable que muestre el tag para debugear
         String pieceName = driver.getBoxPieceName(view.getTag().toString());
         Log.i("Info", " Has hecho click en la casilla: " + view.getTag()+ ", Que tiene un ["+pieceName+"]");
+        Box[][] board = driver.getBoard();
 
         if (!driver.getBox(view.getTag().toString()).isEmpty()){
             //Con el tag obtengo las posiciones
-            int[] postions = driver.getBoxPosition(tag);
+            int[] positions = Tools.tagToArrayNotation(tag);
             //Obtengo la casilla con ello
-            Box box = driver.getBox(postions);
+            Box box = driver.getBox(positions);
             //Calculo las posiciones posibles
-            driver.getBox(tag).getPiece().getMovements(driver.getBoard(),
-                    Tools.tagToArrayNotation(tag)[0],
-                    Tools.tagToArrayNotation(tag)[1] );
+            int arrayLenght = box.getPiece().getAvailableMovements(board, 3, 3);
+            Log.i("prueba movimentos", "" + arrayLenght);
           ///  driver.getBoard()[3][3].getPiece().getMovements(driver.getBoard(), 3,3);
 
            // Box[] positions = driver.canMoveTo(box);
             //Las imprimo por el log
-            /*for (int i = 0; i < positions.length ; i++) {
+            /*
+            for (int i = 0; i < positions.length ; i++) {
                 Log.i("Posición disponible", positions[i].getName());
             }
 
              */
-
-
             //Si resulta que no hay salta un mensaje
 
             //Repintamos el tablero
             updateImages();
+            Log.i("I", "Acabo");
         }else{
             Log.i("Alerta: ", "No hay movimientos disponibles");
         }

@@ -29,7 +29,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public void getMovements(Box[][] board, int x, int y) {
-
+    public int getAvailableMovements(Box[][] board, int x, int y) {
+        return 0;
     }
 }
