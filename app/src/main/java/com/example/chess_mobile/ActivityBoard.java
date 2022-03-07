@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import ChessPieces.Piece;
+
 public class ActivityBoard extends AppCompatActivity {
     //Attributes
     ImageView[][] visualBoxes = new ImageView[8][8];
@@ -136,9 +138,14 @@ public class ActivityBoard extends AppCompatActivity {
             int[] positions = Tools.tagToArrayNotation(tag);
             //Obtengo la casilla con ello
             Box box = driver.getBox(positions);
+            Piece piece = box.getPiece();
             //Calculo las posiciones posibles
-            int arrayLenght = box.getPiece().getAvailableMovements(board, 3, 3);
+            int arrayLenght = piece.getAvailableMovements(board, positions[0], positions[1]);
             Log.i("prueba movimentos", "" + arrayLenght);
+            Box[] casillas = piece.getOccupyCells();
+            for (:) {//<^--Error aquí, llama a la clase abstracta no a torre
+
+            }
           ///  driver.getBoard()[3][3].getPiece().getMovements(driver.getBoard(), 3,3);
 
            // Box[] positions = driver.canMoveTo(box);
