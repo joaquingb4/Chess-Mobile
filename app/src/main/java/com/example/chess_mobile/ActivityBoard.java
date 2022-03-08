@@ -142,7 +142,7 @@ public class ActivityBoard extends AppCompatActivity {
             //Calculo las posiciones posibles
             int arrayLenght = piece.getAvailableMovements(board, positions[0], positions[1]);
             Log.i("prueba movimentos", "" + arrayLenght);
-            Box[] casillas = piece.getOccupyCells();
+            Box[] casillas = piece.getName()
             for (:) {//<^--Error aquí, llama a la clase abstracta no a torre
 
             }

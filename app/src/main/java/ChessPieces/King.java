@@ -22,6 +22,7 @@ public class King extends Piece {
     public String getColor() {
         return this.color;
     }
+
     @Override
     public String setColor() {
         return this.color;

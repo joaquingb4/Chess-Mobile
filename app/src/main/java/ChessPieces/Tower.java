@@ -15,6 +15,7 @@ public class Tower extends Piece {
 
     //Methods
     public Tower(String color) {
+        super();
         setColor(color);
     }
 
@@ -39,7 +40,7 @@ public class Tower extends Piece {
 
     @Override
     //Probando
-    public int getAvailableMovements(Box[][] board, int x, int y) {
+    public int getPossibleMovementsNumber(Box[][] board, int x, int y) {
         int numberOfAvailablePositions = 0;
 
         //Movimentos a la derecha
@@ -104,7 +105,7 @@ public class Tower extends Piece {
     }
 
     //Recibe un número que es el tamaño del array y devuelve una array de casillas
-    public Box[] getBoxesOccupybleCells(int ArrayLenght, Box[][] board, int x, int y){
+    public Box[] getPossibleBoxes(int ArrayLenght, Box[][] board, int x, int y){
         Box[] boxes = new Box[ArrayLenght];
         int index = 0;
         //Movimentos a la derecha
@@ -157,5 +158,33 @@ public class Tower extends Piece {
         }
         Log.i("pruebita", ""+boxes.length);
         return boxes;
+    }
+    public int bucle(Box[][] board, int x, int y, int direccion){
+        int cantidad = 0;
+        while (true ){
+                int posicionArray = Integer.parseInt(x + "" +y);
+                posicionArray += direccion;
+                String conversion = Integer.toString(posicionArray);
+                x = conversion.charAt(0);
+                y = conversion.charAt(1);
+                if (!board[x][y].isEmpty()){//Si está vacío
+                    return 1 + bucle(board, x, y, direccion);
+                }else{
+                    return 1;
+                }
+                
+
+
+                bucle();
+
+
+        }
+            - 1, - 10, - -1, - -10
+            24 25 26 27 28 29 30 31     30, 31, 32, 33, 34, 35, 36, 37
+            16 17 18 19 20 21 22 23     20, 21, 22, 23, 24, 25, 26, 27
+            08 09 10 11 12 13 14 15     10, 11, 12, 13, 14, 15, 16, 17
+            00 01 02 03 04 05 06 07     00, 01, 02, 03, 04, 05, 06, 07
+            xy
+        }
     }
 }

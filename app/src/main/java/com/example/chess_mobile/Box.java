@@ -10,7 +10,6 @@ public class Box {
     public String getName() {
         return name;
     }
-
     public char getFirstNameCharacter() {
         return name.charAt(0);
     }
@@ -18,12 +17,16 @@ public class Box {
         return name.charAt(1);
     }
 
+
     public void setName(String name) {
         this.name = name;
     }
-
     public Piece getPiece() {
-        return piece;
+        if (this.piece == null){
+            return null;
+        }else{
+            return piece.getPiece();
+        }
     }
 
 
