@@ -10,8 +10,12 @@ public abstract class Piece {
 
     //Methods
     public abstract String getName();
+
     public abstract String getColor();
+
     public abstract String setColor();
-    public abstract int getAvailableMovements(Box[][] board, int x, int y);
-    }
-    public abstract Box[] getPossibleBoxes(Box[][]);
+
+    public abstract int getPossibleBoxesNumber(Box[][] board, int x, int y, int direction);
+
+    public abstract Box[] getPossibleBoxes(Box[][] board,int x, int y, int direction);
+}
