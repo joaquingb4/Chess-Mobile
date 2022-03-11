@@ -25,7 +25,7 @@ public class Box {
         if (this.piece == null){
             return null;
         }else{
-            return piece.getPiece();
+            return piece;
         }
     }
 

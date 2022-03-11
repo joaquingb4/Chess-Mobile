@@ -4,15 +4,21 @@ import ChessPieces.Piece;
 
 //Herrarmientas
 public class Tools {
-    static int a = 0;
-    static int b = 1;
-    static int c = 2;
-    static int d = 3;
-    static int e = 4;
-    static int f = 5;
-    static int g = 6;
-    static int h = 7;
+    public static int[] direcciones={+11 ,+10, +9, +1, 0, -1, -9, -10, -11};
+    //                          0    1   2   3  4   5   6   7    8
     static char[] letters = new char[]{'a', 'b', 'c','d','e','f','g','h'};
+    //De un tag extraigo la x
+    public static int tagGetX(String tag){
+        char x = tag.charAt(0);
+        int result = x - '0';
+        return result;
+    }
+    //De un tag extraigo la y
+    public static int tagGetY(String tag){
+        char y = tag.charAt(1);
+        int result = y - '0';
+        return result;
+    }
 
     //Le doy una letra y me devuelve un número
     public static int getInt(char letter){

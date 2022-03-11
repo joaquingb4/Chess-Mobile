@@ -28,8 +28,12 @@ public class Queen extends Piece {
     }
 
     @Override
-    public int getAvailableMovements(Box[][] board, int x, int y) {
+    public int getPossiblesBoxesNumber(Box[][] board, int x, int y, int direction) {
         return 0;
+    }
 
+    @Override
+    public Box[] getPossibleBoxes(Box[][] board, int x, int y, int direction) {
+        return new Box[0];
     }
 }

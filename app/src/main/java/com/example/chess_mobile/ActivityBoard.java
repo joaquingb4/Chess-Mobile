@@ -129,21 +129,23 @@ public class ActivityBoard extends AppCompatActivity {
     //Write on the log the box clicked
     public void clickBoard(View view) {
         String tag = view.getTag().toString();
+        //Con el tag obtengo las posiciones
+        int x = Tools.tagGetX(tag);
+        int y = Tools.tagGetY(tag);
+
         String pieceName = driver.getBoxPieceName(view.getTag().toString());
         Log.i("Info", " Has hecho click en la casilla: " + view.getTag()+ ", Que tiene un ["+pieceName+"]");
         Box[][] board = driver.getBoard();
 
         if (!driver.getBox(view.getTag().toString()).isEmpty()){
-            //Con el tag obtengo las posiciones
-            int[] positions = Tools.tagToArrayNotation(tag);
             //Obtengo la casilla con ello
-            Box box = driver.getBox(positions);
+            Box box = driver.getBox(x+""+y);
             Piece piece = box.getPiece();
             //Calculo las posiciones posibles
-            int arrayLenght = piece.getAvailableMovements(board, positions[0], positions[1]);
+            int lenght = piece.getPossiblesBoxesNumber(board, x, y);
             Log.i("prueba movimentos", "" + arrayLenght);
-            Box[] casillas = piece.getName()
-            for (:) {//<^--Error aquí, llama a la clase abstracta no a torre
+            Box[] casillas = piece.getName();
+            for (int:) {//<^--Error aquí, llama a la clase abstracta no a torre
 
             }
           ///  driver.getBoard()[3][3].getPiece().getMovements(driver.getBoard(), 3,3);
