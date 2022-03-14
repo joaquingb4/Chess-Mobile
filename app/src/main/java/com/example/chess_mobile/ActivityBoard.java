@@ -143,10 +143,11 @@ public class ActivityBoard extends AppCompatActivity {
             Piece piece = box.getPiece();
             //Calculo las posiciones posibles
             int lenght = piece.getPossiblesBoxesNumber(board, x, y);
-            Log.i("prueba movimentos", "" + arrayLenght);
-            Box[] casillas = piece.getName();
-            for (int:) {//<^--Error aquí, llama a la clase abstracta no a torre
-
+            Log.i("prueba movimentos", "" + lenght);
+            //Posiciones posibles
+            Box[] casillas = piece.getPossiblesBoxes(board, x, y);
+            for (Box boxes : casillas) {//<^--Error aquí, llama a la clase abstracta no a torre
+                Log.i("casilla",boxes.getName() );
             }
           ///  driver.getBoard()[3][3].getPiece().getMovements(driver.getBoard(), 3,3);
 

@@ -47,15 +47,17 @@ public class Tower extends Piece {
             x = conversion.charAt(0);
             y = conversion.charAt(1);
             if (board[x][y].isEmpty()) {//Si está vacío
-                return 1 + getPossiblesBoxesNumber(board, x, y, Tools.);
+                return 1 + getPossiblesBoxesNumber(board, x, y, );      //Estoy aquí
             } else {//sino está vacío
                 return 1;
             }
         }
     }
+    //Método
+    public void 
     //Devuelve un array con las casillas posibles
     @Override
-    public Box[] getPossibleBoxes(Box[][] board, int x, int y) {
+    public Box[] getPossiblesBoxes(Box[][] board,int x, int y) {
         int index = 0;
         int lenght = getPossiblesBoxesNumber(board, x, y);
         Box[] boxes = new Box[lenght];

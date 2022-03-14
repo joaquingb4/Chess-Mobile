@@ -15,7 +15,7 @@ public abstract class Piece {
 
     public abstract String setColor();
 
-    public abstract int getPossiblesBoxesNumber(Box[][] board, int x, int y, int direction);
+    public abstract int getPossiblesBoxesNumber(Box[][] board, int x, int y);
 
-    public abstract Box[] getPossibleBoxes(Box[][] board,int x, int y, int direction);
+    public abstract Box[] getPossiblesBoxes(Box[][] board,int x, int y);
 }

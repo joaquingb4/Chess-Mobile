@@ -29,12 +29,12 @@ public class King extends Piece {
     }
 
     @Override
-    public int getPossiblesBoxesNumber(Box[][] board, int x, int y, int direction) {
+    public int getPossiblesBoxesNumber(Box[][] board, int x, int y) {
         return 0;
     }
 
     @Override
-    public Box[] getPossibleBoxes(Box[][] board, int x, int y, int direction) {
+    public Box[] getPossiblesBoxes(Box[][] board, int x, int y) {
         return new Box[0];
     }
 }
