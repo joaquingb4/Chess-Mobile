@@ -39,22 +39,29 @@ public class Tower extends Piece {
     }
     //Devuelve el número de posiciones pobibles
     public int getPossiblesBoxesNumber(Box[][] board, int x, int y) {
+        int totalNumber = 0;
+        totalNumber += metodo(board, x, y, +10);
+        totalNumber += metodo(board, x, y, +1);
+        totalNumber += metodo(board, x, y, -1);
+        totalNumber += metodo(board, x, y, -10);
+        return totalNumber;
+    }
+    //Método
+    public int metodo(Box[][] board, int x, int y, int direccion){
         int index = 0;
         while (true) {
             int posicionArray = Integer.parseInt(x + "" + y);
-            posicionArray += Tools.direcciones[index+=2];//Probar
+            posicionArray += direccion;
             String conversion = Integer.toString(posicionArray);
-            x = conversion.charAt(0);
-            y = conversion.charAt(1);
-            if (board[x][y].isEmpty()) {//Si está vacío
-                return 1 + getPossiblesBoxesNumber(board, x, y, );      //Estoy aquí
+            x = conversion.charAt(0) - '0';
+            y = conversion.charAt(1) - '0';
+            if (board[x][y].isEmpty() && x > 0 && x < 8 && y > 0 && y < 8) {//Si está vacío
+                return 1 + metodo(board, x, y, direccion);      //Estoy aquí
             } else {//sino está vacío
                 return 1;
             }
         }
     }
-    //Método
-    public void 
     //Devuelve un array con las casillas posibles
     @Override
     public Box[] getPossiblesBoxes(Box[][] board,int x, int y) {
@@ -66,8 +73,8 @@ public class Tower extends Piece {
             int posicionArray = Integer.parseInt(x + "" + y);
             posicionArray += Tools.direcciones[index+=2];//Probar
             String conversion = Integer.toString(posicionArray);
-            x = conversion.charAt(0);
-            y = conversion.charAt(1);
+            x = conversion.charAt(0) - '0';
+            y = conversion.charAt(1) - '0';
             boxes[i] = board[x][y];
         }
         return boxes;

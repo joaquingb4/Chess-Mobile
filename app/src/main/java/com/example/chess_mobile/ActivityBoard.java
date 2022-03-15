@@ -139,7 +139,7 @@ public class ActivityBoard extends AppCompatActivity {
 
         if (!driver.getBox(view.getTag().toString()).isEmpty()){
             //Obtengo la casilla con ello
-            Box box = driver.getBox(x+""+y);
+            Box box = driver.board[x][y];
             Piece piece = box.getPiece();
             //Calculo las posiciones posibles
             int lenght = piece.getPossiblesBoxesNumber(board, x, y);
@@ -149,6 +149,7 @@ public class ActivityBoard extends AppCompatActivity {
             for (Box boxes : casillas) {//<^--Error aquí, llama a la clase abstracta no a torre
                 Log.i("casilla",boxes.getName() );
             }
+
           ///  driver.getBoard()[3][3].getPiece().getMovements(driver.getBoard(), 3,3);
 
            // Box[] positions = driver.canMoveTo(box);

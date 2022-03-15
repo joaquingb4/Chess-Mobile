@@ -26,8 +26,9 @@ public class Driver {
     }
     //Devuelve una casilla determinada
     public Box getBox(String a1){
-        int[] boxCoordinates = Tools.tagToArrayNotation(a1);
-        return board[boxCoordinates[0]][boxCoordinates[1]];//>ERROR
+        int x = Tools.tagGetX(a1);
+        int y = Tools.tagGetY(a1);
+        return board[x][y];//>ERROR
     }
     //No funciona
     /*
@@ -44,8 +45,8 @@ public class Driver {
     public int[] getBoxPosition(Box box){
         String tag = box.getName();//<--Hacer prueba
         int[] positions = new int[2];
-        positions[0] = Tools.getInt(tag.charAt(0));
-        positions[1] = Tools.getInt(tag.charAt(1));
+        positions[0] = Tools.tagGetX(tag);
+        positions[1] = Tools.tagGetY(tag);
         return positions;//La letra hay que traducirla a la notación del ajedrez
     }
 
