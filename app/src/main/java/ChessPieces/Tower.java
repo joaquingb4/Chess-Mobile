@@ -48,18 +48,23 @@ public class Tower extends Piece {
     }
     //Método
     public int metodo(Box[][] board, int x, int y, int direccion){
-        int index = 0;
-        while (true) {
-            int posicionArray = Integer.parseInt(x + "" + y);
-            posicionArray += direccion;
-            String conversion = Integer.toString(posicionArray);
-            x = conversion.charAt(0) - '0';
-            y = conversion.charAt(1) - '0';
-            if (board[x][y].isEmpty() && x > 0 && x < 8 && y > 0 && y < 8) {//Si está vacío
-                return 1 + metodo(board, x, y, direccion);      //Estoy aquí
-            } else {//sino está vacío
-                return 1;
-            }
+        int posicionArray = Integer.parseInt(x + "" + y);  //Int
+        posicionArray += direccion; //Nueva posición        //Int
+        char[] conversion = new char[2];
+        conversion = Integer.toString(posicionArray).toCharArray();
+        for (int i = 0; i < conversion.length; i++) {
+            
+        }
+        x = conversion[0] - '0';
+        y = conversion[1] - '0';
+
+        //Próxima posición
+        if (!isInsideTheBoard(x, y)){   //Está dentro
+            return 0;
+        } else if (isTheEnd(x, y)){ //Es la última casilla      Añadir filtro del color
+            return 1;
+        }else{      //
+            return 1 + metodo(board, x, y, direccion);
         }
     }
     //Devuelve un array con las casillas posibles
@@ -79,6 +84,28 @@ public class Tower extends Piece {
         }
         return boxes;
     }
+
+    public boolean insideBoard(int x, int y){
+        if (x<1||x>6||y<1||y>6){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    public boolean isInsideTheBoard(int x, int y){
+        if (x<0 || x>7 || y<0 || y>7){
+            return false;
+        }else {
+            return true;
+        }
+    }
+    public boolean isTheEnd(int x, int y){
+        if (x == 0 || y == 7){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
  /*                             +9  +10  +11
                                 -1    2   +1     +10 -1 -10 +1
@@ -90,4 +117,14 @@ public class Tower extends Piece {
             º00 01 02 03 04 05 06 07     00, 01, 02, 03, 04, 05, 06, 07
           y ºººªºººººººººººººººººººº
              x
+
+             4{[0][1][2][3][4][5][6][7]}
+             3{[0][1][2][3][4][5][6][7]}
+             2{[0][1][2][3][4][5][6][7]}
+             1{[0][1][2][3][4][5][6][7]}
+           X 0{[0][1][2][3][4][5][6][7]}
+                Y
+
+             if ()
+
          */

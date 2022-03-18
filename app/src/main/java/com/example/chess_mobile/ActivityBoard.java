@@ -146,22 +146,9 @@ public class ActivityBoard extends AppCompatActivity {
             Log.i("prueba movimentos", "" + lenght);
             //Posiciones posibles
             Box[] casillas = piece.getPossiblesBoxes(board, x, y);
-            for (Box boxes : casillas) {//<^--Error aquí, llama a la clase abstracta no a torre
+            for (Box boxes : casillas) {
                 Log.i("casilla",boxes.getName() );
             }
-
-          ///  driver.getBoard()[3][3].getPiece().getMovements(driver.getBoard(), 3,3);
-
-           // Box[] positions = driver.canMoveTo(box);
-            //Las imprimo por el log
-            /*
-            for (int i = 0; i < positions.length ; i++) {
-                Log.i("Posición disponible", positions[i].getName());
-            }
-
-             */
-            //Si resulta que no hay salta un mensaje
-
             //Repintamos el tablero
             updateImages();
             Log.i("I", "Acabo");
@@ -170,3 +157,16 @@ public class ActivityBoard extends AppCompatActivity {
         }
     }
 }
+
+
+///  driver.getBoard()[3][3].getPiece().getMovements(driver.getBoard(), 3,3);
+
+// Box[] positions = driver.canMoveTo(box);
+//Las imprimo por el log
+            /*
+            for (int i = 0; i < positions.length ; i++) {
+                Log.i("Posición disponible", positions[i].getName());
+            }
+
+             */
+//Si resulta que no hay salta un mensaje
