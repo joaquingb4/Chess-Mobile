@@ -66,7 +66,7 @@ public class Driver {
         getBox("h1").setPiece(new Tower("white"));
         getBox("a8").setPiece(new Tower("black"));
         getBox("h8").setPiece(new Tower("black"));
-        getBox("d4").setPiece(new Tower("black"));
+        getBox("d4").setPiece(new Tower("white"));
         //Horses-----------
         getBox("b1").setPiece(new Horse("white"));
         getBox("g1").setPiece(new Horse("white"));

@@ -1,12 +1,23 @@
 package com.example.chess_mobile;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+
+import java.io.File;
 
 import ChessPieces.Piece;
 
@@ -31,9 +42,36 @@ public class ActivityBoard extends AppCompatActivity {
         }else{
             switch (box.getPiece().getName()){
                 case ("Tower"):
-                    return getDrawable(R.drawable.t);
+                    if (box.getPiece().getColor().equals("white")){
+                        return getDrawable(R.drawable.whitetower);
+                    }
+                    return getDrawable(R.drawable.blacktower);
+                case ("Horse"):
+                    if (box.getPiece().getColor().equals("white")){
+                        return getDrawable(R.drawable.whitehorse);
+                    }
+                    return getDrawable(R.drawable.blackhorse);
                 case ("Pawn"):
-                    return getDrawable(R.drawable.p);
+                    if (box.getPiece().getColor().equals("white")){
+                        return getDrawable(R.drawable.whitepawn);
+                    }
+                    return getDrawable(R.drawable.blackpawn);
+                case ("King"):
+                    if (box.getPiece().getColor().equals("white")){
+                        return getDrawable(R.drawable.whiteking);
+                    }
+                    return getDrawable(R.drawable.blackking);
+                case ("Queen"):
+                    if (box.getPiece().getColor().equals("white")){
+                        return getDrawable(R.drawable.whitequeen);
+                    }
+                    return getDrawable(R.drawable.blackqueen);
+                case ("Bishop"):
+                    if (box.getPiece().getColor().equals("white")){
+                        return getDrawable(R.drawable.whitebishop);
+                    }
+                    return getDrawable(R.drawable.blackbishop);
+
             }
         }
         return null;
@@ -156,6 +194,7 @@ public class ActivityBoard extends AppCompatActivity {
             Log.i("Alerta: ", "No hay movimientos disponibles");
         }
     }
+
 }
 
 

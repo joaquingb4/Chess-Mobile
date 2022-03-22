@@ -8,6 +8,7 @@ public class King extends Piece {
     private String color;
     //Methods
     public King(String color){
+        this.color = color;
     }
     private void setColor(String color) {
         this.color = color;
