@@ -2,6 +2,8 @@ package ChessPieces;
 
 import com.example.chess_mobile.Box;
 
+import java.util.ArrayList;
+
 public class Pawn extends Piece {
     //Attributes
     private final String name = "Pawn";
@@ -35,7 +37,6 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public Box[] getPossiblesBoxes(Box[][] board, int x, int y) {
-        return new Box[0];
-    }
-}
+    public ArrayList<Box> getPossiblesBoxes(Box[][] board, int x, int y) {
+        return null;
+    }}

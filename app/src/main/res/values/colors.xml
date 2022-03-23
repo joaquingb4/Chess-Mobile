@@ -10,10 +10,13 @@
     <color name="orange">#FF8C00</color>
     <color name="lowOrange">#FFC78B</color>
     <color name="brown">#855E42</color>
-    <color name="lightBrown">#EAA760</color>
+    <color name="lightBrown">#FFCB94</color>
 
     <color name="blackLow">#404040</color>
     <color name="goodOrange">#e76f51</color>
+    <color name="lightOrangeOrange">#FFA791</color>
+
+
     <color name="turquesa">#2a9d8f</color>
     <color name="lightBlue">#007a99</color>
 

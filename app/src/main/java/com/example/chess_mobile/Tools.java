@@ -65,4 +65,5 @@ public class Tools {
     public static String translate(int[] coordinates){
         return new String(getLetter(coordinates[0])+""+(coordinates[1]+1));
     }
+    //
 }

@@ -6,6 +6,7 @@ import com.example.chess_mobile.Box;
 import com.example.chess_mobile.Driver;
 import com.example.chess_mobile.Tools;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class Tower extends Piece {
@@ -47,40 +48,75 @@ public class Tower extends Piece {
         return totalNumber;
     }
     //Método
-    public int metodo(Box[][] board, int x, int y, int direccion){
-        int posicionArray = Integer.parseInt(x + "" + y);  //Int
-        posicionArray += direccion; //Nueva posición        //Int
-        char[] conversion = new char[2];
-        conversion = Integer.toString(posicionArray).toCharArray();
-        for (int i = 0; i < conversion.length; i++) {
-            
-        }
-        x = conversion[0] - '0';
-        y = conversion[1] - '0';
+    public ArrayList<Box> metodo(Box[][] board, int x, int y, int direccion){
+        ArrayList<Box> boxes = new ArrayList<>();
+        int nextNumber = nextPosition(x, y, direccion);
+        boolean canOccupy = checker(board, nextNumber);
+        if (canOccupy){
+            //ESTOY AQUÍ: PONER CONDICIONES PARA OTRAS CIRCUNSTANCIAS
+            int[] array = getXYOfANumber(nextNumber);
+            x = array[0];
+            y = array[1];
+            boxes.add(board[x][y]);
+        }else {
 
-        //Próxima posición
-        if (!isInsideTheBoard(x, y)){   //Está dentro
-            return 0;
-        } else if (isTheEnd(x, y)){ //Es la última casilla      Añadir filtro del color
-            return 1;
-        }else{      //
-            return 1 + metodo(board, x, y, direccion);
+        }
+
+        if (!isInsideTheBoard(x, y))return boxes;
+//Volvemos a hacer lo mismo
+        position = (x*10)+y;//junta la x con y en un solo número
+        position += direccion;
+       // char[] conversion = new char[2];
+        String conversion;
+        if (posicionArray<10){
+            conversion = '0'+Integer.toString(posicionArray);
+        }else {
+            conversion = Integer.toString(posicionArray);
         }
     }
+    //Calcula la siguiente posición
+    public int nextPosition(int x, int y, int direccion){
+        int position = (x*10)+y;//junta la x con y en un solo número
+        position += direccion;
+        return position;
+    }
+    //Comprueba si cumple los requisitos para ser ocupada
+    public boolean checker(Box[][] board, int position){
+        int[] array = getXYOfANumber(position);
+        int x = array[0];
+        int y = array[1];
+        return !isInsideTheBoard(x, y);
+    }
+    //convierte un número en dos números
+    public int[] getXYOfANumber(int position){
+        int x = position / 10;
+        int y = position % 10;
+        return new int[]{x, y};
+    }
     //Devuelve un array con las casillas posibles
-    @Override
-    public Box[] getPossiblesBoxes(Box[][] board,int x, int y) {
-        int index = 0;
-        int lenght = getPossiblesBoxesNumber(board, x, y);
-        Box[] boxes = new Box[lenght];
 
-        for (int i = 0; i < lenght; i++) {
+    @Override
+    public ArrayList<Box> getPossiblesBoxes(Box[][] board, int x, int y) {
+        ArrayList<Box> boxes = new ArrayList<>();
+        int index = 0;
+        while (){
+        }
+        for (int i = 0; i <; i++) {
             int posicionArray = Integer.parseInt(x + "" + y);
+            index += 2;
+            if (index > Tools.direcciones.length){
+                break;
+            }
             posicionArray += Tools.direcciones[index+=2];//Probar
-            String conversion = Integer.toString(posicionArray);
+            String conversion;
+            if (posicionArray<10){
+                conversion = '0'+Integer.toString(posicionArray);
+            }else {
+                conversion = Integer.toString(posicionArray);
+            }
             x = conversion.charAt(0) - '0';
             y = conversion.charAt(1) - '0';
-            boxes[i] = board[x][y];
+            boxes.add(board[x][y]);
         }
         return boxes;
     }

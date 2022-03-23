@@ -7,17 +7,20 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import ChessPieces.Piece;
 
@@ -149,6 +152,30 @@ public class ActivityBoard extends AppCompatActivity {
         visualBoxes[7][5] = findViewById(R.id.box62);
         visualBoxes[7][6] = findViewById(R.id.box63);
         visualBoxes[7][7] = findViewById(R.id.box64);
+        //Pintamos el tablero
+        paintBoard("#855E42", "#FFCB94" );
+    }
+    //Pinta el tablero
+    public void paintBoard(String negras, String blancas){
+        for (int i = 0; i < visualBoxes.length; i++) {
+            int u;
+            int o;
+            if ((i%2)==0){
+                u = 0;
+                o = 1;
+            }else{
+                u = 1;
+                o = 0;
+            }
+            for (; u < visualBoxes[i].length; u+=2) {
+                //Oscuras
+                visualBoxes[i][u].setBackgroundColor(Color.parseColor(negras));
+            }
+            for (; o < visualBoxes[i].length; o+=2) {
+                //Blancas
+                visualBoxes[i][o].setBackgroundColor(Color.parseColor(blancas));
+            }
+        }
     }
 
     @Override
@@ -183,9 +210,9 @@ public class ActivityBoard extends AppCompatActivity {
             int lenght = piece.getPossiblesBoxesNumber(board, x, y);
             Log.i("prueba movimentos", "" + lenght);
             //Posiciones posibles
-            Box[] casillas = piece.getPossiblesBoxes(board, x, y);
+            ArrayList<Box> casillas = piece.getPossiblesBoxes(board, x, y);
             for (Box boxes : casillas) {
-                Log.i("casilla",boxes.getName() );
+                Log.i("casilla",boxes.getName());
             }
             //Repintamos el tablero
             updateImages();

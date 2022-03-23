@@ -6,6 +6,16 @@ public class Box {
     //Attibutes
     private String name;
     private Piece piece;
+
+    public Box(String name){
+        this.name = name;
+        this.piece = null;
+    }
+    public Box(String name, Piece piece){
+        this.name = name;
+        this.piece = piece;
+    }
+
     //Getters y setters
     public String getName() {
         return name;
@@ -34,15 +44,7 @@ public class Box {
     public void setPiece(Piece piece) {
         this.piece = piece;
     }
-    //Methods
-    public Box(String name){
-        this.name = name;
-        this.piece = null;
-    }
-    public Box(String name, Piece piece){
-        this.name = name;
-        this.piece = piece;
-    }
+
 
     //Methods
     public boolean isEmpty(){

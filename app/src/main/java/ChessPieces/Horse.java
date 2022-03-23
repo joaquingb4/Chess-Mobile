@@ -5,6 +5,8 @@ import android.util.Log;
 import com.example.chess_mobile.Box;
 import com.example.chess_mobile.Driver;
 
+import java.util.ArrayList;
+
 public class Horse extends Piece {
     //Attributes
     private final String name = "Horse";
@@ -38,10 +40,9 @@ public class Horse extends Piece {
     }
 
     @Override
-    public Box[] getPossiblesBoxes(Box[][] board, int x, int y) {
-        return new Box[0];
-    }
-    /*
+    public ArrayList<Box> getPossiblesBoxes(Box[][] board, int x, int y) {
+        return null;
+    }    /*
     @Override
     public int getAvailableMovements(Box[][] board, int x, int y) {
         return 0;
