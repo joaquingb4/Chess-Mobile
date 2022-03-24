@@ -52,8 +52,16 @@ public class Tower extends Piece {
         ArrayList<Box> boxes = new ArrayList<>();
         int nextNumber = nextPosition(x, y, direccion);
         boolean canOccupy = checker(board, nextNumber);
-        if (canOccupy){
+        boolean itsBusy = board[x][y].isEmpty();
+        boolean isTheFinal = isTheEnd(x, y);
+        if(isInsideTheBoard(x, y)){
+            //ESTOY AQUÍ
+        }
+        if (canOccupy){//¿Se puede ocupar?
             //ESTOY AQUÍ: PONER CONDICIONES PARA OTRAS CIRCUNSTANCIAS
+            if(){ //Esta ocupado con otra pieza
+
+            }
             int[] array = getXYOfANumber(nextNumber);
             x = array[0];
             y = array[1];
@@ -80,26 +88,19 @@ public class Tower extends Piece {
         position += direccion;
         return position;
     }
-    //Comprueba si cumple los requisitos para ser ocupada
-    public boolean checker(Box[][] board, int position){
-        int[] array = getXYOfANumber(position);
-        int x = array[0];
-        int y = array[1];
-        return !isInsideTheBoard(x, y);
-    }
+
     //convierte un número en dos números
     public int[] getXYOfANumber(int position){
         int x = position / 10;
         int y = position % 10;
         return new int[]{x, y};
     }
-    //Devuelve un array con las casillas posibles
-
+    //Devuelve un ArrayList con las casillas posibles
     @Override
     public ArrayList<Box> getPossiblesBoxes(Box[][] board, int x, int y) {
         ArrayList<Box> boxes = new ArrayList<>();
         int index = 0;
-        while (){
+        while (metodo()){
         }
         for (int i = 0; i <; i++) {
             int posicionArray = Integer.parseInt(x + "" + y);
@@ -120,14 +121,8 @@ public class Tower extends Piece {
         }
         return boxes;
     }
-
-    public boolean insideBoard(int x, int y){
-        if (x<1||x>6||y<1||y>6){
-            return false;
-        }else{
-            return true;
-        }
-    }
+    //____________________________CONDICIONES_________________________
+    //Comprueba si una casilla está dentro del tablero
     public boolean isInsideTheBoard(int x, int y){
         if (x<0 || x>7 || y<0 || y>7){
             return false;
@@ -135,6 +130,15 @@ public class Tower extends Piece {
             return true;
         }
     }
+    //Comprueba si una casilla puede ser ocupada
+    public boolean itsOccupyable(Box[][] board, int position){
+        int[] array = getXYOfANumber(position);
+        int x = array[0];
+        int y = array[1];
+        Box box = board[x][y];
+        return box.isEmpty();
+    }
+    //Comprueba si una casilla es la última
     public boolean isTheEnd(int x, int y){
         if (x == 0 || y == 7){
             return true;
