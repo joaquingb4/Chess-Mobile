@@ -17,6 +17,5 @@ public abstract class Piece {
 
     public abstract String setColor();
 
-    public abstract int getPossiblesBoxesNumber(Box[][] board, int x, int y);
-    public abstract ArrayList<Box> getPossiblesBoxes(Box[][] board, int x, int y);
+    public abstract ArrayList<Box> getAvailableMoves(Box[][] board, int x, int y);
 }

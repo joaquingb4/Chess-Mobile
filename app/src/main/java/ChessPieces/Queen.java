@@ -30,11 +30,7 @@ public class Queen extends Piece {
     }
 
     @Override
-    public int getPossiblesBoxesNumber(Box[][] board, int x, int y) {
-        return 0;
-    }
-
-    @Override
-    public ArrayList<Box> getPossiblesBoxes(Box[][] board, int x, int y) {
+    public ArrayList<Box> getAvailableMoves(Box[][] board, int x, int y) {
         return null;
-    }}
+    }
+}

@@ -1,13 +1,9 @@
 package ChessPieces;
 
-import android.util.Log;
-
 import com.example.chess_mobile.Box;
-import com.example.chess_mobile.Driver;
 import com.example.chess_mobile.Tools;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class Tower extends Piece {
     //Attributes
@@ -38,50 +34,55 @@ public class Tower extends Piece {
     public String setColor() {
         return this.color;
     }
-    //Devuelve el número de posiciones pobibles
-    public int getPossiblesBoxesNumber(Box[][] board, int x, int y) {
-        int totalNumber = 0;
-        totalNumber += metodo(board, x, y, +10);
-        totalNumber += metodo(board, x, y, +1);
-        totalNumber += metodo(board, x, y, -1);
-        totalNumber += metodo(board, x, y, -10);
-        return totalNumber;
-    }
-    //Método
-    public ArrayList<Box> metodo(Box[][] board, int x, int y, int direccion){
+
+    //Devuelve un ArrayList con las casillas posibles
+    public ArrayList<Box> getAvailableMoves(Box[][] board, int x, int y) {
         ArrayList<Box> boxes = new ArrayList<>();
-        int nextNumber = nextPosition(x, y, direccion);
-        boolean canOccupy = checker(board, nextNumber);
-        boolean itsBusy = board[x][y].isEmpty();
-        boolean isTheFinal = isTheEnd(x, y);
-        if(isInsideTheBoard(x, y)){
-            //ESTOY AQUÍ
-        }
-        if (canOccupy){//¿Se puede ocupar?
-            //ESTOY AQUÍ: PONER CONDICIONES PARA OTRAS CIRCUNSTANCIAS
-            if(){ //Esta ocupado con otra pieza
 
+        int nextNumber;
+        int nextNumberX;
+        int nextNumberY;
+        Box nextBox;
+
+        int originalX = x;
+        int originalY = y;
+
+        int[] directions = new int[]{+10, +1, -1, -10};
+
+        for (int i = 0; i < directions.length; i++) {
+            while (true) {
+                nextNumber = nextPosition(x, y, directions[i]);
+                nextNumberX = getXYOfANumber(nextNumber)[0];
+                nextNumberY = getXYOfANumber(nextNumber)[1];
+
+
+                if (isInsideTheBoard(nextNumberX, nextNumberY)) {
+                    nextBox = board[nextNumberX][nextNumberY];
+
+                    if (haveAPiece(nextBox)) {
+                        if (isOfTheSameColor(nextBox)) {
+                            break;
+                        } else {
+                            boxes.add(board[nextNumberX][nextNumberY]);
+                            x = nextNumberX;
+                            y = nextNumberY;
+                            break;
+                        }
+                    } else {
+                        boxes.add(nextBox);
+                        x = nextNumberX;
+                        y = nextNumberY;
+                    }
+                } else {
+                    break;
+                }
             }
-            int[] array = getXYOfANumber(nextNumber);
-            x = array[0];
-            y = array[1];
-            boxes.add(board[x][y]);
-        }else {
-
+            x = originalX;
+            y = originalY;
         }
-
-        if (!isInsideTheBoard(x, y))return boxes;
-//Volvemos a hacer lo mismo
-        position = (x*10)+y;//junta la x con y en un solo número
-        position += direccion;
-       // char[] conversion = new char[2];
-        String conversion;
-        if (posicionArray<10){
-            conversion = '0'+Integer.toString(posicionArray);
-        }else {
-            conversion = Integer.toString(posicionArray);
-        }
+        return boxes;
     }
+
     //Calcula la siguiente posición
     public int nextPosition(int x, int y, int direccion){
         int position = (x*10)+y;//junta la x con y en un solo número
@@ -95,32 +96,6 @@ public class Tower extends Piece {
         int y = position % 10;
         return new int[]{x, y};
     }
-    //Devuelve un ArrayList con las casillas posibles
-    @Override
-    public ArrayList<Box> getPossiblesBoxes(Box[][] board, int x, int y) {
-        ArrayList<Box> boxes = new ArrayList<>();
-        int index = 0;
-        while (metodo()){
-        }
-        for (int i = 0; i <; i++) {
-            int posicionArray = Integer.parseInt(x + "" + y);
-            index += 2;
-            if (index > Tools.direcciones.length){
-                break;
-            }
-            posicionArray += Tools.direcciones[index+=2];//Probar
-            String conversion;
-            if (posicionArray<10){
-                conversion = '0'+Integer.toString(posicionArray);
-            }else {
-                conversion = Integer.toString(posicionArray);
-            }
-            x = conversion.charAt(0) - '0';
-            y = conversion.charAt(1) - '0';
-            boxes.add(board[x][y]);
-        }
-        return boxes;
-    }
     //____________________________CONDICIONES_________________________
     //Comprueba si una casilla está dentro del tablero
     public boolean isInsideTheBoard(int x, int y){
@@ -131,20 +106,13 @@ public class Tower extends Piece {
         }
     }
     //Comprueba si una casilla puede ser ocupada
-    public boolean itsOccupyable(Box[][] board, int position){
-        int[] array = getXYOfANumber(position);
-        int x = array[0];
-        int y = array[1];
-        Box box = board[x][y];
-        return box.isEmpty();
+    public boolean haveAPiece(Box box){//refactoring
+        return !box.isEmpty();
     }
-    //Comprueba si una casilla es la última
-    public boolean isTheEnd(int x, int y){
-        if (x == 0 || y == 7){
-            return true;
-        }else{
-            return false;
-        }
+    //compruba si una pieza es del mismo color que esta
+    public boolean isOfTheSameColor(Box box){//Refactoring
+        String unknownPiece = box.getPiece().getColor();
+        return this.color.equals(unknownPiece);
     }
 }
  /*                             +9  +10  +11

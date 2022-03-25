@@ -28,6 +28,7 @@ public class ActivityBoard extends AppCompatActivity {
     //Attributes
     ImageView[][] visualBoxes = new ImageView[8][8];
     Driver driver = new Driver();
+    ArrayList<Box> availablePositions = new ArrayList();
 
     //Actualiza la parte visual de las piezas
     public void updateImages(){
@@ -193,12 +194,24 @@ public class ActivityBoard extends AppCompatActivity {
 
     //Write on the log the box clicked
     public void clickBoard(View view) {
+
+        paintBoard("#855E42", "#FFCB94" );
         String tag = view.getTag().toString();
         //Con el tag obtengo las posiciones
         int x = Tools.tagGetX(tag);
         int y = Tools.tagGetY(tag);
 
         String pieceName = driver.getBoxPieceName(view.getTag().toString());
+        //ESTOY AQUÍ : El movimiento pertenece a la parte lógica
+        if (availablePositions.isEmpty()){
+
+        }
+        for (Box box: availablePositions) {
+            if (box.getName().equals(tag)){
+
+            }
+        }
+
         Log.i("Info", " Has hecho click en la casilla: " + view.getTag()+ ", Que tiene un ["+pieceName+"]");
         Box[][] board = driver.getBoard();
 
@@ -206,14 +219,14 @@ public class ActivityBoard extends AppCompatActivity {
             //Obtengo la casilla con ello
             Box box = driver.board[x][y];
             Piece piece = box.getPiece();
-            //Calculo las posiciones posibles
-            int lenght = piece.getPossiblesBoxesNumber(board, x, y);
-            Log.i("prueba movimentos", "" + lenght);
             //Posiciones posibles
-            ArrayList<Box> casillas = piece.getPossiblesBoxes(board, x, y);
+            ArrayList<Box> casillas = piece.getAvailableMoves(board, x, y);
             for (Box boxes : casillas) {
-                Log.i("casilla",boxes.getName());
+                Log.i("casillas[]",boxes.getName());
+                ImageView imageView = Tools.getImageView(boxes,visualBoxes);
+                imageView.setBackgroundColor(Color.WHITE);
             }
+            availablePositions = casillas;
             //Repintamos el tablero
             updateImages();
             Log.i("I", "Acabo");
@@ -223,16 +236,3 @@ public class ActivityBoard extends AppCompatActivity {
     }
 
 }
-
-
-///  driver.getBoard()[3][3].getPiece().getMovements(driver.getBoard(), 3,3);
-
-// Box[] positions = driver.canMoveTo(box);
-//Las imprimo por el log
-            /*
-            for (int i = 0; i < positions.length ; i++) {
-                Log.i("Posición disponible", positions[i].getName());
-            }
-
-             */
-//Si resulta que no hay salta un mensaje

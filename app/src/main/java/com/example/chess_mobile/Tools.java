@@ -1,5 +1,8 @@
 package com.example.chess_mobile;
 
+import android.util.Log;
+import android.widget.ImageView;
+
 import ChessPieces.Piece;
 
 //Herrarmientas
@@ -65,5 +68,12 @@ public class Tools {
     public static String translate(int[] coordinates){
         return new String(getLetter(coordinates[0])+""+(coordinates[1]+1));
     }
-    //
+    //empareja un tag de la parte lógica con la gráfica
+    public static ImageView getImageView(Box box, ImageView[][] visualBoard){
+        String tag = box.getName();
+        int x = tagGetX(tag);
+        int y = tagGetY(tag);
+        Log.i("puente", x+""+y);
+        return visualBoard[x][y];
+    }
 }

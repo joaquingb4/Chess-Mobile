@@ -35,32 +35,7 @@ public class Horse extends Piece {
     }
 
     @Override
-    public int getPossiblesBoxesNumber(Box[][] board, int x, int y) {
-        return 0;
-    }
-
-    @Override
-    public ArrayList<Box> getPossiblesBoxes(Box[][] board, int x, int y) {
+    public ArrayList<Box> getAvailableMoves(Box[][] board, int x, int y) {
         return null;
-    }    /*
-    @Override
-    public int getAvailableMovements(Box[][] board, int x, int y) {
-        return 0;
     }
-
-
-    public void getMovements(Driver b, int x, int y){
-        Log.i("testBoard", b.getBoard()[x][y].getPiece().getName());
-
-        Box[][] board =b.getBoard();
-
-        if(x-1>=0 && y-2>=0){
-            if(board[x-1][y-2].isEmpty()){
-                board[x-1][y-2].setPiece("");
-            }
-        }
-
-    }
-    */
-
 }
