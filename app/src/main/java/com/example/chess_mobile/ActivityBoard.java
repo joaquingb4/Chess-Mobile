@@ -197,42 +197,52 @@ public class ActivityBoard extends AppCompatActivity {
 
         paintBoard("#855E42", "#FFCB94" );
         String tag = view.getTag().toString();
+        Box[][] board = driver.board;
         //Con el tag obtengo las posiciones
         int x = Tools.tagGetX(tag);
         int y = Tools.tagGetY(tag);
-
-        String pieceName = driver.getBoxPieceName(view.getTag().toString());
+        Box box = board[x][y];
+        Log.i("Info", " Has hecho click en la casilla: " + view.getTag()+ ", Que tiene un ["+box.getPiece()+"]");
+                                                                                                       //Corregir esto
         //ESTOY AQUÍ : El movimiento pertenece a la parte lógica
-        if (availablePositions.isEmpty()){
-
-        }
-        for (Box box: availablePositions) {
-            if (box.getName().equals(tag)){
-
+        ArrayList<Box> cache = driver.cache;
+        if (cache.isEmpty()){
+            searchPostions(board, x, y);
+        }else {
+            //Movimiento
+            for (int i =0; i < board.length; i++) {
+                if (box.getName().equals(cache.get(i).getName())){
+                    box.setPiece(cache.get(i).getPiece());
+                    cache.get(i).setPiece(null);
+                }
             }
-        }
-
-        Log.i("Info", " Has hecho click en la casilla: " + view.getTag()+ ", Que tiene un ["+pieceName+"]");
-        Box[][] board = driver.getBoard();
-
-        if (!driver.getBox(view.getTag().toString()).isEmpty()){
-            //Obtengo la casilla con ello
-            Box box = driver.board[x][y];
-            Piece piece = box.getPiece();
-            //Posiciones posibles
-            ArrayList<Box> casillas = piece.getAvailableMoves(board, x, y);
-            for (Box boxes : casillas) {
-                Log.i("casillas[]",boxes.getName());
-                ImageView imageView = Tools.getImageView(boxes,visualBoxes);
-                imageView.setBackgroundColor(Color.WHITE);
-            }
-            availablePositions = casillas;
-            //Repintamos el tablero
+            cache.clear();
             updateImages();
-            Log.i("I", "Acabo");
-        }else{
-            Log.i("Alerta: ", "No hay movimientos disponibles");
         }
+    }
+    public void searchPostions(Box[][] board, int x, int y){
+        updateImages();
+        //Obtengo la casilla con ello
+        Box box = driver.board[x][y];
+        Piece piece = box.getPiece();
+        //Posiciones posibles
+        ArrayList<Box> casillas = piece.getAvailableMoves(board, x, y);
+        if (casillas.isEmpty()){
+            Log.i("Alerta: ", "No hay movimientos disponibles");
+        }else {
+            for (Box boxes : casillas) {
+                Log.i("casillas[]", boxes.getName());
+                ImageView imageView = Tools.getImageView(boxes, visualBoxes);
+                if (boxes.getPiece() == null) {
+                    Log.i("icono", "funciona");
+                    imageView.setImageDrawable(getDrawable(R.drawable.circulo));
+                } else {
+                    imageView.setBackgroundColor(Color.GRAY);//SE REPINTA CON EL UPDATE DE ABAJO
+                }
+            }
+        }
+        //Repintamos el tablero
+        Log.i("I", "Acabo");
     }
 
 }

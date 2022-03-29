@@ -1,5 +1,7 @@
 package com.example.chess_mobile;
 
+import java.util.ArrayList;
+
 import ChessPieces.Bishop;
 import ChessPieces.Horse;
 import ChessPieces.King;
@@ -11,7 +13,7 @@ import ChessPieces.Tower;
 public class Driver {
     //Attributes
     Box[][] board = new Box[8][8];
-
+    ArrayList<Box> cache = new ArrayList<>();
     public Box[][] getBoard(){
         return board;
     }
@@ -80,6 +82,8 @@ public class Driver {
         //Queens-----------
         getBox("d1").setPiece(new Queen("white"));
         getBox("d8").setPiece(new Queen("black"));
+        getBox("f4").setPiece(new Queen("black"));
+
         //Kings------------
         getBox("e1").setPiece(new King("white"));
         getBox("e8").setPiece(new King("black"));
