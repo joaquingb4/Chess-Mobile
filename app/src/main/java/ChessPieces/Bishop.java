@@ -1,5 +1,11 @@
 package ChessPieces;
 
+import static com.example.chess_mobile.Tools.getXYOfANumber;
+import static com.example.chess_mobile.Tools.haveAPiece;
+import static com.example.chess_mobile.Tools.isInsideTheBoard;
+import static com.example.chess_mobile.Tools.isOfTheSameColor;
+import static com.example.chess_mobile.Tools.nextPosition;
+
 import com.example.chess_mobile.Box;
 
 import java.util.ArrayList;
@@ -31,8 +37,51 @@ public class Bishop extends Piece {
         return this.color;
     }
 
+    //Devuelve un ArrayList con las casillas posibles
     @Override
     public ArrayList<Box> getAvailableMoves(Box[][] board, int x, int y) {
-        return null;
+        ArrayList<Box> boxes = new ArrayList<>();
+
+        int nextNumber;
+        int nextNumberX;
+        int nextNumberY;
+        Box nextBox;
+
+        int originalX = x;
+        int originalY = y;
+
+        int[] directions = new int[]{+9, -9, +11, -11};
+
+        for (int i = 0; i < directions.length; i++) {
+            while (true) {
+                nextNumber = nextPosition(x, y, directions[i]);
+                nextNumberX = getXYOfANumber(nextNumber)[0];
+                nextNumberY = getXYOfANumber(nextNumber)[1];
+
+                if (isInsideTheBoard(nextNumberX, nextNumberY)) {
+                    nextBox = board[nextNumberX][nextNumberY];
+
+                    if (haveAPiece(nextBox)) {
+                        if (isOfTheSameColor(this, nextBox.getPiece())) {
+                            break;
+                        } else {
+                            boxes.add(board[nextNumberX][nextNumberY]);
+                            x = nextNumberX;
+                            y = nextNumberY;
+                            break;
+                        }
+                    } else {
+                        boxes.add(nextBox);
+                        x = nextNumberX;
+                        y = nextNumberY;
+                    }
+                } else {
+                    break;
+                }
+            }
+            x = originalX;
+            y = originalY;
+        }
+        return boxes;
     }
 }

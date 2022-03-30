@@ -206,9 +206,9 @@ public class ActivityBoard extends AppCompatActivity {
                                                                                                        //Corregir esto
         //ESTOY AQUÍ : El movimiento pertenece a la parte lógica
         ArrayList<Box> cache = driver.cache;
-        if (cache.isEmpty()){
+        if (cache.isEmpty()){ //Si cache esta vacío
             searchPostions(board, x, y);
-        }else {
+        }else {//Si tiene algo
             //Movimiento
             for (int i =0; i < board.length; i++) {
                 if (box.getName().equals(cache.get(i).getName())){
@@ -235,7 +235,7 @@ public class ActivityBoard extends AppCompatActivity {
                 ImageView imageView = Tools.getImageView(boxes, visualBoxes);
                 if (boxes.getPiece() == null) {
                     Log.i("icono", "funciona");
-                    imageView.setImageDrawable(getDrawable(R.drawable.circulo));
+                    imageView.setImageDrawable(getDrawable(R.drawable.punto));
                 } else {
                     imageView.setBackgroundColor(Color.GRAY);//SE REPINTA CON EL UPDATE DE ABAJO
                 }
