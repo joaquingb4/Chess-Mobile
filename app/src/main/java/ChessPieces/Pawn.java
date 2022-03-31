@@ -51,8 +51,16 @@ public class Pawn extends Piece {
         int originalY = y;
 
 
-        int[] directions = new int[]{+10, +1, -1, -10};
-
+        int[] directions = new int[]{+10};
+        if (!color.equals("white")){
+            directions[0] = directions[0]*-1;
+            directions[0] = directions[1]*-1;
+            directions[0] = directions[2]*-1;
+        }
+        if(isFirstMovement(y, this.color)){
+            directions[0] = directions[0] * 2;
+        }
+            //AQUÍ REFACTOR
         for (int i = 0; i < directions.length; i++) {
             while (true) {
                 nextNumber = nextPosition(x, y, directions[i]);
@@ -62,19 +70,9 @@ public class Pawn extends Piece {
                 if (isInsideTheBoard(nextNumberX, nextNumberY)) {
                     nextBox = board[nextNumberX][nextNumberY];
 
-                    if (haveAPiece(nextBox)) {
-                        if (isOfTheSameColor(this, nextBox.getPiece())) {
-                            break;
-                        } else {
-                            boxes.add(board[nextNumberX][nextNumberY]);
-                            x = nextNumberX;
-                            y = nextNumberY;
-                            break;
-                        }
-                    } else {
+                    if (!haveAPiece(nextBox)) {
                         boxes.add(nextBox);
-                        x = nextNumberX;
-                        y = nextNumberY;
+
                     }
                 } else {
                     break;
