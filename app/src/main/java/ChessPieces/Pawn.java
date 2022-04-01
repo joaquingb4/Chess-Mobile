@@ -50,15 +50,21 @@ public class Pawn extends Piece {
         int originalX = x;
         int originalY = y;
 
-
-        int[] directions = new int[]{+10};
-        if (!color.equals("white")){
-            directions[0] = directions[0]*-1;
-            directions[0] = directions[1]*-1;
-            directions[0] = directions[2]*-1;
-        }
+        int[] directions; //new int[]{+1};
+   //     int[] directionOfCapture = new int[]{-10, +10, +9, -9};
+/*
         if(isFirstMovement(y, this.color)){
-            directions[0] = directions[0] * 2;
+            directions = new int[]{+10, +20};
+        }if (!color.equals("white")){
+            for (int i = 0; i < directions.length ; i++) {
+                directions[i] = directions[i]*-1;
+            }
+        }
+ */
+        if (isFirstMovement(y, this.color)){
+            directions = new int[]{+1,+2};
+        }else {
+            directions = new int[]{+1};
         }
             //AQUÍ REFACTOR
         for (int i = 0; i < directions.length; i++) {
@@ -72,7 +78,9 @@ public class Pawn extends Piece {
 
                     if (!haveAPiece(nextBox)) {
                         boxes.add(nextBox);
-
+                        x = nextNumberX;
+                        y = nextNumberY;
+                        break;
                     }
                 } else {
                     break;
@@ -91,5 +99,4 @@ public class Pawn extends Piece {
             return  y == 6; //ESTOY AQUÍ
         }
     }
-
 }
