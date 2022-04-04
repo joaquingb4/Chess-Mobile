@@ -76,11 +76,15 @@ public class Tools {
         Log.i("puente", x+""+y);
         return visualBoard[x][y];
     }
-    //__CONDICIONES______________________
+    //________________________
     //Calcula la siguiente posición
     public static int nextPosition(int x, int y, int direccion){
         int position = (x*10)+y;//junta la x con y en un solo número
         position += direccion;
+        return position;
+    }
+    public static int thisPositionInNumber(int x, int y){
+        int position = (x*10)+y;//junta la x con y en un solo número
         return position;
     }
 

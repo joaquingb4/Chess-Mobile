@@ -75,6 +75,7 @@ public class Driver {
         getBox("b8").setPiece(new Horse("black"));
         getBox("g8").setPiece(new Horse("black"));
         getBox("c4").setPiece(new Horse("black"));
+        getBox("c3").setPiece(new Horse("black"));
 
         //Bishops-----------
         getBox("c1").setPiece(new Bishop("white"));

@@ -7,6 +7,7 @@ import static com.example.chess_mobile.Tools.isOfTheSameColor;
 import static com.example.chess_mobile.Tools.nextPosition;
 
 import com.example.chess_mobile.Box;
+import com.example.chess_mobile.Tools;
 
 import java.util.ArrayList;
 
@@ -51,20 +52,27 @@ public class Pawn extends Piece {
         int originalY = y;
 
         int[] directions; //new int[]{+1};
-   //     int[] directionOfCapture = new int[]{-10, +10, +9, -9};
-/*
-        if(isFirstMovement(y, this.color)){
-            directions = new int[]{+10, +20};
-        }if (!color.equals("white")){
-            for (int i = 0; i < directions.length ; i++) {
-                directions[i] = directions[i]*-1;
+        int[] directionOfCapture = new int[]{+11, -9};
+        if (!color.equals("white")){
+            for (int i = 0; i < directionOfCapture.length ; i++) {
+                directionOfCapture[i] = directionOfCapture[i]*-1;
             }
         }
- */
+        ArrayList<Box>diagonals = getdiagonalBoxes(board, Tools.thisPositionInNumber(x,y) , directionOfCapture);
+        for (Box box: diagonals) {
+            boxes.add(box);
+        }
+
         if (isFirstMovement(y, this.color)){
             directions = new int[]{+1,+2};
         }else {
             directions = new int[]{+1};
+        }
+
+        for (int i = 0; i < directionOfCapture.length; i++) {
+            int diagonal = Tools.nextPosition(x,y,directionOfCapture[i]);
+            if (!board[getXYOfANumber(diagonal)[0]][getXYOfANumber(diagonal)[1]].isEmpty()){
+            }
         }
             //AQUÍ REFACTOR
         for (int i = 0; i < directions.length; i++) {
@@ -81,6 +89,8 @@ public class Pawn extends Piece {
                         x = nextNumberX;
                         y = nextNumberY;
                         break;
+                    }else{
+                        break;
                     }
                 } else {
                     break;
@@ -90,6 +100,18 @@ public class Pawn extends Piece {
             y = originalY;
         }
         return boxes;
+    }
+    public ArrayList<Box> getdiagonalBoxes(Box[][] board, int position, int[] directions){
+        ArrayList<Box> result = new ArrayList();
+        for (int i = 0; i < directions.length; i++) {
+            int newPosition = position+directions[i];
+            int x = Tools.getXYOfANumber(newPosition)[0];
+            int y = Tools.getXYOfANumber(newPosition)[1];
+            if (!board[x][y].isEmpty()){
+                result.add(board[x][y]);
+            }
+        }
+        return result;
     }
 
     public boolean isFirstMovement(int y, String color) {
