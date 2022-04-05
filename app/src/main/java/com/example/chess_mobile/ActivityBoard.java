@@ -26,15 +26,15 @@ import ChessPieces.Piece;
 
 public class ActivityBoard extends AppCompatActivity {
     //Attributes
+    String colorBlackBoxes = "#855E42";
+    String colorWhiteBoxes = "#FFCB94";
     ImageView[][] visualBoxes = new ImageView[8][8];
     Driver driver = new Driver();
-    ArrayList<Box> availablePositions = new ArrayList();
 
     //Actualiza la parte visual de las piezas
     public void updateImages(){
         for (int i = 0; i < visualBoxes.length ; i++) {
             for (int u = 0; u < visualBoxes[i].length; u++) {
-              //  Log.i("Miramos  ", u+ " :: " + i);
                 visualBoxes[i][u].setImageDrawable(getImage(driver.getBox(new int[]{i, u})));
             }
         }
@@ -154,10 +154,10 @@ public class ActivityBoard extends AppCompatActivity {
         visualBoxes[7][6] = findViewById(R.id.box63);
         visualBoxes[7][7] = findViewById(R.id.box64);
         //Pintamos el tablero
-        paintBoard("#855E42", "#FFCB94" );
+        paintBoard();
     }
     //Pinta el tablero
-    public void paintBoard(String negras, String blancas){
+    public void paintBoard(){
         for (int i = 0; i < visualBoxes.length; i++) {
             int u;
             int o;
@@ -170,11 +170,11 @@ public class ActivityBoard extends AppCompatActivity {
             }
             for (; u < visualBoxes[i].length; u+=2) {
                 //Oscuras
-                visualBoxes[i][u].setBackgroundColor(Color.parseColor(negras));
+                visualBoxes[i][u].setBackgroundColor(Color.parseColor(colorBlackBoxes));
             }
             for (; o < visualBoxes[i].length; o+=2) {
                 //Blancas
-                visualBoxes[i][o].setBackgroundColor(Color.parseColor(blancas));
+                visualBoxes[i][o].setBackgroundColor(Color.parseColor(colorWhiteBoxes));
             }
         }
     }
@@ -186,7 +186,6 @@ public class ActivityBoard extends AppCompatActivity {
 
         buildBoxes();
 
-        Log.i("hola","funciona" + visualBoxes[0][1]);
         driver.buildBoxes();
         driver.buildPieces();
         updateImages();
@@ -194,31 +193,29 @@ public class ActivityBoard extends AppCompatActivity {
 
     //Write on the log the box clicked
     public void clickBoard(View view) {
-
-        paintBoard("#855E42", "#FFCB94" );
+        paintBoard();
         String tag = view.getTag().toString();
         Box[][] board = driver.board;
-        //Con el tag obtengo las posiciones
         int x = Tools.tagGetX(tag);
         int y = Tools.tagGetY(tag);
         Box box = board[x][y];
-        Log.i("Info", " Has hecho click en la casilla: " + view.getTag()+ ", Que tiene un ["+box.getPiece()+"]");
+        Log.i("Info", " Has hecho click en la casilla: " + view.getTag()+ ", Que tiene un ["+driver.getBoxPieceName(tag)+"]");
+
+        if (box.isEmpty()){
+            return;
+        }
                                                                                                        //Corregir esto
-        //ESTOY AQUÍ : El movimiento pertenece a la parte lógica
-        ArrayList<Box> cache = driver.cache;
-        if (cache.isEmpty()){ //Si cache esta vacío
+        if (driver.cache.isEmpty()){ //Si cache esta vacío
             searchPostions(board, x, y);
         }else {//Si tiene algo
             //Movimiento
-            for (int i =0; i < board.length; i++) {
-                if (box.getName().equals(cache.get(i).getName())){
-                    box.setPiece(cache.get(i).getPiece());
-                    cache.get(i).setPiece(null);
-                }
+            if (driver.isItInsideTheCache(box)) {
+                Log.i("info", "se ha capturado una pieza");
+            }else{
+                Log.i("info","Movimiento no hecho");
             }
-            cache.clear();
-            updateImages();
         }
+        updateImages();
     }
     public void searchPostions(Box[][] board, int x, int y){
         updateImages();
@@ -241,6 +238,8 @@ public class ActivityBoard extends AppCompatActivity {
                 }
             }
         }
+        driver.cache = casillas;
+        driver.setBoxCache(box);
         //Repintamos el tablero
         Log.i("I", "Acabo");
     }

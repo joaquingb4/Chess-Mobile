@@ -13,7 +13,15 @@ import ChessPieces.Tower;
 public class Driver {
     //Attributes
     Box[][] board = new Box[8][8];
+    Box boxCache = null;
     ArrayList<Box> cache = new ArrayList<>();
+    ArrayList<Piece> whiteUserCaptures = new ArrayList<>();
+    ArrayList<Piece> blackUserCaptures = new ArrayList<>();
+
+    public void setBoxCache(Box box){
+        this.boxCache = box;
+    }
+
     public Box[][] getBoard(){
         return board;
     }
@@ -108,24 +116,36 @@ public class Driver {
         return getBox(position[0], position[1]);
     }
 
-    //Devuelve las dos casillas que tiene delante una pieza
-    public Box[] getAvailablePositions(Box box){
-        if (box.isEmpty()){
-            return null;
+    //Mueve una pieza a una posición
+    public void move(Box box1, Box box2){
+        if (box2.isEmpty()){
+            capturePiece(box1, box2);
+        }else{
+            if (box1.getPiece().getColor().equals("white")){
+                blackUserCaptures.add(box2.getPiece());
+            }else{
+                whiteUserCaptures.add(box2.getPiece());
+            }
+            capturePiece(box1,box2);
         }
-        Piece piece = box.getPiece();
-
-        int[] boxNumbers = Tools.tagToArrayNotation(box.getName());
-
-        int column = boxNumbers[0];
-        int row = boxNumbers[1];
-
-        Box[] boxes = new Box[2];
-        int tmp = 0;
-        for (int i = row+1; i <= row+2; i++) {
-            boxes[tmp] = getBox(column,i);
-            tmp++;
-        }
-        return boxes;
     }
+    //Pone un pieza en una casilla y elimina la pieza de la casilla de su anterior
+    //posición
+    public void capturePiece(Box box1, Box box2){
+        box2.setPiece(box1.getPiece());
+        setBoxCache(null);
+        cache.clear();
+    }
+    //Comprueba si una pieza está esta en el caché
+    public boolean isItInsideTheCache(Box boxDestiny){
+        if (cache.contains(boxCache)){
+           move(boxCache, boxDestiny);
+           setBoxCache(null);
+           return true;
+        }else{
+            cache.clear();
+            return false;
+        }
+    }
+
 }

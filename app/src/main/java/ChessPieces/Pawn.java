@@ -70,8 +70,12 @@ public class Pawn extends Piece {
         }
 
         for (int i = 0; i < directionOfCapture.length; i++) {
+
             int diagonal = Tools.nextPosition(x,y,directionOfCapture[i]);
-            if (!board[getXYOfANumber(diagonal)[0]][getXYOfANumber(diagonal)[1]].isEmpty()){
+            if (diagonal>0){
+                if (!board[getXYOfANumber(diagonal)[0]][getXYOfANumber(diagonal)[1]].isEmpty()){
+                    boxes.add(board[getXYOfANumber(diagonal)[0]][getXYOfANumber(diagonal)[1]]);
+                }
             }
         }
             //AQUÍ REFACTOR
@@ -107,8 +111,10 @@ public class Pawn extends Piece {
             int newPosition = position+directions[i];
             int x = Tools.getXYOfANumber(newPosition)[0];
             int y = Tools.getXYOfANumber(newPosition)[1];
-            if (!board[x][y].isEmpty()){
-                result.add(board[x][y]);
+            if (Tools.isInsideTheBoard(x, y)){
+                if (!board[x][y].isEmpty()){
+                    result.add(board[x][y]);
+                }
             }
         }
         return result;
