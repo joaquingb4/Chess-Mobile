@@ -41,8 +41,12 @@ public class ActivityBoard extends AppCompatActivity {
     }
 
     public Drawable getImage(Box box){
-        if (box.isEmpty()){
-            return null;
+        if (box.isEmpty()){ //Si esta vacío
+            if (driver.cache.contains(box)){
+                return getDrawable(R.drawable.punto);
+            }else{
+                return null;
+            }
         }else{
             switch (box.getPiece().getName()){
                 case ("Tower"):
@@ -75,7 +79,6 @@ public class ActivityBoard extends AppCompatActivity {
                         return getDrawable(R.drawable.whitebishop);
                     }
                     return getDrawable(R.drawable.blackbishop);
-
             }
         }
         return null;
@@ -204,12 +207,13 @@ public class ActivityBoard extends AppCompatActivity {
         if (box.isEmpty()){
             return;
         }
-                                                                                                       //Corregir esto
+        //Corregir esto
         if (driver.cache.isEmpty()){ //Si cache esta vacío
             searchPostions(board, x, y);
         }else {//Si tiene algo
             //Movimiento
-            if (driver.isItInsideTheCache(box)) {
+            if (driver.cache.contains(box)) {
+                driver.move(driver.boxCache, box );//ERROR
                 Log.i("info", "se ha capturado una pieza");
             }else{
                 Log.i("info","Movimiento no hecho");
@@ -242,6 +246,7 @@ public class ActivityBoard extends AppCompatActivity {
         driver.setBoxCache(box);
         //Repintamos el tablero
         Log.i("I", "Acabo");
+        updateImages();
     }
 
 }
