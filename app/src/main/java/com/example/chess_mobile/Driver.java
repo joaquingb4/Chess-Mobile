@@ -118,20 +118,19 @@ public class Driver {
 
     //Mueve una pieza a una posición
     public void move(Box box1, Box box2){
-        if (box2.isEmpty()){
-            capturePiece(box1, box2);
-        }else{
-            if (box1.getPiece().getColor().equals("white")){
+        if (!box2.isEmpty()) {
+            if (box1.getPiece().getColor().equals("white")) {
                 blackUserCaptures.add(box2.getPiece());
-            }else{
+            } else {
                 whiteUserCaptures.add(box2.getPiece());
             }
-            capturePiece(box1,box2);
         }
+        moveAPiece(box1,box2);
+        box1.setPiece(null);
     }
     //Pone un pieza en una casilla y elimina la pieza de la casilla de su anterior
     //posición
-    public void capturePiece(Box box1, Box box2){
+    public void moveAPiece(Box box1, Box box2){
         box2.setPiece(box1.getPiece());
         setBoxCache(null);
         cache.clear();

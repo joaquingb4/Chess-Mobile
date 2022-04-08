@@ -203,7 +203,11 @@ public class ActivityBoard extends AppCompatActivity {
         int y = Tools.tagGetY(tag);
         Box box = board[x][y];
         Log.i("Info", " Has hecho click en la casilla: " + view.getTag()+ ", Que tiene un ["+driver.getBoxPieceName(tag)+"]");
-
+        if (!box.isEmpty()){
+            checkBox(board, box);
+        }
+    }
+    public void checkBox(Box[][] board, Box box){
         if (box.isEmpty()){
             return;
         }
@@ -216,7 +220,7 @@ public class ActivityBoard extends AppCompatActivity {
                 driver.move(driver.boxCache, box );//ERROR
                 Log.i("info", "se ha capturado una pieza");
             }else{
-                Log.i("info","Movimiento no hecho");
+                Log.i("info","El cache no tiene esta casilla:: "+tag);
             }
         }
         updateImages();
@@ -232,6 +236,7 @@ public class ActivityBoard extends AppCompatActivity {
             Log.i("Alerta: ", "No hay movimientos disponibles");
         }else {
             for (Box boxes : casillas) {
+                Log.i("__________","__________");
                 Log.i("casillas[]", boxes.getName());
                 ImageView imageView = Tools.getImageView(boxes, visualBoxes);
                 if (boxes.getPiece() == null) {
@@ -241,6 +246,8 @@ public class ActivityBoard extends AppCompatActivity {
                     imageView.setBackgroundColor(Color.GRAY);//SE REPINTA CON EL UPDATE DE ABAJO
                 }
             }
+            Log.i("__________","__________");
+
         }
         driver.cache = casillas;
         driver.setBoxCache(box);

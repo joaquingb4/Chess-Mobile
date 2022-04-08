@@ -3,13 +3,19 @@ package com.example.chess_mobile;
 import android.util.Log;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+
 import ChessPieces.Piece;
 
 //Herrarmientas
 public class Tools {
     public static int[] direcciones={+11 ,+10, +9, +1, 0, -1, -9, -10, -11};
     //                                0    1    2   3  4   5   6   7    8
-    static char[] letters = new char[]{'a', 'b', 'c','d','e','f','g','h'};
+    static char[] lett = new char[]{'a', 'b', 'c','d','e','f','g','h'};
+    static ArrayList<Character> letters =  new ArrayList(){{
+    }};
+
+
     //De un tag extraigo la x
     public static int tagGetX(String tag){
         char x = tag.charAt(0);
@@ -34,8 +40,13 @@ public class Tools {
         return 0;
     }
     //Le doy un número y me devuelve una letra
-    public static char getLetter(int x){
-        return letters[x];
+    public int getX(String letter){
+        String abc =  "ABCDEFG";
+        if (abc.contains(letter)){
+            return abc.indexOf(abc);
+        }else {
+            return -1;
+        }
     }
     //Traduce de la notación del ajedrez a coordenadas en el array del tablero
     public static int[] tagToArrayNotation(String A1){
@@ -59,10 +70,10 @@ public class Tools {
         return 0;
     }
     //Traduce de notación de ajedrez a posición de array
-    public static int[] translate(String tag){
-        int column = getInt(tag.charAt(0));
-        int row = getInt(tag.charAt(1));
-        return new int[]{column, row};
+    public static int getPositionOfABox(String boxName){
+        int x = getInt(boxName.charAt(0));
+        int y = tag.charAt(1) - '0';
+        return (x *10)+(y-1);
     }
     //Traduce de una posición a notación de ajedrez
     public static String translate(int[] coordinates){

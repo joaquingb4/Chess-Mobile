@@ -92,19 +92,16 @@ public class Pawn extends Piece {
                         boxes.add(nextBox);
                         x = nextNumberX;
                         y = nextNumberY;
-                        break;
-                    }else{
-                        break;
                     }
-                } else {
-                    break;
                 }
+                break;
             }
             x = originalX;
             y = originalY;
         }
         return boxes;
     }
+
     public ArrayList<Box> getdiagonalBoxes(Box[][] board, int position, int[] directions){
         ArrayList<Box> result = new ArrayList();
         for (int i = 0; i < directions.length; i++) {

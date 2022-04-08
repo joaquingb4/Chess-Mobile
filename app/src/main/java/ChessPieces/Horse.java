@@ -65,23 +65,18 @@ public class Horse extends Piece {
                     nextBox = board[nextNumberX][nextNumberY];
 
                     if (haveAPiece(nextBox)) {
-                        if (isOfTheSameColor(this, nextBox.getPiece())) {
-                            break;
-                        } else {
+                        if (!isOfTheSameColor(this, nextBox.getPiece())) {
                             boxes.add(board[nextNumberX][nextNumberY]);
                             x = nextNumberX;
                             y = nextNumberY;
-                            break;
                         }
                     } else {
                         boxes.add(nextBox);
                         x = nextNumberX;
                         y = nextNumberY;
-                        break;
                     }
-                } else {
-                    break;
                 }
+                break;
             }
             x = originalX;
             y = originalY;
