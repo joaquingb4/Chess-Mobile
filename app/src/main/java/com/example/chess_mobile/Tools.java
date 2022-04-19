@@ -1,5 +1,7 @@
 package com.example.chess_mobile;
 
+import static com.example.chess_mobile.Box.getInt;
+
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -31,14 +33,7 @@ public class Tools {
     }
 
     //Le doy una letra y me devuelve un número
-    public static int getInt(char letter){
-        for (int i = 0; i < letters.length; i++) {
-            if (letters[i]==letter){
-                return i;
-            }
-        }
-        return 0;
-    }
+
     //Le doy un número y me devuelve una letra
     public int getX(String letter){
         String abc =  "ABCDEFG";
@@ -72,13 +67,10 @@ public class Tools {
     //Traduce de notación de ajedrez a posición de array
     public static int getPositionOfABox(String boxName){
         int x = getInt(boxName.charAt(0));
-        int y = tag.charAt(1) - '0';
+        int y = boxName.charAt(1) - '0';
         return (x *10)+(y-1);
     }
-    //Traduce de una posición a notación de ajedrez
-    public static String translate(int[] coordinates){
-        return new String(getLetter(coordinates[0])+""+(coordinates[1]+1));
-    }
+
     //empareja un tag de la parte lógica con la gráfica
     public static ImageView getImageView(Box box, ImageView[][] visualBoard){
         String tag = box.getName();

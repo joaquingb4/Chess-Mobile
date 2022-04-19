@@ -197,14 +197,26 @@ public class ActivityBoard extends AppCompatActivity {
     //Write on the log the box clicked
     public void clickBoard(View view) {
         paintBoard();
-        String tag = view.getTag().toString();
+        Box clickedBox = driver.getBox(view.getTag().toString());
+        //String boxName = view.getTag().toString();
         Box[][] board = driver.board;
-        int x = Tools.tagGetX(tag);
-        int y = Tools.tagGetY(tag);
-        Box box = board[x][y];
-        Log.i("Info", " Has hecho click en la casilla: " + view.getTag()+ ", Que tiene un ["+driver.getBoxPieceName(tag)+"]");
-        if (!box.isEmpty()){
-            checkBox(board, box);
+        int x = clickedBox.getX();
+        int y = clickedBox.getY();
+        Log.i("Info", " Has hecho click en la casilla: " + clickedBox.getName()+
+                ", Que tiene un ["+driver.getBoxPieceName(clickedBox.getName())+"]");
+        if (!clickedBox.isEmpty()){
+            if (driver.boxCache!=null){
+                driver.move(driver.boxCache,clickedBox);
+            }
+        }
+        if (driver.cache.isEmpty()){
+            searchPostions(board, x, y);
+        }else{
+            if (driver.cache.contains(clickedBox)){
+                driver.move(driver.boxCache, clickedBox);
+            }else{
+                return;
+            }
         }
     }
     public void checkBox(Box[][] board, Box box){
@@ -213,14 +225,14 @@ public class ActivityBoard extends AppCompatActivity {
         }
         //Corregir esto
         if (driver.cache.isEmpty()){ //Si cache esta vacío
-            searchPostions(board, x, y);
+            searchPostions(board, box.getX(), box.getY());
         }else {//Si tiene algo
             //Movimiento
             if (driver.cache.contains(box)) {
                 driver.move(driver.boxCache, box );//ERROR
                 Log.i("info", "se ha capturado una pieza");
             }else{
-                Log.i("info","El cache no tiene esta casilla:: "+tag);
+                Log.i("info","El cache no tiene esta casilla:: "+box.getName());
             }
         }
         updateImages();

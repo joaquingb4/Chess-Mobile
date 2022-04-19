@@ -1,5 +1,7 @@
 package com.example.chess_mobile;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import ChessPieces.Bishop;
@@ -27,18 +29,21 @@ public class Driver {
     }
 
     //Devulve el nombre de la pieza, si es que tiene
-    public String getBoxPieceName(String tag){
-        Box box = getBox(tag);
-        if (!getBox(tag).isEmpty()){
+    public String getBoxPieceName(String boxName){
+        Box box = getBox(boxName);
+        if (!getBox(boxName).isEmpty()){
             return box.getPiece().getName();
         }else{
-            return "empty";        }
+            return "empty";
+        }
     }
     //Devuelve una casilla determinada
-    public Box getBox(String a1){
-        int x = Tools.tagGetX(a1);
-        int y = Tools.tagGetY(a1);
-        return board[x][y];//>ERROR
+    public Box getBox(String boxName){
+        int x = Box.unknownBoxGetX(boxName);
+        int y = Box.unknownBoxGetY(boxName);
+    /////    Log.i("prueba","boxName"+boxName +" boxPosition:"+boxPosition);
+     ////   Log.i("prueba","X:"+x+" Y:"+y);
+        return board[x][y];
     }
     //No funciona
     /*
@@ -64,7 +69,7 @@ public class Driver {
     public void buildBoxes(){
         for (int i = 0; i < board.length ; i++) {
             for (int u = 0; u < board[i].length; u++) {
-                board[i][u] = new Box(Tools.translate(new int[]{i, u}));
+                board[i][u] = new Box(Box.translatePositionToName(i,u));//CAMBIO
             }
         }
     }
@@ -102,10 +107,10 @@ public class Driver {
         getBox("e8").setPiece(new King("black"));
         //Pawns------------
         for (int i = 0; i < 8; i++) {
-            getBox(Tools.getLetter(i)+"2").setPiece(new Pawn("white"));
+            getBox(Box.getLetter(i)+"2").setPiece(new Pawn("white"));
         }
         for (int i = 0; i < 8; i++) {
-            getBox(Tools.getLetter(i)+"7").setPiece(new Pawn("black"));
+            getBox(Box.getLetter(i)+"7").setPiece(new Pawn("black"));
         }
     }
     //Devuelve la casilla que se le pide

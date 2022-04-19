@@ -18,6 +18,7 @@ public class ExampleUnitTest {
         driver.buildPieces();
     }
     //Prueba de la dunción "translate" y "tagToArrayNotation"
+    /*
     @Test
     public void translate(){
         //TagChessNotation()
@@ -58,6 +59,19 @@ public class ExampleUnitTest {
         assertEquals("b2", driver.getAvailablePositions(driver.getBox(new int[]{1,0}))[0].getName());
         assertEquals("b3", driver.getAvailablePositions(driver.getBox(new int[]{1,0}))[1].getName());
     }
+     */
+    //Obtener una casilla con solo el nombre
+    @Test
+    public void getBoxes() {
+        assertEquals(0, Box.unknownBoxGetX("A1"));
+        assertEquals(0, Box.unknownBoxGetY("A1"));
+        assertEquals(0, Box.unknownBoxGetX("A2"));
+        assertEquals(1, Box.unknownBoxGetY("A2"));
+        assertEquals(7, Box.unknownBoxGetX("H8"));
+        assertEquals(7, Box.unknownBoxGetY("H8"));
 
 
+        assertEquals("A1", driver.getBox("A1").getName());
+        assertEquals("A2", driver.getBox("A2").getName());
+    }
 }
