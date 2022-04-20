@@ -195,6 +195,7 @@ public class ActivityBoard extends AppCompatActivity {
     }
 
     //Write on the log the box clicked
+    //QUIERO HACER UN REFACTOR AQUÍ
     public void clickBoard(View view) {
         paintBoard();
         Box clickedBox = driver.getBox(view.getTag().toString());

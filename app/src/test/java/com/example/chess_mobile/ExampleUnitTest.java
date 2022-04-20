@@ -63,15 +63,16 @@ public class ExampleUnitTest {
     //Obtener una casilla con solo el nombre
     @Test
     public void getBoxes() {
-        assertEquals(0, Box.unknownBoxGetX("A1"));
-        assertEquals(0, Box.unknownBoxGetY("A1"));
-        assertEquals(0, Box.unknownBoxGetX("A2"));
-        assertEquals(1, Box.unknownBoxGetY("A2"));
-        assertEquals(7, Box.unknownBoxGetX("H8"));
-        assertEquals(7, Box.unknownBoxGetY("H8"));
+        //Probamos la función UNKNOWNBOXGETX()
+        assertEquals(0, Box.unknownBoxGetX("a1"));
+        assertEquals(0, Box.unknownBoxGetY("a1"));
+        assertEquals(0, Box.unknownBoxGetX("a2"));
+        assertEquals(1, Box.unknownBoxGetY("a2"));
+        assertEquals(7, Box.unknownBoxGetX("h8"));
+        assertEquals(7, Box.unknownBoxGetY("h8"));
 
-
-        assertEquals("A1", driver.getBox("A1").getName());
-        assertEquals("A2", driver.getBox("A2").getName());
+        //Probamos si podemos obtener una casilla por el nombre
+        assertEquals("a1", driver.getBox("a1").getName());
+        assertEquals("a2", driver.getBox("a2").getName());
     }
 }

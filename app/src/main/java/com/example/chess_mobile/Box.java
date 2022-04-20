@@ -40,7 +40,7 @@ public class Box {
     }
     //Devuelve la X
     public int getX(){
-        return getInt(name.charAt(0))-1;
+        return getInt(name.charAt(0));
     }
     //Devuelve la Y
     public int getY() {
