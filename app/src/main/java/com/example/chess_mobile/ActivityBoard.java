@@ -205,6 +205,7 @@ public class ActivityBoard extends AppCompatActivity {
         int y = clickedBox.getY();
         Log.i("Info", " Has hecho click en la casilla: " + clickedBox.getName()+
                 ", Que tiene un ["+driver.getBoxPieceName(clickedBox.getName())+"]");
+        //Sí el cache no esta vacío//AQUÍ
         if (!clickedBox.isEmpty()){
             if (driver.boxCache!=null){
                 driver.move(driver.boxCache,clickedBox);
