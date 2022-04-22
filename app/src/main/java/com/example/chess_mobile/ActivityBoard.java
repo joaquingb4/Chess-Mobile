@@ -199,13 +199,25 @@ public class ActivityBoard extends AppCompatActivity {
     public void clickBoard(View view) {
         paintBoard();
         Box clickedBox = driver.getBox(view.getTag().toString());
-        //String boxName = view.getTag().toString();
         Box[][] board = driver.board;
         int x = clickedBox.getX();
         int y = clickedBox.getY();
-        Log.i("Info", " Has hecho click en la casilla: " + clickedBox.getName()+
-                ", Que tiene un ["+driver.getBoxPieceName(clickedBox.getName())+"]");
+        //Mostramos datos de la casilla
+        printBoxInfo(clickedBox);
+
         //Sí el cache no esta vacío//AQUÍ
+        if (driver.cache.isEmpty()){
+            if (!clickedBox.isEmpty()){
+                searchPostions(board, clickedBox.getX(), clickedBox.getY());
+            }
+            return;
+        }else{
+            if (driver.cache.contains(clickedBox)){
+
+            }else{
+
+            }
+        }
         if (!clickedBox.isEmpty()){
             if (driver.boxCache!=null){
                 driver.move(driver.boxCache,clickedBox);
@@ -268,6 +280,11 @@ public class ActivityBoard extends AppCompatActivity {
         //Repintamos el tablero
         Log.i("I", "Acabo");
         updateImages();
+    }
+
+    public void printBoxInfo(Box clickedBox){
+        Log.i("Info", " Has hecho click en la casilla: " + clickedBox.getName()+
+                ", Que tiene un ["+driver.getBoxPieceName(clickedBox.getName())+"]");
     }
 
 }
