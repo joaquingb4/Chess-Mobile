@@ -123,12 +123,19 @@ public class Driver {
 
     //Mueve una pieza a una posición
     public void move(Box boxOrigin, Box boxDestiny){
-        if (!boxDestiny.isEmpty()) {
-            if (boxOrigin.getPiece().getColor().equals("white")) {
+        if (boxDestiny.isEmpty()) {
+            boxDestiny.setPiece(boxOrigin.getPiece());
+            boxOrigin.setPiece(null);
+
+        }else{
+            if (boxOrigin.getPiece().getColor().equals("white")) {  //ESTOY AQUÍ
+                //ERROR
                 blackUserCaptures.add(boxDestiny.getPiece());
             } else {
                 whiteUserCaptures.add(boxDestiny.getPiece());
             }
+            boxDestiny.setPiece(boxOrigin.getPiece());
+            boxOrigin.setPiece(null);
         }
         moveAPiece(boxOrigin,boxDestiny);
         boxOrigin.setPiece(null);

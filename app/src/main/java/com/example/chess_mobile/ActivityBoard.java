@@ -208,33 +208,15 @@ public class ActivityBoard extends AppCompatActivity {
 
         //Sí el cache no esta vacío//AQUÍ
         if (driver.cache.isEmpty()){
-            if (!clickedBox.isEmpty()){
                 searchPostions(board, clickedBox.getX(), clickedBox.getY());
-            }
-            return;
         }else{
             if (driver.cache.contains(clickedBox)){
-
+                driver.move(clickedBox, driver.boxCache);//CAPTURA
+                driver.cache.clear();
             }else{
-
+                driver.cache.clear();
             }
         }
-        if (!clickedBox.isEmpty()){
-            if (driver.boxCache!=null){
-                driver.move(driver.boxCache,clickedBox);
-            }
-        }
-        /*if (driver.cache.isEmpty()){
-            searchPostions(board, x, y);
-        }else{
-            if (driver.cache.contains(clickedBox)){
-                driver.move(driver.boxCache, clickedBox);
-            }else{
-                return;
-            }
-        }
-
-         */
     }
     public void checkBox(Box[][] board, Box box){
         if (box.isEmpty()){
@@ -259,30 +241,36 @@ public class ActivityBoard extends AppCompatActivity {
         //Obtengo la casilla con ello
         Box box = driver.board[x][y];
         Piece piece = box.getPiece();
-        //Posiciones posibles
-        ArrayList<Box> casillas = piece.getAvailableMoves(board, x, y);
-        if (casillas.isEmpty()){
-            Log.i("Alerta: ", "No hay movimientos disponibles");
-        }else {
-            for (Box boxes : casillas) {
-                Log.i("__________","__________");
-                Log.i("casillas[]", boxes.getName());
-                ImageView imageView = Tools.getImageView(boxes, visualBoxes);
-                if (boxes.getPiece() == null) {
-                    Log.i("icono", "funciona");
-                    imageView.setImageDrawable(getDrawable(R.drawable.punto));
-                } else {
-                    imageView.setBackgroundColor(Color.GRAY);//SE REPINTA CON EL UPDATE DE ABAJO
-                }
-            }
-            Log.i("__________","__________");
 
+        if (box.isEmpty()){
+            Log.i("ERROR","Casilla vacía, no hay movimientos");
+        }else{
+            piece = box.getPiece();
+            //Posiciones posibles
+            ArrayList<Box> casillas = piece.getAvailableMoves(board, x, y);
+            if (casillas.isEmpty()){
+                Log.i("Alerta: ", "No hay movimientos disponibles");
+            }else {
+                for (Box boxes : casillas) {
+                    Log.i("__________","__________");
+                    Log.i("casillas[]", boxes.getName());
+                    ImageView imageView = Tools.getImageView(boxes, visualBoxes);
+                    if (boxes.getPiece() == null) {
+                        Log.i("icono", "funciona");
+                        imageView.setImageDrawable(getDrawable(R.drawable.punto));
+                    } else {
+                        imageView.setBackgroundColor(Color.GRAY);//SE REPINTA CON EL UPDATE DE ABAJO
+                    }
+                }
+                Log.i("__________","__________");
+
+            }
+            driver.cache = casillas;
+            driver.setBoxCache(box);
+            //Repintamos el tablero
+            Log.i("Info", "Acabo de buscar posiciones");
+            updateImages();
         }
-        driver.cache = casillas;
-        driver.setBoxCache(box);
-        //Repintamos el tablero
-        Log.i("I", "Acabo");
-        updateImages();
     }
 
     public void printBoxInfo(Box clickedBox){
