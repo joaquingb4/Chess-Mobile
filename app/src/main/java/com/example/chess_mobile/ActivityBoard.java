@@ -197,7 +197,8 @@ public class ActivityBoard extends AppCompatActivity {
     //Write on the log the box clicked
     //QUIERO HACER UN REFACTOR AQUÍ
     public void clickBoard(View view) {
-        paintBoard();
+        //paintBoard();
+
         Box clickedBox = driver.getBox(view.getTag().toString());
         Box[][] board = driver.board;
         int x = clickedBox.getX();
@@ -223,7 +224,7 @@ public class ActivityBoard extends AppCompatActivity {
                 driver.move(driver.boxCache,clickedBox);
             }
         }
-        if (driver.cache.isEmpty()){
+        /*if (driver.cache.isEmpty()){
             searchPostions(board, x, y);
         }else{
             if (driver.cache.contains(clickedBox)){
@@ -232,6 +233,8 @@ public class ActivityBoard extends AppCompatActivity {
                 return;
             }
         }
+
+         */
     }
     public void checkBox(Box[][] board, Box box){
         if (box.isEmpty()){
