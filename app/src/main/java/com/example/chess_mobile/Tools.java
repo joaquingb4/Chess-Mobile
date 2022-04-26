@@ -97,6 +97,12 @@ public class Tools {
         int y = position % 10;
         return new int[]{x, y};
     }
+    public  static int getFirstDigitOfANumber(int position){
+        return position / 10;
+    }
+    public  static int getSecondDigitOfANumber(int position){
+        return position % 10;
+    }
     //____________________________CONDICIONES_________________________
     //Comprueba si una casilla está dentro del tablero
     public static boolean isInsideTheBoard(int x, int y){
@@ -116,6 +122,33 @@ public class Tools {
         String myColor = myPiece.getColor();
         return myColor.equals(unknownPieceColor);
     }
+
+    //CALCULOS_______________________
+    public static Box getUpBox(Box[][] board, int x, int y){
+        return calculTheNextBox(board, x, y, +1);
+    }
+    public static Box getDownBox(Box[][] board, int x, int y){
+        return calculTheNextBox(board, x, y, -1);
+    }
+    public static Box getRightBox(Box[][] board, int x, int y){
+        return calculTheNextBox(board, x, y, +10);
+    }
+    public static Box getLeftBox(Box[][] board, int x, int y){
+        return calculTheNextBox(board, x, y, -10);
+    }
+    public static Box calculTheNextBox (Box[][] board, int x, int y, int direcction){
+        if (isInsideTheBoard(x, y)){
+            int position = thisPositionInNumber(x, y);
+            position -= direcction;
+            Box box = board[getFirstDigitOfANumber(position)]
+                [getSecondDigitOfANumber(position)];
+            return  box;
+        }else{
+            return null;
+        }
+    }
+
+
 }
 //
  /*                             +9  +10  +11

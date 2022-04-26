@@ -197,27 +197,26 @@ public class ActivityBoard extends AppCompatActivity {
     //Write on the log the box clicked
     //QUIERO HACER UN REFACTOR AQUÍ
     public void clickBoard(View view) {
-        //paintBoard();
-
+        paintBoard();//PARA LIMPIAR LAS INDICACIONES
         Box clickedBox = driver.getBox(view.getTag().toString());
         Box[][] board = driver.board;
-        int x = clickedBox.getX();
-        int y = clickedBox.getY();
         //Mostramos datos de la casilla
         printBoxInfo(clickedBox);
-
         //Sí el cache no esta vacío//AQUÍ
         if (driver.cache.isEmpty()){
                 searchPostions(board, clickedBox.getX(), clickedBox.getY());
         }else{
             if (driver.cache.contains(clickedBox)){
-                driver.move(clickedBox, driver.boxCache);//CAPTURA
-                driver.cache.clear();
+                driver.move(driver.boxCache, clickedBox);//CAPTURA
             }else{
                 driver.cache.clear();
+                searchPostions(board, clickedBox.getX(), clickedBox.getY());
             }
+            driver.cache.clear();
         }
+        updateImages();
     }
+    /*
     public void checkBox(Box[][] board, Box box){
         if (box.isEmpty()){
             return;
@@ -236,6 +235,7 @@ public class ActivityBoard extends AppCompatActivity {
         }
         updateImages();
     }
+     */
     public void searchPostions(Box[][] board, int x, int y){
         updateImages();
         //Obtengo la casilla con ello
@@ -263,7 +263,6 @@ public class ActivityBoard extends AppCompatActivity {
                     }
                 }
                 Log.i("__________","__________");
-
             }
             driver.cache = casillas;
             driver.setBoxCache(box);

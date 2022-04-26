@@ -87,20 +87,20 @@ public class Driver {
         getBox("g1").setPiece(new Horse("white"));
         getBox("b8").setPiece(new Horse("black"));
         getBox("g8").setPiece(new Horse("black"));
-        getBox("c4").setPiece(new Horse("black"));
-        getBox("c3").setPiece(new Horse("black"));
+       // getBox("c4").setPiece(new Horse("black"));
+        //getBox("c3").setPiece(new Horse("black"));
 
         //Bishops-----------
         getBox("c1").setPiece(new Bishop("white"));
         getBox("f1").setPiece(new Bishop("white"));
         getBox("c8").setPiece(new Bishop("black"));
         getBox("f8").setPiece(new Bishop("black"));
-        getBox("e4").setPiece(new Bishop("white"));
+        //getBox("e4").setPiece(new Bishop("white"));
 
         //Queens-----------
         getBox("d1").setPiece(new Queen("white"));
         getBox("d8").setPiece(new Queen("black"));
-        getBox("f4").setPiece(new Queen("black"));
+       // getBox("f4").setPiece(new Queen("black"));
 
         //Kings------------
         getBox("e1").setPiece(new King("white"));
@@ -123,28 +123,19 @@ public class Driver {
 
     //Mueve una pieza a una posición
     public void move(Box boxOrigin, Box boxDestiny){
-        if (boxDestiny.isEmpty()) {
-            boxDestiny.setPiece(boxOrigin.getPiece());
-            boxOrigin.setPiece(null);
-
-        }else{
+        if (!boxDestiny.isEmpty()) {//NO SIMPLIFICAR
             if (boxOrigin.getPiece().getColor().equals("white")) {  //ESTOY AQUÍ
-                //ERROR
                 blackUserCaptures.add(boxDestiny.getPiece());
             } else {
                 whiteUserCaptures.add(boxDestiny.getPiece());
             }
-            boxDestiny.setPiece(boxOrigin.getPiece());
+            boxDestiny.setPiece(boxOrigin.getPiece());//ERROR
+            boxOrigin.setPiece(null);
+        }else{
+            boxDestiny.setPiece(boxOrigin.getPiece());//ERROR
             boxOrigin.setPiece(null);
         }
-        moveAPiece(boxOrigin,boxDestiny);
-        boxOrigin.setPiece(null);
-    }
-    //Pone un pieza en una casilla y elimina la pieza de la casilla de su anterior
-    //posición
-    public void moveAPiece(Box boxOrigin, Box boxDestiny){
-        boxDestiny.setPiece(boxOrigin.getPiece());
-        setBoxCache(null);
+        boxCache = null;
         cache.clear();
     }
     //Comprueba si una pieza está esta en el caché
