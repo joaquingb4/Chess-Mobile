@@ -29,16 +29,36 @@ public class Driver {
     }
 
     //DEVUELVE TODAS LAS CASILLAS CON PIEZAS ENEMIGAS
-    public ArrayList<Box> getAllEnemyPieces(String color){
+    public ArrayList<Box> getAllColorPieces(String color){
         ArrayList<Box> enemyBoxes = new ArrayList<>();
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                if (!board[i][j].isEmpty()&&!board[i][j].getPiece().equals(color)){
+                if (!board[i][j].isEmpty()&&board[i][j].getPiece().equals(color)){
                     enemyBoxes.add(board[i][j]);
                 }
             }
         }
         return enemyBoxes;
+    }
+    //DEVUELVE SI EL REY DE EL COLOR CONTRARIO ESTÁ EN JAQUE
+    public boolean enemyKingISInJaque(String color){
+        //Obtenemos las piezas del otro jugador
+        ArrayList<Box> enemyPieces = getAllColorPieces(Tools.getEnemyColor(color));
+        for (int i = 0; i < enemyPieces.size(); i++) {
+            ArrayList <Box> enemyMoves =
+                    enemyPieces.get(i).getPiece().getAvailableMoves(
+                            board,
+                            enemyPieces.get(i).getX(),
+                            enemyPieces.get(i).getY()
+                    );
+            for (int j = 0; j < enemyMoves.size() ; j++) {
+                if (enemyMoves.get(j).getPiece().getName().equals("King")){
+                    Log.i("INFO","EL REY "+ Tools.getEnemyColor(color)+ " ESTA EN JAQUE");
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     //Devulve el nombre de la pieza, si es que tiene
@@ -58,17 +78,6 @@ public class Driver {
      ////   Log.i("prueba","X:"+x+" Y:"+y);
         return board[x][y];
     }
-    //No funciona
-    /*
-    //Devuelve las posiciones de una determinada pieza
-    public int[] getBoxPosition(String tag){
-        int[] positions = new int[2];
-        positions[0] = Tools.getInt(tag.charAt(0));
-        positions[1] = Tools.getInt(tag.charAt(1));
-        return positions;//La letra hay que traducirla a la nomenclatura del ajedrez
-    }
-
-     */
 
     public int[] getBoxPosition(Box box){
         String tag = box.getName();//<--Hacer prueba
@@ -154,6 +163,9 @@ public class Driver {
         }
         boxCache = null;
         cache.clear();
+        if (enemyKingISInJaque(boxDestiny.getPiece().getColor())){
+            Log.i("INFO", "el [rey] "+boxDestiny.getPiece().getColor()+" esta en jaque");
+        }
     }
     //Comprueba si una pieza está esta en el caché
     public boolean isItInsideTheCache(Box boxDestiny){

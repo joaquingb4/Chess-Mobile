@@ -122,6 +122,13 @@ public class Tools {
         String myColor = myPiece.getColor();
         return myColor.equals(unknownPieceColor);
     }
+    public static String getEnemyColor(String color){
+        if (color.equals("white")){
+            return "black";
+        }else{
+            return "white";
+        }
+    }
 
     //CALCULOS_______________________
     public static Box getUpBox(Box[][] board, int x, int y){

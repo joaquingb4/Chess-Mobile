@@ -202,6 +202,7 @@ public class ActivityBoard extends AppCompatActivity {
         }else{
             if (driver.cache.contains(clickedBox)){
                 driver.move(driver.boxCache, clickedBox);//CAPTURA
+
                 driver.changeTurn();
             }else{
                 driver.cache.clear();

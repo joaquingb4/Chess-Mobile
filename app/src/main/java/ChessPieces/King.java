@@ -83,6 +83,6 @@ public class King extends Piece {
     }
 
     public boolean isInJaque(Box[][] board) {
-
+        return false;
     }
 }
