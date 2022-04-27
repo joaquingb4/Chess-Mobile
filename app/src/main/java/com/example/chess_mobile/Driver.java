@@ -19,13 +19,26 @@ public class Driver {
     ArrayList<Box> cache = new ArrayList<>();
     ArrayList<Piece> whiteUserCaptures = new ArrayList<>();
     ArrayList<Piece> blackUserCaptures = new ArrayList<>();
-
+    boolean turn = true;
     public void setBoxCache(Box box){
         this.boxCache = box;
     }
 
     public Box[][] getBoard(){
         return board;
+    }
+
+    //DEVUELVE TODAS LAS CASILLAS CON PIEZAS ENEMIGAS
+    public ArrayList<Box> getAllEnemyPieces(String color){
+        ArrayList<Box> enemyBoxes = new ArrayList<>();
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if (!board[i][j].isEmpty()&&!board[i][j].getPiece().equals(color)){
+                    enemyBoxes.add(board[i][j]);
+                }
+            }
+        }
+        return enemyBoxes;
     }
 
     //Devulve el nombre de la pieza, si es que tiene
@@ -152,6 +165,24 @@ public class Driver {
             cache.clear();
             return false;
         }
+    }
+    //Cambia el estado del turno cuando se lo llama
+    public void changeTurn (){
+        if (turn){
+            turn = false;
+            return;
+        }
+        turn = true;
+    }
+    //Comprueba si la pieza tocada es la correspondiente a la del turno
+
+    public boolean checkClickTurn(Piece piece){
+        if (turn){
+            Log.i("INFO", "Turno de las [blancas]");
+            return piece.getColor().equals("white");
+        }
+        Log.i("INFO", "Turno de las [negras]");
+        return piece.getColor().equals("black");
     }
 
 }

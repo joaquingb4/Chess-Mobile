@@ -4,17 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
+
 import android.graphics.Color;
-import android.graphics.RectF;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,6 +21,7 @@ public class ActivityBoard extends AppCompatActivity {
     //Attributes
     String colorBlackBoxes = "#855E42";
     String colorWhiteBoxes = "#FFCB94";
+    String colorMovements = "#33D17A";
     ImageView[][] visualBoxes = new ImageView[8][8];
     Driver driver = new Driver();
 
@@ -208,6 +202,7 @@ public class ActivityBoard extends AppCompatActivity {
         }else{
             if (driver.cache.contains(clickedBox)){
                 driver.move(driver.boxCache, clickedBox);//CAPTURA
+                driver.changeTurn();
             }else{
                 driver.cache.clear();
                 searchPostions(board, clickedBox.getX(), clickedBox.getY());
@@ -216,26 +211,7 @@ public class ActivityBoard extends AppCompatActivity {
         }
         updateImages();
     }
-    /*
-    public void checkBox(Box[][] board, Box box){
-        if (box.isEmpty()){
-            return;
-        }
-        //Corregir esto
-        if (driver.cache.isEmpty()){ //Si cache esta vacío
-            searchPostions(board, box.getX(), box.getY());
-        }else {//Si tiene algo
-            //Movimiento
-            if (driver.cache.contains(box)) {
-                driver.move(driver.boxCache, box );//ERROR
-                Log.i("info", "se ha capturado una pieza");
-            }else{
-                Log.i("info","El cache no tiene esta casilla:: "+box.getName());
-            }
-        }
-        updateImages();
-    }
-     */
+
     public void searchPostions(Box[][] board, int x, int y){
         updateImages();
         //Obtengo la casilla con ello
@@ -245,6 +221,10 @@ public class ActivityBoard extends AppCompatActivity {
         if (box.isEmpty()){
             Log.i("ERROR","Casilla vacía, no hay movimientos");
         }else{
+            if (!driver.checkClickTurn(box.getPiece())){
+                Log.i("INFO","TURNO: "+driver.turn);
+                return;
+            }
             piece = box.getPiece();
             //Posiciones posibles
             ArrayList<Box> casillas = piece.getAvailableMoves(board, x, y);
@@ -259,7 +239,7 @@ public class ActivityBoard extends AppCompatActivity {
                         Log.i("icono", "funciona");
                         imageView.setImageDrawable(getDrawable(R.drawable.punto));
                     } else {
-                        imageView.setBackgroundColor(Color.GRAY);//SE REPINTA CON EL UPDATE DE ABAJO
+                        imageView.setBackgroundColor(Color.parseColor(colorMovements));//SE REPINTA CON EL UPDATE DE ABAJO
                     }
                 }
                 Log.i("__________","__________");

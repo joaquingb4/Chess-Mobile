@@ -14,6 +14,7 @@ public class King extends Piece {
     //Attributes
     private final String name = "King";
     private String color;
+    private boolean jaque = false;
     //Methods
     public King(String color){
         this.color = color;
@@ -79,4 +80,9 @@ public class King extends Piece {
             y = originalY;
         }
         return boxes;
-    }}
+    }
+
+    public boolean isInJaque(Box[][] board) {
+
+    }
+}
