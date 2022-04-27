@@ -136,13 +136,19 @@ public class Tools {
     public static Box getLeftBox(Box[][] board, int x, int y){
         return calculTheNextBox(board, x, y, -10);
     }
+    //EN base a una dirección calcula la siguiente casilla
     public static Box calculTheNextBox (Box[][] board, int x, int y, int direcction){
         if (isInsideTheBoard(x, y)){
             int position = thisPositionInNumber(x, y);
-            position -= direcction;
-            Box box = board[getFirstDigitOfANumber(position)]
-                [getSecondDigitOfANumber(position)];
-            return  box;
+            position += direcction;
+            int  nextX = getFirstDigitOfANumber(position);
+            int nextY = getSecondDigitOfANumber(position);
+            if (isInsideTheBoard(nextX, nextY)){
+                Box box = board[nextX][nextY];
+                return  box;
+            }else {
+                return null;
+            }
         }else{
             return null;
         }

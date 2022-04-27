@@ -112,6 +112,10 @@ public class Driver {
         for (int i = 0; i < 8; i++) {
             getBox(Box.getLetter(i)+"7").setPiece(new Pawn("black"));
         }
+        getBox("e4").setPiece(new Pawn("white"));
+        getBox("d4").setPiece(new Pawn("white"));
+        getBox("e5").setPiece(new Pawn("black"));
+        getBox("f4").setPiece(new Pawn("white"));
     }
     //Devuelve la casilla que se le pide
     public Box getBox(int column, int row){
