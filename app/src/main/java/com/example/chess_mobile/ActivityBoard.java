@@ -209,6 +209,7 @@ public class ActivityBoard extends AppCompatActivity {
                 searchPostions(board, clickedBox.getX(), clickedBox.getY());
             }
             driver.cache.clear();
+
         }
         updateImages();
     }

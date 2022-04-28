@@ -33,7 +33,7 @@ public class Driver {
         ArrayList<Box> enemyBoxes = new ArrayList<>();
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                if (!board[i][j].isEmpty()&&board[i][j].getPiece().equals(color)){
+                if (!board[i][j].isEmpty()&&board[i][j].getPiece().getColor().equals(color)){
                     enemyBoxes.add(board[i][j]);
                 }
             }
@@ -41,24 +41,38 @@ public class Driver {
         return enemyBoxes;
     }
     //DEVUELVE SI EL REY DE EL COLOR CONTRARIO ESTÁ EN JAQUE
-    public boolean enemyKingISInJaque(String color){
-        //Obtenemos las piezas del otro jugador
-        ArrayList<Box> enemyPieces = getAllColorPieces(Tools.getEnemyColor(color));
-        for (int i = 0; i < enemyPieces.size(); i++) {
-            ArrayList <Box> enemyMoves =
-                    enemyPieces.get(i).getPiece().getAvailableMoves(
+    public boolean enemyKingISInJaque(String myColor){
+         String enemyColor = Tools.getEnemyColor(myColor);
+        //Obtengo mis piezas
+        ArrayList<Box> myPieces = getAllColorPieces(myColor);
+        for (int i = 0; i < myPieces.size(); i++) {
+            ArrayList <Box> myMoves =
+                    myPieces.get(i).getPiece().getAvailableMoves(
                             board,
-                            enemyPieces.get(i).getX(),
-                            enemyPieces.get(i).getY()
+                            myPieces.get(i).getX(),
+                            myPieces.get(i).getY()
                     );
-            for (int j = 0; j < enemyMoves.size() ; j++) {
-                if (enemyMoves.get(j).getPiece().getName().equals("King")){
-                    Log.i("INFO","EL REY "+ Tools.getEnemyColor(color)+ " ESTA EN JAQUE");
+            //Comprobamos si una de mis piezas amenaza al rey enemigo
+            for (int j = 0; j < myMoves.size() ; j++) {
+                if (!myMoves.get(j).isEmpty() && myMoves.contains(getKing(enemyColor))){
+                    Log.i("INFO","EL REY "+ enemyColor+ " ESTA EN JAQUE");
                     return true;
                 }
             }
         }
         return false;
+    }
+    //Busca la casilla donde esta un rey determinado
+    public Box getKing(String color){
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                Box box = board[i][j];
+                if (!box.isEmpty() && box.getName().equals("King") && box.getPiece().getColor().equals(color)){
+                    return box;
+                }
+            }
+        }
+        return null;
     }
 
     //Devulve el nombre de la pieza, si es que tiene
@@ -111,14 +125,14 @@ public class Driver {
         getBox("g8").setPiece(new Horse("black"));
        // getBox("c4").setPiece(new Horse("black"));
         //getBox("c3").setPiece(new Horse("black"));
-
+        /*
         //Bishops-----------
         getBox("c1").setPiece(new Bishop("white"));
         getBox("f1").setPiece(new Bishop("white"));
         getBox("c8").setPiece(new Bishop("black"));
         getBox("f8").setPiece(new Bishop("black"));
-        //getBox("e4").setPiece(new Bishop("white"));
-
+        getBox("e4").setPiece(new Bishop("white"));
+        */
         //Queens-----------
         getBox("d1").setPiece(new Queen("white"));
         getBox("d8").setPiece(new Queen("black"));
