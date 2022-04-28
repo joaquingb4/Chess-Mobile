@@ -67,7 +67,7 @@ public class Driver {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 Box box = board[i][j];
-                if (!box.isEmpty() && box.getName().equals("King") && box.getPiece().getColor().equals(color)){
+                if (!box.isEmpty() && box.getPiece().getName().equals("King") && box.getPiece().getColor().equals(color)){
                     return box;
                 }
             }
@@ -179,6 +179,7 @@ public class Driver {
         cache.clear();
         if (enemyKingISInJaque(boxDestiny.getPiece().getColor())){
             Log.i("INFO", "el [rey] "+boxDestiny.getPiece().getColor()+" esta en jaque");
+            //AQUÍ
         }
     }
     //Comprueba si una pieza está esta en el caché
