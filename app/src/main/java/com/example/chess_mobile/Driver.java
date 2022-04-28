@@ -211,5 +211,9 @@ public class Driver {
         Log.i("INFO", "Turno de las [negras]");
         return piece.getColor().equals("black");
     }
+    //Devuelve si haciendo un movimiento se quita el jaque a un rey determinado
+    public void boolean canThisMovementSaveTheKing(Box[][] board, Box boxToMove, Box boxToOccupy ){
+        board.//ESTOY AQUÍ
+    }
 
 }
