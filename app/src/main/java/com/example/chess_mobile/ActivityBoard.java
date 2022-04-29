@@ -1,9 +1,6 @@
 package com.example.chess_mobile;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
-
-import android.content.res.Resources;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -12,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import ChessPieces.Piece;
@@ -22,6 +18,7 @@ public class ActivityBoard extends AppCompatActivity {
     String colorBlackBoxes = "#855E42";
     String colorWhiteBoxes = "#FFCB94";
     String colorMovements = "#33D17A";
+    String colorCheckKing = "#002147";
     ImageView[][] visualBoxes = new ImageView[8][8];
     Driver driver = new Driver();
 
@@ -35,7 +32,7 @@ public class ActivityBoard extends AppCompatActivity {
     }
 
     public Drawable getImage(Box box){
-        if (box.isEmpty()){ //Si esta vacío
+        if (box.isEmpty()){ //Si está vacío
             if (driver.cache.contains(box)){
                 return getDrawable(R.drawable.punto);
             }else{
@@ -153,6 +150,35 @@ public class ActivityBoard extends AppCompatActivity {
         //Pintamos el tablero
         paintBoard();
     }
+    //AQUÍ
+    public void getBoxColor(){
+        String color;
+
+        for (int i = 0; i < visualBoxes.length; i++) {
+            int u;
+            int o;
+            if ((i%2)==0){
+                u = 0;
+                o = 1;
+            } else{
+                u = 1;
+                o = 0;
+            }
+
+            for (; u < visualBoxes[i].length; u+=2) {
+                //Oscuras
+                visualBoxes[i][u].setBackgroundColor(Color.parseColor(colorBlackBoxes));
+            }
+
+            for (; o < visualBoxes[i].length; o+=2) {
+                //Blancas
+                visualBoxes[i][o].setBackgroundColor(Color.parseColor(colorWhiteBoxes));
+            }
+
+        }
+
+    }
+
     //Pinta el tablero
     public void paintBoard(){
         for (int i = 0; i < visualBoxes.length; i++) {
@@ -173,6 +199,13 @@ public class ActivityBoard extends AppCompatActivity {
                 //Blancas
                 visualBoxes[i][o].setBackgroundColor(Color.parseColor(colorWhiteBoxes));
             }
+        }
+    }
+    //Pintar la casilla del rey
+    public void paintKingState(String color){
+        View viewKing = Tools.getImageView(driver.getKing(color), visualBoxes);
+        if (driver.kingISInCheck(color)){
+            viewKing.setBackgroundColor(Color.parseColor(colorCheckKing));
         }
     }
 
@@ -209,7 +242,6 @@ public class ActivityBoard extends AppCompatActivity {
                 searchPostions(board, clickedBox.getX(), clickedBox.getY());
             }
             driver.cache.clear();
-
         }
         updateImages();
     }
@@ -234,8 +266,6 @@ public class ActivityBoard extends AppCompatActivity {
                 Log.i("Alerta: ", "No hay movimientos disponibles");
             }else {
                 for (Box boxes : casillas) {
-                    Log.i("__________","__________");
-                    Log.i("casillas[]", boxes.getName());
                     ImageView imageView = Tools.getImageView(boxes, visualBoxes);
                     if (boxes.getPiece() == null) {
                         Log.i("icono", "funciona");
@@ -244,7 +274,6 @@ public class ActivityBoard extends AppCompatActivity {
                         imageView.setBackgroundColor(Color.parseColor(colorMovements));//SE REPINTA CON EL UPDATE DE ABAJO
                     }
                 }
-                Log.i("__________","__________");
             }
             driver.cache = casillas;
             driver.setBoxCache(box);
@@ -254,9 +283,10 @@ public class ActivityBoard extends AppCompatActivity {
         }
     }
 
+    //
     public void printBoxInfo(Box clickedBox){
         Log.i("Info", " Has hecho click en la casilla: " + clickedBox.getName()+
-                ", Que tiene un ["+driver.getBoxPieceName(clickedBox.getName())+"]");
+                ", Que tiene un ["+ driver.getBoxPieceName(clickedBox.getName())+"]");
     }
 
 }

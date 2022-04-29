@@ -9,7 +9,8 @@ public class Box {
     //static String abc =  "ABCDEFGH";
    static char[] abc = new char[]{
            'a','b','c','d','e','f','g','h'
-   };    //Attibutes
+   };
+   //Attibutes
     final private String name;
     private Piece piece = null;
 
@@ -79,9 +80,6 @@ public class Box {
         int y = boxName.charAt(1) - '0';
         return (x *10)+(y-1);
     }
-    //ESTOY HACIENDO REFACTOR TOOLS LO PASO UN POCO AQUÍ
-
-
 
     //LE DOY UNA LETRA Y ME DEVUELVE UN NÚMERO
     public static int getInt(char letter){

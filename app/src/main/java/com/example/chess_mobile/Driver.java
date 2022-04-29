@@ -4,7 +4,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import ChessPieces.Bishop;
 import ChessPieces.Horse;
 import ChessPieces.King;
 import ChessPieces.Pawn;
@@ -28,7 +27,7 @@ public class Driver {
         return board;
     }
 
-    //DEVUELVE TODAS LAS CASILLAS CON PIEZAS ENEMIGAS
+    //DEVUELVE TODAS LAS CASILLAS CON PIEZAS DE UN COLOR ESPECÍFICO
     public ArrayList<Box> getAllColorPieces(String color){
         ArrayList<Box> enemyBoxes = new ArrayList<>();
         for (int i = 0; i < board.length; i++) {
@@ -41,27 +40,33 @@ public class Driver {
         return enemyBoxes;
     }
     //DEVUELVE SI EL REY DE EL COLOR CONTRARIO ESTÁ EN JAQUE
-    public boolean enemyKingISInJaque(String myColor){
+    public boolean kingISInCheck(String myColor){
          String enemyColor = Tools.getEnemyColor(myColor);
-        //Obtengo mis piezas
-        ArrayList<Box> myPieces = getAllColorPieces(myColor);
-        for (int i = 0; i < myPieces.size(); i++) {
-            ArrayList <Box> myMoves =
-                    myPieces.get(i).getPiece().getAvailableMoves(
+         //Obtenemos la casilla con el rey
+        Box kingBox = getKing(myColor);
+        //Obtengo las casillas con piezas del contrario
+        ArrayList<Box> contraryBoxes = getAllColorPieces(enemyColor);
+        //Las recorro y guardo las casillas que el otro puede ocupar en un ArrayList
+        ArrayList<Box> occupybleBoxes = new ArrayList<>();
+        for (int i = 0; i < contraryBoxes.size(); i++) {
+            ArrayList <Box> contraryMoves =
+                            contraryBoxes.get(i).getPiece().getAvailableMoves(
                             board,
-                            myPieces.get(i).getX(),
-                            myPieces.get(i).getY()
+                            contraryBoxes.get(i).getX(),
+                            contraryBoxes.get(i).getY()
                     );
-            //Comprobamos si una de mis piezas amenaza al rey enemigo
-            for (int j = 0; j < myMoves.size() ; j++) {
-                if (!myMoves.get(j).isEmpty() && myMoves.contains(getKing(enemyColor))){
-                    Log.i("INFO","EL REY "+ enemyColor+ " ESTA EN JAQUE");
+            //Comprobamos si una de las piezas del otro jugador amenaza a mi rey
+            for (int j = 0; j < contraryMoves.size() ; j++) {
+                if (!contraryMoves.get(j).isEmpty() && contraryMoves.contains(kingBox)){
+                    Log.i("INFO","EL REY ["+ myColor+ "] ESTA EN JAQUE");
                     return true;
                 }
             }
         }
         return false;
     }
+
+
     //Busca la casilla donde esta un rey determinado
     public Box getKing(String color){
         for (int i = 0; i < board.length; i++) {
@@ -177,22 +182,12 @@ public class Driver {
         }
         boxCache = null;
         cache.clear();
-        if (enemyKingISInJaque(boxDestiny.getPiece().getColor())){
+        if (kingISInCheck(boxDestiny.getPiece().getColor())){
             Log.i("INFO", "el [rey] "+boxDestiny.getPiece().getColor()+" esta en jaque");
             //AQUÍ
         }
     }
-    //Comprueba si una pieza está esta en el caché
-    public boolean isItInsideTheCache(Box boxDestiny){
-        if (cache.contains(boxCache)){
-           move(boxCache, boxDestiny);
-           setBoxCache(null);
-           return true;
-        }else{
-            cache.clear();
-            return false;
-        }
-    }
+
     //Cambia el estado del turno cuando se lo llama
     public void changeTurn (){
         if (turn){
@@ -212,8 +207,12 @@ public class Driver {
         return piece.getColor().equals("black");
     }
     //Devuelve si haciendo un movimiento se quita el jaque a un rey determinado
-    public void boolean canThisMovementSaveTheKing(Box[][] board, Box boxToMove, Box boxToOccupy ){
-        board.//ESTOY AQUÍ
+    public boolean canThisMovementSaveTheKing(Box[][] board, Box boxToMove, Box boxToOccupy ){
+        Piece boxToMovePiece = boxToMove.getPiece() ;
+        Piece boxtoOccupyPiece =  boxToOccupy.getPiece();
+      //  move(boxToMove, boxToOccupy);
+       // if (enemyKingISInJaque()){}
+        return false;
     }
 
 }
