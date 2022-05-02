@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import ChessPieces.Bishop;
 import ChessPieces.Horse;
 import ChessPieces.King;
 import ChessPieces.Pawn;
@@ -43,9 +44,9 @@ public class Driver {
     public boolean kingISInCheck(String myColor){
          String enemyColor = Tools.getEnemyColor(myColor);
          //Obtenemos la casilla con el rey
-        Box kingBox = getKing(myColor);
+        Box kingBox = getKing(enemyColor);
         //Obtengo las casillas con piezas del contrario
-        ArrayList<Box> contraryBoxes = getAllColorPieces(enemyColor);
+        ArrayList<Box> contraryBoxes = getAllColorPieces(myColor);
         //Las recorro y guardo las casillas que el otro puede ocupar en un ArrayList
         ArrayList<Box> occupybleBoxes = new ArrayList<>();
         for (int i = 0; i < contraryBoxes.size(); i++) {
@@ -58,7 +59,7 @@ public class Driver {
             //Comprobamos si una de las piezas del otro jugador amenaza a mi rey
             for (int j = 0; j < contraryMoves.size() ; j++) {
                 if (!contraryMoves.get(j).isEmpty() && contraryMoves.contains(kingBox)){
-                    Log.i("INFO","EL REY ["+ myColor+ "] ESTA EN JAQUE");
+                    Log.i("INFO","EL REY ["+ enemyColor+ "] ESTA EN JAQUE");
                     return true;
                 }
             }
@@ -119,25 +120,26 @@ public class Driver {
         //A---1||  columna - fila
         //Towers-----------
         getBox("a1").setPiece(new Tower("white"));
-        getBox("h1").setPiece(new Tower("white"));
-        getBox("a8").setPiece(new Tower("black"));
-        getBox("h8").setPiece(new Tower("black"));
-        getBox("d4").setPiece(new Tower("white"));
+        //getBox("h1").setPiece(new Tower("white"));
+        //getBox("a8").setPiece(new Tower("black"));
+        //getBox("h8").setPiece(new Tower("black"));
+      //  getBox("d4").setPiece(new Tower("white"));
         //Horses-----------
+        /*
         getBox("b1").setPiece(new Horse("white"));
         getBox("g1").setPiece(new Horse("white"));
         getBox("b8").setPiece(new Horse("black"));
         getBox("g8").setPiece(new Horse("black"));
        // getBox("c4").setPiece(new Horse("black"));
         //getBox("c3").setPiece(new Horse("black"));
-        /*
+
         //Bishops-----------
         getBox("c1").setPiece(new Bishop("white"));
         getBox("f1").setPiece(new Bishop("white"));
         getBox("c8").setPiece(new Bishop("black"));
         getBox("f8").setPiece(new Bishop("black"));
-        getBox("e4").setPiece(new Bishop("white"));
-        */
+        //getBox("e4").setPiece(new Bishop("white"));
+
         //Queens-----------
         getBox("d1").setPiece(new Queen("white"));
         getBox("d8").setPiece(new Queen("black"));
@@ -146,17 +148,19 @@ public class Driver {
         //Kings------------
         getBox("e1").setPiece(new King("white"));
         getBox("e8").setPiece(new King("black"));
+
+         */
         //Pawns------------
-        for (int i = 0; i < 8; i++) {
-            getBox(Box.getLetter(i)+"2").setPiece(new Pawn("white"));
-        }
-        for (int i = 0; i < 8; i++) {
-            getBox(Box.getLetter(i)+"7").setPiece(new Pawn("black"));
-        }
-        getBox("e4").setPiece(new Pawn("white"));
-        getBox("d4").setPiece(new Pawn("white"));
-        getBox("e5").setPiece(new Pawn("black"));
-        getBox("f4").setPiece(new Pawn("white"));
+        //for (int i = 0; i < 8; i++) {
+         //   getBox(Box.getLetter(i)+"2").setPiece(new Pawn("white"));
+        //}
+        //for (int i = 0; i < 8; i++) {
+        //    getBox(Box.getLetter(i)+"7").setPiece(new Pawn("black"));
+        //}
+        getBox("h8").setPiece(new King("black"));
+        getBox("g8").setPiece(new Pawn("black"));
+        getBox("g7").setPiece(new Pawn("black"));
+        getBox("a1").setPiece(new Queen("white"));
     }
     //Devuelve la casilla que se le pide
     public Box getBox(int column, int row){
@@ -183,7 +187,7 @@ public class Driver {
         boxCache = null;
         cache.clear();
         if (kingISInCheck(boxDestiny.getPiece().getColor())){
-            Log.i("INFO", "el [rey] "+boxDestiny.getPiece().getColor()+" esta en jaque");
+          //  Log.i("INFO", "el [rey] "+boxDestiny.getPiece().getColor()+" esta en jaque");
             //AQUÍ
         }
     }
