@@ -20,6 +20,7 @@ public class Driver {
     ArrayList<Piece> whiteUserCaptures = new ArrayList<>();
     ArrayList<Piece> blackUserCaptures = new ArrayList<>();
     boolean turn = true;
+    String kingInCheck = null;
     public void setBoxCache(Box box){
         this.boxCache = box;
     }
@@ -186,10 +187,8 @@ public class Driver {
         }
         boxCache = null;
         cache.clear();
-        if (kingISInCheck(boxDestiny.getPiece().getColor())){
-          //  Log.i("INFO", "el [rey] "+boxDestiny.getPiece().getColor()+" esta en jaque");
-            //AQUÍ
-        }
+        //EL rey opuesto esta en jaque
+        kingISInCheck(boxDestiny.getPiece().getColor());
     }
 
     //Cambia el estado del turno cuando se lo llama
