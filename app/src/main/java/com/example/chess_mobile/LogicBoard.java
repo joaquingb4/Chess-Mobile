@@ -2,12 +2,11 @@ package com.example.chess_mobile;
 
 import static com.example.chess_mobile.Tools.TranslationTools.getContraryColor;
 import static com.example.chess_mobile.Tools.TranslationTools.translatePositionToName;
+import  static  com.example.chess_mobile.Tools.CalculTools.getContraryBoolean;
 
 import android.util.Log;
 
 import java.util.ArrayList;
-
-import ChessPieces.Piece;
 
 public class LogicBoard {
     //Attributes
@@ -109,9 +108,19 @@ public class LogicBoard {
 
     //Llena el tablero de casillas
     public void buildBoxes(){
+        boolean boxColor = false;
         for (int x = 0; x < board.length ; x++) {
             for (int y = 0; y < board[x].length; y++) {
-                board[x][y] = new Box(translatePositionToName(x,y));//CAMBIO
+                if ((y%2)==0){
+                    boxColor = true;
+                }else{
+                    boxColor=false;
+                }
+                for (int j = 0; j < 7; j++) {
+                    boxColor = getContraryBoolean(boxColor);
+                    board[x][y] = new Box(translatePositionToName(x,y), boxColor);//CAMBIO
+
+                }
             }
         }
     }

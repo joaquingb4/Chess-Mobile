@@ -8,11 +8,11 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-import ChessPieces.King;
-import ChessPieces.Pawn;
-import ChessPieces.Piece;
-import ChessPieces.Queen;
-import ChessPieces.Tower;
+import com.example.chess_mobile.ChessPieces.King;
+import com.example.chess_mobile.ChessPieces.Pawn;
+import com.example.chess_mobile.ChessPieces.Piece;
+import com.example.chess_mobile.ChessPieces.Queen;
+import com.example.chess_mobile.ChessPieces.Tower;
 //Pueente entre ActivityBoard y Board
 public class Driver {
     //Attributes
@@ -20,18 +20,47 @@ public class Driver {
     LogicBoard logicBoard = new LogicBoard();
     Box[][] board = logicBoard.getBoard();
 
-    ArrayList<Box> PotentialMovesList = new ArrayList<>();
+    ArrayList<Box> potentialMovesList = new ArrayList<>();
     //Puntuación
     ArrayList<Piece> whiteUserCaptures = new ArrayList<>();
     ArrayList<Piece> blackUserCaptures = new ArrayList<>();
     String kingInCheck = null;
     private Box lastCLickedBox = null;
 
+    //Getters And Setters
     private boolean turn = true;
+    public Box getLastCLickedBox(){
+        return lastCLickedBox;
+    }
+
+    public void setLastCLickedBox(Box lastCLickedBox) {
+        this.lastCLickedBox = lastCLickedBox;
+    }
+    //Functions
+
+    public void clickDesition(Box clickedBox){
+        //Si es que no hay posibles movimientos
+        if (potentialMovesList.isEmpty()){
+            //Busca movimientos
+            searchPostions(board, clickedBox.getX(), clickedBox.getY());
+       //Sino comprueba si ha hecho click en uno
+        }else{
+            //Si es así ejecuta un movimiento
+            if (potentialMovesList.contains(clickedBox)){
+                move(lastCLickedBox, clickedBox);//CAPTURA //POSIBLE ERROR
+                changeTurn();
+            //Sino vacía la lista de posibles movimientos y busca posiciones
+            }else{
+                potentialMovesList.clear();
+                searchPostions(board, clickedBox.getX(), clickedBox.getY());
+            }
+            potentialMovesList.clear();
+        }
+    }
 
 
     public void searchPostions(Box[][] board, int x, int y){
-        updateImages();
+       // updateImages();
         //Obtengo la casilla con ello
         Box box = board[x][y];
         Piece piece = box.getPiece();
@@ -49,21 +78,24 @@ public class Driver {
             if (casillas.isEmpty()){
                 Log.i("Alerta: ", "No hay movimientos disponibles");
             }else {
-                for (Box boxes : casillas) {
-                    ImageView imageView = getImageView(boxes, visualBoxes);
-                    if (boxes.getPiece() == null) {
+                for (int i = 0; i<casillas.size(); i++) {
+                    Box arrayBox = casillas.get(i);
+                    //ImageView imageView = getImageView(arrayBox, visualBoxes);
+                    if (arrayBox.getPiece() == null) {
                         Log.i("icono", "funciona");
-                        imageView.setImageDrawable(getDrawable(R.drawable.punto));
+                        //imageView.setImageDrawable(getDrawable(R.drawable.punto));
+                        //arrayBox.setCapturable(true);
                     } else {
-                        imageView.setBackgroundColor(Color.parseColor(colorMovements));//SE REPINTA CON EL UPDATE DE ABAJO
+                        //imageView.setBackgroundColor(Color.parseColor(colorMovements));//SE REPINTA CON EL UPDATE DE ABAJO
+                        arrayBox.setCapturable(true);
                     }
                 }
             }
-            driver.cache = casillas;
-            driver.setLastClickedBox(box);
+            potentialMovesList = casillas;
+            setLastCLickedBox(box);
             //Repintamos el tablero
             Log.i("Info", "Acabo de buscar posiciones");
-            updateImages();
+            ////updateImages();
         }
     }
 
@@ -146,7 +178,7 @@ public class Driver {
             boxOrigin.setPiece(null);
         }
         lastCLickedBox = null;
-        PotentialMovesList.clear();
+        potentialMovesList.clear();
         //EL rey opuesto esta en jaque
         logicBoard.kingISInCheck(boxDestiny.getPiece().getColor());
     }

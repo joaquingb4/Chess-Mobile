@@ -1,25 +1,24 @@
-package ChessPieces;
+package com.example.chess_mobile.ChessPieces;
 
-import static com.example.chess_mobile.Tools.getXYOfANumber;
-import static com.example.chess_mobile.Tools.haveAPiece;
-import static com.example.chess_mobile.Tools.isInsideTheBoard;
-import static com.example.chess_mobile.Tools.isOfTheSameColor;
-import static com.example.chess_mobile.Tools.nextPosition;
 
-import android.util.Log;
+
+import static com.example.chess_mobile.Tools.BoardTools.isInsideTheBoard;
+import static com.example.chess_mobile.Tools.BoardTools.nextPosition;
+import static com.example.chess_mobile.Tools.BoxTools.haveAPiece;
+import static com.example.chess_mobile.Tools.BoxTools.isOfTheSameColor;
+import static com.example.chess_mobile.Tools.CalculTools.getXYOfANumber;
 
 import com.example.chess_mobile.Box;
-import com.example.chess_mobile.Driver;
 
 import java.util.ArrayList;
 
-public class Horse extends Piece {
+public class King extends Piece {
     //Attributes
-    private final String name = "Horse";
+    private final String name = "King";
     private String color;
     //Methods
-    public Horse(String color){
-        setColor(color);
+    public King(String color){
+        this.color = color;
     }
     private void setColor(String color) {
         this.color = color;
@@ -53,7 +52,7 @@ public class Horse extends Piece {
         int originalX = x;
         int originalY = y;
 
-        int[] directions = new int[]{+21, +12, -8, -19, -21, -12, +8, +19};
+        int[] directions = new int[]{+9, +10, +11, +1, -11, -10, -9, -1};
 
         for (int i = 0; i < directions.length; i++) {
             while (true) {
@@ -82,4 +81,5 @@ public class Horse extends Piece {
             y = originalY;
         }
         return boxes;
-    }}
+    }
+}

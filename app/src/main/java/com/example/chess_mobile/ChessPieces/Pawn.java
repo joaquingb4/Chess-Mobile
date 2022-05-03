@@ -1,17 +1,12 @@
-package ChessPieces;
+package com.example.chess_mobile.ChessPieces;
 
-import static com.example.chess_mobile.Tools.calculTheNextBox;
-import static com.example.chess_mobile.Tools.getLeftBox;
-import static com.example.chess_mobile.Tools.getRightBox;
-import static com.example.chess_mobile.Tools.getUpBox;
-import static com.example.chess_mobile.Tools.getXYOfANumber;
-import static com.example.chess_mobile.Tools.haveAPiece;
-import static com.example.chess_mobile.Tools.isInsideTheBoard;
-import static com.example.chess_mobile.Tools.isOfTheSameColor;
-import static com.example.chess_mobile.Tools.nextPosition;
+
+
+import static com.example.chess_mobile.Tools.BoardTools.calculTheNextBox;
+import static com.example.chess_mobile.Tools.BoardTools.getLeftBox;
+import static com.example.chess_mobile.Tools.BoardTools.getRightBox;
 
 import com.example.chess_mobile.Box;
-import com.example.chess_mobile.Tools;
 
 import java.util.ArrayList;
 

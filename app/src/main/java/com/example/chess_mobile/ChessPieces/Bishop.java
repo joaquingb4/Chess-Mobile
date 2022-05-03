@@ -1,30 +1,32 @@
-package ChessPieces;
+package com.example.chess_mobile.ChessPieces;
 
-import static com.example.chess_mobile.Tools.getXYOfANumber;
-import static com.example.chess_mobile.Tools.haveAPiece;
-import static com.example.chess_mobile.Tools.isInsideTheBoard;
-import static com.example.chess_mobile.Tools.isOfTheSameColor;
-import static com.example.chess_mobile.Tools.nextPosition;
+import static com.example.chess_mobile.Tools.BoardTools.isInsideTheBoard;
+import static com.example.chess_mobile.Tools.BoardTools.nextPosition;
+import static com.example.chess_mobile.Tools.BoxTools.haveAPiece;
+import static com.example.chess_mobile.Tools.BoxTools.isOfTheSameColor;
+import static com.example.chess_mobile.Tools.CalculTools.getXYOfANumber;
 
 import com.example.chess_mobile.Box;
 
 import java.util.ArrayList;
 
-public class Queen extends Piece {
+public class Bishop extends Piece {
     //Attributes
-    private final String name = "Queen";
+    private final String name = "Bishop";
     private String color;
     //Methods
-    public Queen(String color){
+    public Bishop(String color){
         setColor(color);
     }
     private void setColor(String color) {
         this.color = color;
     }
+
     @Override
     public String getName() {
         return this.name;
     }
+
     @Override
     public String getColor() {
         return this.color;
@@ -36,6 +38,7 @@ public class Queen extends Piece {
     }
 
     //Devuelve un ArrayList con las casillas posibles
+    @Override
     public ArrayList<Box> getAvailableMoves(Box[][] board, int x, int y) {
         ArrayList<Box> boxes = new ArrayList<>();
 
@@ -47,7 +50,7 @@ public class Queen extends Piece {
         int originalX = x;
         int originalY = y;
 
-        int[] directions = new int[]{+9, +10, +11, +1, -11, -10, -9, -1, -10};
+        int[] directions = new int[]{+9, -9, +11, -11};
 
         for (int i = 0; i < directions.length; i++) {
             while (true) {
@@ -59,12 +62,14 @@ public class Queen extends Piece {
                     nextBox = board[nextNumberX][nextNumberY];
 
                     if (haveAPiece(nextBox)) {
-                        if (!isOfTheSameColor(this, nextBox.getPiece())) {
+                        if (isOfTheSameColor(this, nextBox.getPiece())) {
+                            break;
+                        } else {
                             boxes.add(board[nextNumberX][nextNumberY]);
                             x = nextNumberX;
                             y = nextNumberY;
+                            break;
                         }
-                        break;
                     } else {
                         boxes.add(nextBox);
                         x = nextNumberX;

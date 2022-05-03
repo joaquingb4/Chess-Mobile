@@ -9,9 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
-
-import ChessPieces.Piece;
+import com.example.chess_mobile.Tools.BoardTools;
+import com.example.chess_mobile.Tools.CalculTools;
+import com.example.chess_mobile.Tools.TranslationTools;
 
 public class ActivityBoard extends AppCompatActivity {
     //Attributes
@@ -26,14 +26,20 @@ public class ActivityBoard extends AppCompatActivity {
     public void updateImages(){
         for (int i = 0; i < visualBoxes.length ; i++) {
             for (int u = 0; u < visualBoxes[i].length; u++) {
-                visualBoxes[i][u].setImageDrawable(getImage(driver.logicBoard.getBox(i, u)));
+                Box box = driver.logicBoard.getBox(i, u);
+                visualBoxes[i][u].setImageDrawable(getImage(box));
+                if (box.getCapturable()){
+                    BoardTools.getImageView(box, visualBoxes).setBackgroundColor(Color.parseColor(colorMovements));
+                }else {
+
+                }
             }
         }
     }
 
     public Drawable getImage(Box box){
         if (box.isEmpty()){ //Si está vacío
-            if (driver.cache.contains(box)){
+            if (driver.potentialMovesList.contains(box)){
                 return getDrawable(R.drawable.punto);
             }else{
                 return null;
@@ -151,63 +157,37 @@ public class ActivityBoard extends AppCompatActivity {
         paintBoard();
     }
     //AQUÍ
-    public void getBoxColor(){
-        String color;
-
-        for (int i = 0; i < visualBoxes.length; i++) {
-            int u;
-            int o;
-            if ((i%2)==0){
-                u = 0;
-                o = 1;
-            } else{
-                u = 1;
-                o = 0;
-            }
-
-            for (; u < visualBoxes[i].length; u+=2) {
-                //Oscuras
-                visualBoxes[i][u].setBackgroundColor(Color.parseColor(colorBlackBoxes));
-            }
-
-            for (; o < visualBoxes[i].length; o+=2) {
-                //Blancas
-                visualBoxes[i][o].setBackgroundColor(Color.parseColor(colorWhiteBoxes));
-            }
-
-        }
+    public void getBoxColor(Box box){
 
     }
 
     //Pinta el tablero
     public void paintBoard(){
-        for (int i = 0; i < visualBoxes.length; i++) {
-            int u;
-            int o;
-            if ((i%2)==0){
-                u = 0;
-                o = 1;
-            }else{
-                u = 1;
-                o = 0;
-            }
-            for (; u < visualBoxes[i].length; u+=2) {
-                //Oscuras
-                visualBoxes[i][u].setBackgroundColor(Color.parseColor(colorBlackBoxes));
-            }
-            for (; o < visualBoxes[i].length; o+=2) {
-                //Blancas
-                visualBoxes[i][o].setBackgroundColor(Color.parseColor(colorWhiteBoxes));
+        for (int i = 0; i < driver.board.length; i++){
+            for (int y = 0; y < driver.board[i].length; y++) {
+                if (driver.logicBoard.getBox(i, y).getCapturable()){
+                    visualBoxes[i][y].setBackgroundColor(Color.parseColor(colorMovements));
+                    return;
+                }else {
+                    if (driver.board[i][y].getColor()){
+                        visualBoxes[i][y].setBackgroundColor(Color.parseColor(colorBlackBoxes));
+                    }else {
+                        visualBoxes[i][y].setBackgroundColor(Color.parseColor(colorWhiteBoxes));
+                    }
+                }
             }
         }
     }
     //Pintar la casilla del rey
+    /*
     public void paintKingState(String color){
         View viewKing = Tools.getImageView(driver.getKing(color), visualBoxes);
         if (driver.kingISInCheck(color)){
             viewKing.setBackgroundColor(Color.parseColor(colorCheckKing));
         }
     }
+
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -224,25 +204,14 @@ public class ActivityBoard extends AppCompatActivity {
     //Write on the log the box clicked
     //QUIERO HACER UN REFACTOR AQUÍ
     public void clickBoard(View view) {
+        updateImages();
         paintBoard();//PARA LIMPIAR LAS INDICACIONES
         Box clickedBox = driver.getBox(view.getTag().toString());
         Box[][] board = driver.board;
         //Mostramos datos de la casilla
         printBoxInfo(clickedBox);
         //Sí el cache no esta vacío//AQUÍ
-        if (driver.cache.isEmpty()){
-                searchPostions(board, clickedBox.getX(), clickedBox.getY());
-        }else{
-            if (driver.cache.contains(clickedBox)){
-                driver.move(driver.lastClickedBox, clickedBox);//CAPTURA
-
-                driver.changeTurn();
-            }else{
-                driver.cache.clear();
-                searchPostions(board, clickedBox.getX(), clickedBox.getY());
-            }
-            driver.cache.clear();
-        }
+        driver.clickDesition(clickedBox);
         updateImages();
     }
     /*
@@ -259,7 +228,7 @@ public class ActivityBoard extends AppCompatActivity {
                 Log.i("INFO","TURNO: "+driver.turn);
                 return;
             }
-            piece = box.getPiece();
+             piece = box.getPiece();
             //Posiciones posibles
             ArrayList<Box> casillas = piece.getAvailableMoves(board, x, y);
             if (casillas.isEmpty()){

@@ -1,4 +1,4 @@
-package ChessPieces;
+package com.example.chess_mobile.ChessPieces;
 
 import com.example.chess_mobile.Box;
 import com.example.chess_mobile.Driver;

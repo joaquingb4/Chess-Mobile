@@ -12,4 +12,10 @@ public class CalculTools {
     public  static int getSecondDigitOfANumber(int position){
         return position % 10;
     }
+    public static boolean getContraryBoolean(boolean state){
+        if (state){
+            return false;
+        }
+        return true;
+    }
 }

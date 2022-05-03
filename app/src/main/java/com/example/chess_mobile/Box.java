@@ -2,10 +2,7 @@ package com.example.chess_mobile;
 
 import static com.example.chess_mobile.Tools.TranslationTools.getInt;
 
-import java.util.ArrayList;
-import java.util.function.ToLongBiFunction;
-
-import ChessPieces.Piece;
+import com.example.chess_mobile.ChessPieces.Piece;
 
 public class Box {
     //static String abc =  "ABCDEFGH";
@@ -15,9 +12,21 @@ public class Box {
    //Attibutes
     final private String name;
     private Piece piece = null;
+    private boolean capturable = false;
 
-    public Box(String name){
+    public boolean getColor() {
+        return color;
+    }
+
+    public void setColor(boolean color) {
+        this.color = color;
+    }
+
+    private boolean color;
+
+    public Box(String name, boolean color){
         this.name = name;
+        this.color = color;
     }
     public Box(String name, Piece piece){
         this.name = name;
@@ -33,6 +42,14 @@ public class Box {
     }
     public void setPiece(Piece piece) {
         this.piece = piece;
+    }
+
+    public boolean getCapturable() {
+        return capturable;
+    }
+
+    public void setCapturable(boolean inDanger){
+        this.capturable = inDanger;
     }
     //______________
     //Devuelve la posición dentro del array

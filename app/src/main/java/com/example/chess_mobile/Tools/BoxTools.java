@@ -4,7 +4,7 @@ import static com.example.chess_mobile.Tools.TranslationTools.getInt;
 
 import com.example.chess_mobile.Box;
 
-import ChessPieces.Piece;
+import com.example.chess_mobile.ChessPieces.Piece;
 
 public class BoxTools {
 
