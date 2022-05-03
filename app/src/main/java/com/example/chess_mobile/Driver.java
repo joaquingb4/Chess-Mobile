@@ -1,85 +1,70 @@
 package com.example.chess_mobile;
 
+import static com.example.chess_mobile.Tools.BoardTools.getImageView;
+
+import android.graphics.Color;
 import android.util.Log;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-import ChessPieces.Bishop;
-import ChessPieces.Horse;
 import ChessPieces.King;
 import ChessPieces.Pawn;
 import ChessPieces.Piece;
 import ChessPieces.Queen;
 import ChessPieces.Tower;
-
+//Pueente entre ActivityBoard y Board
 public class Driver {
     //Attributes
-    Box[][] board = new Box[8][8];
-    Box boxCache = null;
-    ArrayList<Box> cache = new ArrayList<>();
+    //Crea un tablero lógico
+    LogicBoard logicBoard = new LogicBoard();
+    Box[][] board = logicBoard.getBoard();
+
+    ArrayList<Box> PotentialMovesList = new ArrayList<>();
+    //Puntuación
     ArrayList<Piece> whiteUserCaptures = new ArrayList<>();
     ArrayList<Piece> blackUserCaptures = new ArrayList<>();
-    boolean turn = true;
     String kingInCheck = null;
-    public void setBoxCache(Box box){
-        this.boxCache = box;
-    }
+    private Box lastCLickedBox = null;
 
-    public Box[][] getBoard(){
-        return board;
-    }
+    private boolean turn = true;
 
-    //DEVUELVE TODAS LAS CASILLAS CON PIEZAS DE UN COLOR ESPECÍFICO
-    public ArrayList<Box> getAllColorPieces(String color){
-        ArrayList<Box> enemyBoxes = new ArrayList<>();
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                if (!board[i][j].isEmpty()&&board[i][j].getPiece().getColor().equals(color)){
-                    enemyBoxes.add(board[i][j]);
+
+    public void searchPostions(Box[][] board, int x, int y){
+        updateImages();
+        //Obtengo la casilla con ello
+        Box box = board[x][y];
+        Piece piece = box.getPiece();
+
+        if (box.isEmpty()){
+            Log.i("ERROR","Casilla vacía, no hay movimientos");
+        }else{
+            if (!checkClickTurn(box.getPiece())){
+                Log.i("INFO","TURNO: "+turn);
+                return;
+            }
+            piece = box.getPiece();
+            //Posiciones posibles
+            ArrayList<Box> casillas = piece.getAvailableMoves(board, x, y);
+            if (casillas.isEmpty()){
+                Log.i("Alerta: ", "No hay movimientos disponibles");
+            }else {
+                for (Box boxes : casillas) {
+                    ImageView imageView = getImageView(boxes, visualBoxes);
+                    if (boxes.getPiece() == null) {
+                        Log.i("icono", "funciona");
+                        imageView.setImageDrawable(getDrawable(R.drawable.punto));
+                    } else {
+                        imageView.setBackgroundColor(Color.parseColor(colorMovements));//SE REPINTA CON EL UPDATE DE ABAJO
+                    }
                 }
             }
+            driver.cache = casillas;
+            driver.setLastClickedBox(box);
+            //Repintamos el tablero
+            Log.i("Info", "Acabo de buscar posiciones");
+            updateImages();
         }
-        return enemyBoxes;
-    }
-    //DEVUELVE SI EL REY DE EL COLOR CONTRARIO ESTÁ EN JAQUE
-    public boolean kingISInCheck(String myColor){
-         String enemyColor = Tools.getEnemyColor(myColor);
-         //Obtenemos la casilla con el rey
-        Box kingBox = getKing(enemyColor);
-        //Obtengo las casillas con piezas del contrario
-        ArrayList<Box> contraryBoxes = getAllColorPieces(myColor);
-        //Las recorro y guardo las casillas que el otro puede ocupar en un ArrayList
-        ArrayList<Box> occupybleBoxes = new ArrayList<>();
-        for (int i = 0; i < contraryBoxes.size(); i++) {
-            ArrayList <Box> contraryMoves =
-                            contraryBoxes.get(i).getPiece().getAvailableMoves(
-                            board,
-                            contraryBoxes.get(i).getX(),
-                            contraryBoxes.get(i).getY()
-                    );
-            //Comprobamos si una de las piezas del otro jugador amenaza a mi rey
-            for (int j = 0; j < contraryMoves.size() ; j++) {
-                if (!contraryMoves.get(j).isEmpty() && contraryMoves.contains(kingBox)){
-                    Log.i("INFO","EL REY ["+ enemyColor+ "] ESTA EN JAQUE");
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-
-    //Busca la casilla donde esta un rey determinado
-    public Box getKing(String color){
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                Box box = board[i][j];
-                if (!box.isEmpty() && box.getPiece().getName().equals("King") && box.getPiece().getColor().equals(color)){
-                    return box;
-                }
-            }
-        }
-        return null;
     }
 
     //Devulve el nombre de la pieza, si es que tiene
@@ -95,27 +80,9 @@ public class Driver {
     public Box getBox(String boxName){
         int x = Box.unknownBoxGetX(boxName);
         int y = Box.unknownBoxGetY(boxName);
-    /////    Log.i("prueba","boxName"+boxName +" boxPosition:"+boxPosition);
-     ////   Log.i("prueba","X:"+x+" Y:"+y);
         return board[x][y];
     }
 
-    public int[] getBoxPosition(Box box){
-        String tag = box.getName();//<--Hacer prueba
-        int[] positions = new int[2];
-        positions[0] = Tools.tagGetX(tag);
-        positions[1] = Tools.tagGetY(tag);
-        return positions;//La letra hay que traducirla a la notación del ajedrez
-    }
-
-    //Llena el tablero de casillas
-    public void buildBoxes(){
-        for (int i = 0; i < board.length ; i++) {
-            for (int u = 0; u < board[i].length; u++) {
-                board[i][u] = new Box(Box.translatePositionToName(i,u));//CAMBIO
-            }
-        }
-    }
     //Pone la piezas
     public void buildPieces(){
         //A---1||  columna - fila
@@ -163,13 +130,6 @@ public class Driver {
         getBox("g7").setPiece(new Pawn("black"));
         getBox("a1").setPiece(new Queen("white"));
     }
-    //Devuelve la casilla que se le pide
-    public Box getBox(int column, int row){
-        return board[column][row];
-    }
-    public Box getBox(int[] position){
-        return getBox(position[0], position[1]);
-    }
 
     //Mueve una pieza a una posición
     public void move(Box boxOrigin, Box boxDestiny){
@@ -185,10 +145,10 @@ public class Driver {
             boxDestiny.setPiece(boxOrigin.getPiece());//ERROR
             boxOrigin.setPiece(null);
         }
-        boxCache = null;
-        cache.clear();
+        lastCLickedBox = null;
+        PotentialMovesList.clear();
         //EL rey opuesto esta en jaque
-        kingISInCheck(boxDestiny.getPiece().getColor());
+        logicBoard.kingISInCheck(boxDestiny.getPiece().getColor());
     }
 
     //Cambia el estado del turno cuando se lo llama
@@ -199,8 +159,8 @@ public class Driver {
         }
         turn = true;
     }
-    //Comprueba si la pieza tocada es la correspondiente a la del turno
 
+    //Devuelve de quíen es el turno
     public boolean checkClickTurn(Piece piece){
         if (turn){
             Log.i("INFO", "Turno de las [blancas]");
@@ -209,13 +169,16 @@ public class Driver {
         Log.i("INFO", "Turno de las [negras]");
         return piece.getColor().equals("black");
     }
-    //Devuelve si haciendo un movimiento se quita el jaque a un rey determinado
-    public boolean canThisMovementSaveTheKing(Box[][] board, Box boxToMove, Box boxToOccupy ){
-        Piece boxToMovePiece = boxToMove.getPiece() ;
-        Piece boxtoOccupyPiece =  boxToOccupy.getPiece();
-      //  move(boxToMove, boxToOccupy);
-       // if (enemyKingISInJaque()){}
-        return false;
+
+    //BOARD FUNCTIONS
+    public void simulation(ArrayList<Box> possbilesMoves, int x, int y){
+        Box[][] testBoard = this.board.clone();
+        Box boxToMove = testBoard[x][y];
+        for (int i = 0; i < possbilesMoves.size(); i++) {
+            Box potentialMove = testBoard[possbilesMoves.get(i).getX()][possbilesMoves.get(i).getY()];
+            move(boxToMove, potentialMove);
+            //if ()
+        }
     }
 
 }

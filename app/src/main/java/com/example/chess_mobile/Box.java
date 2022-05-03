@@ -1,5 +1,7 @@
 package com.example.chess_mobile;
 
+import static com.example.chess_mobile.Tools.TranslationTools.getInt;
+
 import java.util.ArrayList;
 import java.util.function.ToLongBiFunction;
 
@@ -63,6 +65,7 @@ public class Box {
     public boolean isEmpty(){
         return this.piece == null;
     }
+    /*
     //Recibe una posición y devuelve su equivalente en nombre de casilla
     public static String translatePositionToName(int x ,int y){
         if (Tools.isInsideTheBoard(x, y)){
@@ -73,6 +76,8 @@ public class Box {
             return null;
         }
     }
+
+     */
     //DEVUELVE UNA COORDENADA DENTRO DEL ARRAY ENCONTRADA POR EL NOMBRE DE
     //LA CASILLA
     public static int getPositionOfABox(String boxName){
@@ -81,17 +86,5 @@ public class Box {
         return (x *10)+(y-1);
     }
 
-    //LE DOY UNA LETRA Y ME DEVUELVE UN NÚMERO
-    public static int getInt(char letter){
-        for (int i = 0; i < abc.length; i++) {
-            if (abc[i]==letter){
-                return i;
-            }
-        }
-        return -1;
-    }
-    //A LA INVERSA
-    public static char getLetter(int index){
-        return abc[index];
-    }
+
 }

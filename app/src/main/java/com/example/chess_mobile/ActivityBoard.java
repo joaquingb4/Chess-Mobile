@@ -22,11 +22,11 @@ public class ActivityBoard extends AppCompatActivity {
     ImageView[][] visualBoxes = new ImageView[8][8];
     Driver driver = new Driver();
 
-    //Actualiza la parte visual de las piezas
+    //Actualiza la parte visual de las piezas   //POSIBLE FALLO
     public void updateImages(){
         for (int i = 0; i < visualBoxes.length ; i++) {
             for (int u = 0; u < visualBoxes[i].length; u++) {
-                visualBoxes[i][u].setImageDrawable(getImage(driver.getBox(new int[]{i, u})));
+                visualBoxes[i][u].setImageDrawable(getImage(driver.logicBoard.getBox(i, u)));
             }
         }
     }
@@ -216,7 +216,7 @@ public class ActivityBoard extends AppCompatActivity {
 
         buildBoxes();
 
-        driver.buildBoxes();
+        driver.logicBoard.buildBoxes();
         driver.buildPieces();
         updateImages();
     }
@@ -234,7 +234,7 @@ public class ActivityBoard extends AppCompatActivity {
                 searchPostions(board, clickedBox.getX(), clickedBox.getY());
         }else{
             if (driver.cache.contains(clickedBox)){
-                driver.move(driver.boxCache, clickedBox);//CAPTURA
+                driver.move(driver.lastClickedBox, clickedBox);//CAPTURA
 
                 driver.changeTurn();
             }else{
@@ -245,7 +245,7 @@ public class ActivityBoard extends AppCompatActivity {
         }
         updateImages();
     }
-
+    /*
     public void searchPostions(Box[][] board, int x, int y){
         updateImages();
         //Obtengo la casilla con ello
@@ -276,13 +276,13 @@ public class ActivityBoard extends AppCompatActivity {
                 }
             }
             driver.cache = casillas;
-            driver.setBoxCache(box);
+            driver.setLastClickedBox(box);
             //Repintamos el tablero
             Log.i("Info", "Acabo de buscar posiciones");
             updateImages();
         }
     }
-
+*/
     //
     public void printBoxInfo(Box clickedBox){
         Log.i("Info", " Has hecho click en la casilla: " + clickedBox.getName()+
