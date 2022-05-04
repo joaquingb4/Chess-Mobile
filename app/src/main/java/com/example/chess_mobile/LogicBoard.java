@@ -66,8 +66,33 @@ public class LogicBoard {
         }
         return null;
     }
+    //Devuelve un rey, si es que alguno se encuentra amenzado
+    public Box getKingOnCheck(){
+        Box blacKking = getKing("black");
+        Box whiteKing = getKing("white");
 
-    //DEVUELVE SI EL REY DE EL COLOR CONTRARIO ESTÁ EN JAQUE
+        ArrayList<Box> blackEnemyBoxes = searchEnemyBoxes(blacKking);
+        ArrayList<Box> whiteEnemyBoxes = searchEnemyBoxes(whiteKing);
+
+        if (blackEnemyBoxes.isEmpty() && whiteEnemyBoxes.isEmpty()){
+            return null;
+        }else{
+            if (!blackEnemyBoxes.isEmpty()){
+                return blacKking;
+            }else{
+                return whiteKing;
+            }
+        }
+    }
+    public ArrayList<Box> searchEnemyBoxes(Box box){
+        String enemyColor = getContraryColor(box.getPiece().getColor());
+        //Obtengo las casillas con piezas del contrario
+        ArrayList<Box> contraryBoxes = getPlayerBoxes(enemyColor);
+        //Las recorro y busco si alguna apunta a la pieza indicada
+        ArrayList<Box> occupybleBoxes = new ArrayList<>();
+        //ME QUEDO AQUÍ
+    }
+    //Si uno de los dos reyes del tablero está en jaque, lo devuelve
     public boolean kingISInCheck(String myColor){
         String enemyColor = getContraryColor(myColor);
         //Obtenemos la casilla con el rey

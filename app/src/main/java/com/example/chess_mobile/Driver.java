@@ -26,6 +26,7 @@ public class Driver {
     ArrayList<Piece> blackUserCaptures = new ArrayList<>();
     String kingInCheck = null;
     private Box lastCLickedBox = null;
+    private Box kingIncheck = null;
 
     //Getters And Setters
     private boolean turn = true;
