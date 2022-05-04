@@ -93,6 +93,14 @@ public class LogicBoard {
         }
         return false;
     }
+    //Todas las casillas las vuelve no capturables
+    public void setAllBoxesNotCapturable(){
+        for (int x = 0; x < board.length; x++){
+            for (int y = 0; y < board[x].length; y++) {
+                board[x][y].setCapturable(false);
+            }
+        }
+    }
 
 
 
@@ -110,17 +118,15 @@ public class LogicBoard {
     public void buildBoxes(){
         boolean boxColor = false;
         for (int x = 0; x < board.length ; x++) {
+            if ((x%2)==0){
+                boxColor = false;
+            }else{
+                boxColor=true;
+            }
             for (int y = 0; y < board[x].length; y++) {
-                if ((y%2)==0){
-                    boxColor = true;
-                }else{
-                    boxColor=false;
-                }
-                for (int j = 0; j < 7; j++) {
-                    boxColor = getContraryBoolean(boxColor);
-                    board[x][y] = new Box(translatePositionToName(x,y), boxColor);//CAMBIO
+                boxColor = getContraryBoolean(boxColor);
+                board[x][y] = new Box(translatePositionToName(x,y), boxColor);//CAMBIO
 
-                }
             }
         }
     }

@@ -80,13 +80,9 @@ public class Driver {
             }else {
                 for (int i = 0; i<casillas.size(); i++) {
                     Box arrayBox = casillas.get(i);
-                    //ImageView imageView = getImageView(arrayBox, visualBoxes);
                     if (arrayBox.getPiece() == null) {
                         Log.i("icono", "funciona");
-                        //imageView.setImageDrawable(getDrawable(R.drawable.punto));
-                        //arrayBox.setCapturable(true);
                     } else {
-                        //imageView.setBackgroundColor(Color.parseColor(colorMovements));//SE REPINTA CON EL UPDATE DE ABAJO
                         arrayBox.setCapturable(true);
                     }
                 }
@@ -95,7 +91,6 @@ public class Driver {
             setLastCLickedBox(box);
             //Repintamos el tablero
             Log.i("Info", "Acabo de buscar posiciones");
-            ////updateImages();
         }
     }
 
@@ -178,6 +173,17 @@ public class Driver {
             boxOrigin.setPiece(null);
         }
         lastCLickedBox = null;
+        //EL rey opuesto esta en jaque
+        logicBoard.kingISInCheck(boxDestiny.getPiece().getColor());
+
+        //Marca las casillas como no capturables    //ESTOY AQUÍ
+        for (int x = 0; x < potentialMovesList.size(); x++){
+            Box box = potentialMovesList.get(x);
+            box.setCapturable(false);
+           // if (box.getName().equals("king")){
+
+           // }
+        }
         potentialMovesList.clear();
         //EL rey opuesto esta en jaque
         logicBoard.kingISInCheck(boxDestiny.getPiece().getColor());

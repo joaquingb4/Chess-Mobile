@@ -5,10 +5,6 @@ import static com.example.chess_mobile.Tools.TranslationTools.getInt;
 import com.example.chess_mobile.ChessPieces.Piece;
 
 public class Box {
-    //static String abc =  "ABCDEFGH";
-   static char[] abc = new char[]{
-           'a','b','c','d','e','f','g','h'
-   };
    //Attibutes
     final private String name;
     private Piece piece = null;

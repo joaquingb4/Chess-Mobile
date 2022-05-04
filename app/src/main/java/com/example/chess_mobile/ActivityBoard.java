@@ -213,6 +213,7 @@ public class ActivityBoard extends AppCompatActivity {
         //Sí el cache no esta vacío//AQUÍ
         driver.clickDesition(clickedBox);
         updateImages();
+        paintBoard();
     }
     /*
     public void searchPostions(Box[][] board, int x, int y){
