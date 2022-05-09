@@ -11,6 +11,8 @@ import java.util.ArrayList;
 public class LogicBoard {
     //Attributes
     private Box[][] board = new Box[8][8];
+    private Box whiteKing = null;
+    private Box blackKing = null;
 
     //Builder
     public LogicBoard(){
@@ -71,26 +73,42 @@ public class LogicBoard {
         Box blacKking = getKing("black");
         Box whiteKing = getKing("white");
 
-        ArrayList<Box> blackEnemyBoxes = searchEnemyBoxes(blacKking);
-        ArrayList<Box> whiteEnemyBoxes = searchEnemyBoxes(whiteKing);
+        boolean blacKkingIsOnCheck = boxInDanger(blacKking);
+        boolean whiteKingIsOnCheck = boxInDanger(whiteKing);
 
-        if (blackEnemyBoxes.isEmpty() && whiteEnemyBoxes.isEmpty()){
+        if (!blacKkingIsOnCheck && !whiteKingIsOnCheck)  {
             return null;
         }else{
-            if (!blackEnemyBoxes.isEmpty()){
-                return blacKking;
-            }else{
+            if (whiteKingIsOnCheck){
                 return whiteKing;
+            }else{
+                return blacKking;
             }
         }
     }
-    public ArrayList<Box> searchEnemyBoxes(Box box){
+    //Busco si una casilla apunta a esta pieza
+    public boolean boxInDanger(Box box){
+        if (box.isEmpty()){
+            Log.i("INFO", "casilla "+ box +" está vacía");
+            return false;
+        }
         String enemyColor = getContraryColor(box.getPiece().getColor());
         //Obtengo las casillas con piezas del contrario
         ArrayList<Box> contraryBoxes = getPlayerBoxes(enemyColor);
         //Las recorro y busco si alguna apunta a la pieza indicada
         ArrayList<Box> occupybleBoxes = new ArrayList<>();
-        //ME QUEDO AQUÍ
+        for (int i = 0; i < occupybleBoxes.size(); i++){
+            boolean answer =
+            occupybleBoxes.get(i).getPiece()
+                    .getAvailableMoves(board
+                            , occupybleBoxes.get(i).getX(),
+                            occupybleBoxes.get(i).getY())
+                    .contains(box);
+            if (answer){
+                return true;
+            }
+        }
+        return false;
     }
     //Si uno de los dos reyes del tablero está en jaque, lo devuelve
     public boolean kingISInCheck(String myColor){
@@ -127,8 +145,6 @@ public class LogicBoard {
         }
     }
 
-
-
     //OPERATIONS
     public void move(Box boxOrigin, Box boxDestiny){
         if (!boxOrigin.isEmpty()){
@@ -137,6 +153,7 @@ public class LogicBoard {
         }else{
             Log.i("ERROR", "No hay un atacante");
         }
+        updateBoardStatus();
     }
 
     //Llena el tablero de casillas
@@ -155,6 +172,14 @@ public class LogicBoard {
             }
         }
     }
+    public void updateBoardStatus(){
+        //Se actualizan las ubicaciones
+        whiteKing = getKing("white");
+        blackKing = getKing("black");
+        //Se actualizan sus estados
+        whiteKing.setCapturable(boxInDanger(whiteKing));
+        blackKing.setCapturable(boxInDanger(blackKing));
 
+    }
 
 }

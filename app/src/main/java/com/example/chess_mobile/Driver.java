@@ -56,9 +56,9 @@ public class Driver {
                 searchPostions(board, clickedBox.getX(), clickedBox.getY());
             }
             potentialMovesList.clear();
+            //ERROR ES NECESARIO QUE EL REY SE QUEDE ILUMINADO SI ESTÁ AMENAZADO
         }
     }
-
 
     public void searchPostions(Box[][] board, int x, int y){
        // updateImages();
@@ -153,6 +153,7 @@ public class Driver {
         //for (int i = 0; i < 8; i++) {
         //    getBox(Box.getLetter(i)+"7").setPiece(new Pawn("black"));
         //}
+        getBox("h1").setPiece(new King("white"));
         getBox("h8").setPiece(new King("black"));
         getBox("g8").setPiece(new Pawn("black"));
         getBox("g7").setPiece(new Pawn("black"));
@@ -181,9 +182,6 @@ public class Driver {
         for (int x = 0; x < potentialMovesList.size(); x++){
             Box box = potentialMovesList.get(x);
             box.setCapturable(false);
-           // if (box.getName().equals("king")){
-
-           // }
         }
         potentialMovesList.clear();
         //EL rey opuesto esta en jaque
