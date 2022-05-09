@@ -163,16 +163,21 @@ public class ActivityBoard extends AppCompatActivity {
 
     //Pinta el tablero
     public void paintBoard(){
-        for (int i = 0; i < driver.board.length; i++){
-            for (int y = 0; y < driver.board[i].length; y++) {
-                if (driver.logicBoard.getBox(i, y).getCapturable()){
-                    visualBoxes[i][y].setBackgroundColor(Color.parseColor(colorMovements));
-                    return;
+        for (int x = 0; x < driver.board.length; x++){
+            for (int y = 0; y < driver.board[x].length; y++) {
+                Box logicBox = driver.logicBoard.getBox(x, y);
+                View visualBox = visualBoxes[x][y];
+                if (logicBox.getCapturable()){
+                    if (logicBox.equals(driver.logicBoard.getKing("black")) || logicBox.equals(driver.logicBoard.getKing("white"))){
+                        visualBoxes[x][y].setBackgroundColor(Color.parseColor(colorCheckKing));
+                    }else{
+                        visualBox.setBackgroundColor(Color.parseColor(colorMovements));
+                    }
                 }else {
-                    if (driver.board[i][y].getColor()){
-                        visualBoxes[i][y].setBackgroundColor(Color.parseColor(colorBlackBoxes));
+                    if (logicBox.getColor()){
+                        visualBox.setBackgroundColor(Color.parseColor(colorBlackBoxes));
                     }else {
-                        visualBoxes[i][y].setBackgroundColor(Color.parseColor(colorWhiteBoxes));
+                        visualBox.setBackgroundColor(Color.parseColor(colorWhiteBoxes));
                     }
                 }
             }
@@ -209,7 +214,6 @@ public class ActivityBoard extends AppCompatActivity {
         Box clickedBox = driver.getBox(view.getTag().toString());
         Box[][] board = driver.board;
         //Mostramos datos de la casilla
-        printBoxInfo(clickedBox);
         //Sí el cache no esta vacío//AQUÍ
         driver.clickDesition(clickedBox);
         updateImages();
@@ -254,9 +258,6 @@ public class ActivityBoard extends AppCompatActivity {
     }
 */
     //
-    public void printBoxInfo(Box clickedBox){
-        Log.i("Info", " Has hecho click en la casilla: " + clickedBox.getName()+
-                ", Que tiene un ["+ driver.getBoxPieceName(clickedBox.getName())+"]");
-    }
+
 
 }

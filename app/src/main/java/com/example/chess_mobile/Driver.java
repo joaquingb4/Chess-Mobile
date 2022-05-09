@@ -40,6 +40,7 @@ public class Driver {
     //Functions
 
     public void clickDesition(Box clickedBox){
+        printBoxInfo(clickedBox);
         //Si es que no hay posibles movimientos
         if (potentialMovesList.isEmpty()){
             //Busca movimientos
@@ -55,7 +56,9 @@ public class Driver {
                 potentialMovesList.clear();
                 searchPostions(board, clickedBox.getX(), clickedBox.getY());
             }
+            logicBoard.setNoCapturable();//Me he quedado [AQUÍ]
             potentialMovesList.clear();
+         //   logicBoard.updateKingStates();
             //ERROR ES NECESARIO QUE EL REY SE QUEDE ILUMINADO SI ESTÁ AMENAZADO
             //BUG: SI ES QUE DESPUES DE CALCULAR LAS AMENAZAS DE UNA PIEZA SE QUEDA EL ILUMINADO
         }
@@ -94,6 +97,11 @@ public class Driver {
             //Repintamos el tablero
             Log.i("Info", "Acabo de buscar posiciones");
         }
+    }
+
+    public void printBoxInfo(Box clickedBox){
+        Log.i("Info", " Has hecho click en la casilla: " + clickedBox.getName()+
+                ", Que tiene un ["+ getBoxPieceName(clickedBox.getName())+"]");
     }
 
     //Devulve el nombre de la pieza, si es que tiene
@@ -163,31 +171,12 @@ public class Driver {
 
     //Mueve una pieza a una posición
     public void move(Box boxOrigin, Box boxDestiny){
-        if (!boxDestiny.isEmpty()) {//NO SIMPLIFICAR
-            if (boxOrigin.getPiece().getColor().equals("white")) {  //ESTOY AQUÍ
-                blackUserCaptures.add(boxDestiny.getPiece());
-            } else {
-                whiteUserCaptures.add(boxDestiny.getPiece());
-            }
-            boxDestiny.setPiece(boxOrigin.getPiece());//ERROR
-            boxOrigin.setPiece(null);
-        }else{
-            boxDestiny.setPiece(boxOrigin.getPiece());//ERROR
-            boxOrigin.setPiece(null);
-        }
+        //Me muevo
+        logicBoard.move(boxOrigin, boxDestiny);
+        //Última casilla es NUll
         lastCLickedBox = null;
-        //EL rey opuesto esta en jaque
-        logicBoard.kingISInCheck(boxDestiny.getPiece().getColor());
-
-        //Marca las casillas como no capturables    //PONER EN UNA FUNCIÓN Y LLAMAR AQUÍ Y DESPUES DE CANCELAR CLICK
-        for (int x = 0; x < potentialMovesList.size(); x++){
-            Box box = potentialMovesList.get(x);
-            box.setCapturable(false);
-        }
-        potentialMovesList.clear();
-        //EL rey opuesto esta en jaque
-        logicBoard.kingISInCheck(boxDestiny.getPiece().getColor());
     }
+
 
     //Cambia el estado del turno cuando se lo llama
     public void changeTurn (){

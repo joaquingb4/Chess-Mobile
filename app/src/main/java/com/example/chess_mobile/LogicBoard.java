@@ -97,12 +97,12 @@ public class LogicBoard {
         ArrayList<Box> contraryBoxes = getPlayerBoxes(enemyColor);
         //Las recorro y busco si alguna apunta a la pieza indicada
         ArrayList<Box> occupybleBoxes = new ArrayList<>();
-        for (int i = 0; i < occupybleBoxes.size(); i++){
+        for (int i = 0; i < contraryBoxes.size(); i++){
             boolean answer =
-            occupybleBoxes.get(i).getPiece()
+                    contraryBoxes.get(i).getPiece()
                     .getAvailableMoves(board
-                            , occupybleBoxes.get(i).getX(),
-                            occupybleBoxes.get(i).getY())
+                            , contraryBoxes.get(i).getX(),
+                            contraryBoxes.get(i).getY())
                     .contains(box);
             if (answer){
                 return true;
@@ -172,13 +172,31 @@ public class LogicBoard {
             }
         }
     }
+    //Actualiza todas las casillas del tablero a no capturables, excepto los reyes
+    public void setNoCapturable(){
+        for (int x = 0; x < board.length; x++){
+            for (int y = 0; y < board[x].length; y++) {
+                Box logicBox = board[x][y];
+                if (!logicBox.equals(blackKing) || !logicBox.equals(whiteKing)){
+                    logicBox.setCapturable(false);
+                }
+            }
+        }
+    }
+    //Actualiza el estado de los reyes
+
+
+    //Actualiza los datos de las características del tablero
     public void updateBoardStatus(){
         //Se actualizan las ubicaciones
         whiteKing = getKing("white");
         blackKing = getKing("black");
         //Se actualizan sus estados
+
         whiteKing.setCapturable(boxInDanger(whiteKing));
         blackKing.setCapturable(boxInDanger(blackKing));
+        Log.i("INFO", ""+whiteKing.getCapturable());
+        Log.i("INFO", ""+blackKing.getCapturable());
 
     }
 
