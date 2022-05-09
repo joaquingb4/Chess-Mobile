@@ -57,6 +57,7 @@ public class Driver {
             }
             potentialMovesList.clear();
             //ERROR ES NECESARIO QUE EL REY SE QUEDE ILUMINADO SI ESTÁ AMENAZADO
+            //BUG: SI ES QUE DESPUES DE CALCULAR LAS AMENAZAS DE UNA PIEZA SE QUEDA EL ILUMINADO
         }
     }
 
@@ -178,7 +179,7 @@ public class Driver {
         //EL rey opuesto esta en jaque
         logicBoard.kingISInCheck(boxDestiny.getPiece().getColor());
 
-        //Marca las casillas como no capturables    //ESTOY AQUÍ
+        //Marca las casillas como no capturables    //PONER EN UNA FUNCIÓN Y LLAMAR AQUÍ Y DESPUES DE CANCELAR CLICK
         for (int x = 0; x < potentialMovesList.size(); x++){
             Box box = potentialMovesList.get(x);
             box.setCapturable(false);
