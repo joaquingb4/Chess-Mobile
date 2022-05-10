@@ -18,9 +18,15 @@ public class LogicBoard {
     public LogicBoard(){
         buildBoxes();
     }
+    public LogicBoard(Box[][] board){
+        this.board = board;
+    }
     //Getters And Setters
     public Box[][] getBoard() {
         return board;
+    }
+    public void setBoard(Box[][] board){
+        this.board = board;
     }
 
     //Devulve el nombre de la pieza, si es que tiene
@@ -177,14 +183,15 @@ public class LogicBoard {
         for (int x = 0; x < board.length; x++){
             for (int y = 0; y < board[x].length; y++) {
                 Box logicBox = board[x][y];
-                if (!logicBox.equals(blackKing) || !logicBox.equals(whiteKing)){
+                if (!logicBox.getName().equals(blackKing.getName()) && !logicBox.getName().equals(whiteKing.getName())){
                     logicBox.setCapturable(false);
+                    Log.i("INFO", "box "+ logicBox.getName() + ": false");
+                }else{
+                    Log.i("INFO", "box "+ logicBox.getName() + ": true");
                 }
             }
         }
     }
-    //Actualiza el estado de los reyes
-
 
     //Actualiza los datos de las características del tablero
     public void updateBoardStatus(){
@@ -192,12 +199,10 @@ public class LogicBoard {
         whiteKing = getKing("white");
         blackKing = getKing("black");
         //Se actualizan sus estados
-
         whiteKing.setCapturable(boxInDanger(whiteKing));
         blackKing.setCapturable(boxInDanger(blackKing));
         Log.i("INFO", ""+whiteKing.getCapturable());
         Log.i("INFO", ""+blackKing.getCapturable());
-
     }
 
 }

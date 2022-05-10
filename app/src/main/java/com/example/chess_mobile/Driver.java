@@ -1,11 +1,13 @@
 package com.example.chess_mobile;
 
 import static com.example.chess_mobile.Tools.BoardTools.getImageView;
+import static com.example.chess_mobile.Tools.TranslationTools.getContraryColor;
 
 import android.graphics.Color;
 import android.util.Log;
 import android.widget.ImageView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import com.example.chess_mobile.ChessPieces.King;
@@ -19,12 +21,7 @@ public class Driver {
     //Crea un tablero lógico
     LogicBoard logicBoard = new LogicBoard();
     Box[][] board = logicBoard.getBoard();
-
     ArrayList<Box> potentialMovesList = new ArrayList<>();
-    //Puntuación
-    ArrayList<Piece> whiteUserCaptures = new ArrayList<>();
-    ArrayList<Piece> blackUserCaptures = new ArrayList<>();
-    String kingInCheck = null;
     private Box lastCLickedBox = null;
     private Box kingIncheck = null;
 
@@ -58,9 +55,7 @@ public class Driver {
             }
             logicBoard.setNoCapturable();//Me he quedado [AQUÍ]
             potentialMovesList.clear();
-         //   logicBoard.updateKingStates();
             //ERROR ES NECESARIO QUE EL REY SE QUEDE ILUMINADO SI ESTÁ AMENAZADO
-            //BUG: SI ES QUE DESPUES DE CALCULAR LAS AMENAZAS DE UNA PIEZA SE QUEDA EL ILUMINADO
         }
     }
 
@@ -80,6 +75,8 @@ public class Driver {
             piece = box.getPiece();
             //Posiciones posibles
             ArrayList<Box> casillas = piece.getAvailableMoves(board, x, y);
+            casillas = removeNotAllowedMoves(casillas, x ,y);
+            //Quito las casillas que no me sirvan para salir de un jaque
             if (casillas.isEmpty()){
                 Log.i("Alerta: ", "No hay movimientos disponibles");
             }else {
@@ -198,14 +195,24 @@ public class Driver {
     }
 
     //BOARD FUNCTIONS
-    public void simulation(ArrayList<Box> possbilesMoves, int x, int y){
-        Box[][] testBoard = this.board.clone();
-        Box boxToMove = testBoard[x][y];
-        for (int i = 0; i < possbilesMoves.size(); i++) {
-            Box potentialMove = testBoard[possbilesMoves.get(i).getX()][possbilesMoves.get(i).getY()];
-            move(boxToMove, potentialMove);
-            //if ()
-        }
-    }
+    public ArrayList<Box> removeNotAllowedMoves(ArrayList<Box> possbilesMoves, int x, int y){
+        //Creamos un nuevo logicBoard
 
+        Box[][] originalBoard = logicBoard.getBoard().clone();
+        logicBoard.setBoard(originalBoard.clone());
+
+        //Creamos una Lista para guardar las casillas que pasen el test
+        ArrayList<Box> allowedMoves = new ArrayList<>();
+
+        Box boxToMove = board[x][y];
+        Box copyKing = logicBoard.getKing(boxToMove.getPiece().getColor());
+        for (int i = 0; i < possbilesMoves.size(); i++) {
+            LogicBoard copyLogicBoard = new LogicBoard(board.clone());
+            copyLogicBoard.move(copyLogicBoard.getBox(board[x][y].getName()), copyLogicBoard.getBox(possbilesMoves.get(i).getName()));
+            if (!copyLogicBoard.boxInDanger(copyLogicBoard.getKing(board[x][y].getPiece().getColor()))){
+                allowedMoves.add(possbilesMoves.get(i));
+            }
+        }
+        return allowedMoves;
+    }
 }
