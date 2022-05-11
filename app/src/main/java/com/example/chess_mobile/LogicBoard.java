@@ -8,7 +8,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-public class LogicBoard {
+public class LogicBoard implements Cloneable {
     //Attributes
     private Box[][] board = new Box[8][8];
     private Box whiteKing = null;
@@ -203,6 +203,15 @@ public class LogicBoard {
         blackKing.setCapturable(boxInDanger(blackKing));
         Log.i("INFO", ""+whiteKing.getCapturable());
         Log.i("INFO", ""+blackKing.getCapturable());
+    }
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        //learner.eduCourse = (LogicBoard) eduCourse.clone();
+        try{
+            return super.clone();
+        }catch (CloneNotSupportedException e){
+            Log.i("INFO", ""+e);
+        }
     }
 
 }

@@ -195,22 +195,22 @@ public class Driver {
     }
 
     //BOARD FUNCTIONS
-    public ArrayList<Box> removeNotAllowedMoves(ArrayList<Box> possbilesMoves, int x, int y){
+    public ArrayList<Box> removeNotAllowedMoves(ArrayList<Box> possibilesMoves, int x, int y) {
         //Creamos un nuevo logicBoard
-
+        // x y mi equipo
         Box[][] originalBoard = logicBoard.getBoard().clone();
         logicBoard.setBoard(originalBoard.clone());
 
         //Creamos una Lista para guardar las casillas que pasen el test
         ArrayList<Box> allowedMoves = new ArrayList<>();
 
-        Box boxToMove = board[x][y];
-        Box copyKing = logicBoard.getKing(boxToMove.getPiece().getColor());
-        for (int i = 0; i < possbilesMoves.size(); i++) {
-            LogicBoard copyLogicBoard = new LogicBoard(board.clone());
-            copyLogicBoard.move(copyLogicBoard.getBox(board[x][y].getName()), copyLogicBoard.getBox(possbilesMoves.get(i).getName()));
-            if (!copyLogicBoard.boxInDanger(copyLogicBoard.getKing(board[x][y].getPiece().getColor()))){
-                allowedMoves.add(possbilesMoves.get(i));
+        Box boxToMove = logicBoard.getBoard()[x][y];
+        for (int i = 0; i < possibilesMoves.size(); i++) {
+            LogicBoard copyLogicBoard = (LogicBoard) logicBoard.clone();
+            Box copyKing = copyLogicBoard.getKing(boxToMove.getPiece().getColor());
+            copyLogicBoard.move(copyLogicBoard.getBox(board[x][y].getName()), copyLogicBoard.getBox(possibilesMoves.get(i).getName()));
+            if (!copyLogicBoard.boxInDanger(copyKing)){
+                allowedMoves.add(possibilesMoves.get(i));
             }
         }
         return allowedMoves;
