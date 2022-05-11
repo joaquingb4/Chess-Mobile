@@ -208,7 +208,7 @@ public class ActivityBoard extends AppCompatActivity {
 
     //Write on the log the box clicked
     //QUIERO HACER UN REFACTOR AQUÍ
-    public void clickBoard(View view) {
+    public void clickBoard(View view) throws CloneNotSupportedException {
         updateImages();
         paintBoard();//PARA LIMPIAR LAS INDICACIONES
         Box clickedBox = driver.getBox(view.getTag().toString());

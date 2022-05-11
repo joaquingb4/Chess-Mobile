@@ -6,6 +6,8 @@ import  static  com.example.chess_mobile.Tools.CalculTools.getContraryBoolean;
 
 import android.util.Log;
 
+import com.example.chess_mobile.ChessPieces.Piece;
+
 import java.util.ArrayList;
 
 public class LogicBoard implements Cloneable {
@@ -20,6 +22,7 @@ public class LogicBoard implements Cloneable {
     }
     public LogicBoard(Box[][] board){
         this.board = board;
+        buildBoxes();
     }
     //Getters And Setters
     public Box[][] getBoard() {
@@ -212,6 +215,17 @@ public class LogicBoard implements Cloneable {
         }catch (CloneNotSupportedException e){
             Log.i("INFO", ""+e);
         }
+        return null;
     }
+    public boolean simulation(Box boxA, Box boxB){
+        boolean//ESTOY AQUÍ BORRAR CLONE
+        Piece pieceA = boxA.getPiece();
+        Piece pieceB = boxB.getPiece();
+        boxB.setPiece(boxA.getPiece());
+        boxA.setPiece(null);
+        if (boxInDanger(getKing(pieceA.getColor()))){
 
+        }
+        return boxInDanger(getKing(pieceA.getColor()));
+    }
 }

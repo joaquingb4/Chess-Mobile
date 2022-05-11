@@ -36,7 +36,7 @@ public class Driver {
     }
     //Functions
 
-    public void clickDesition(Box clickedBox){
+    public void clickDesition(Box clickedBox) throws CloneNotSupportedException {
         printBoxInfo(clickedBox);
         //Si es que no hay posibles movimientos
         if (potentialMovesList.isEmpty()){
@@ -59,7 +59,7 @@ public class Driver {
         }
     }
 
-    public void searchPostions(Box[][] board, int x, int y){
+    public void searchPostions(Box[][] board, int x, int y) throws CloneNotSupportedException {
        // updateImages();
         //Obtengo la casilla con ello
         Box box = board[x][y];
@@ -195,7 +195,7 @@ public class Driver {
     }
 
     //BOARD FUNCTIONS
-    public ArrayList<Box> removeNotAllowedMoves(ArrayList<Box> possibilesMoves, int x, int y) {
+    public ArrayList<Box> removeNotAllowedMoves(ArrayList<Box> possibilesMoves, int x, int y) throws CloneNotSupportedException {
         //Creamos un nuevo logicBoard
         // x y mi equipo
         Box[][] originalBoard = logicBoard.getBoard().clone();
@@ -203,11 +203,19 @@ public class Driver {
 
         //Creamos una Lista para guardar las casillas que pasen el test
         ArrayList<Box> allowedMoves = new ArrayList<>();
-
+        LogicBoard copyLogicBoard = null;
         Box boxToMove = logicBoard.getBoard()[x][y];
         for (int i = 0; i < possibilesMoves.size(); i++) {
-            LogicBoard copyLogicBoard = (LogicBoard) logicBoard.clone();
-            Box copyKing = copyLogicBoard.getKing(boxToMove.getPiece().getColor());
+            Box[][] copyBoard = new Box[8][8];
+            for (int j = 0; j < board.length; j++) {
+                for (int k = 0; k < board[j].length; k++) {
+                    copyBoard[j][k] = (Box) board[j][k].clone();
+                }
+            }
+            copyLogicBoard = (LogicBoard) logicBoard.clone();
+            copyLogicBoard.setBoard(copyBoard);
+            copyLogicBoard.setBoard(board.clone());
+            Box copyKing = copyLogicBoard.getKing(board[x][y].getPiece().getColor());
             copyLogicBoard.move(copyLogicBoard.getBox(board[x][y].getName()), copyLogicBoard.getBox(possibilesMoves.get(i).getName()));
             if (!copyLogicBoard.boxInDanger(copyKing)){
                 allowedMoves.add(possibilesMoves.get(i));

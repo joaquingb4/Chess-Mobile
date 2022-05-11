@@ -2,9 +2,11 @@ package com.example.chess_mobile;
 
 import static com.example.chess_mobile.Tools.TranslationTools.getInt;
 
+import android.util.Log;
+
 import com.example.chess_mobile.ChessPieces.Piece;
 
-public class Box {
+public class Box implements Cloneable {
    //Attibutes
     final private String name;
     private Piece piece = null;
@@ -99,5 +101,14 @@ public class Box {
         return (x *10)+(y-1);
     }
 
-
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        //learner.eduCourse = (LogicBoard) eduCourse.clone();
+        try{
+            return super.clone();
+        }catch (CloneNotSupportedException e){
+            Log.i("INFO", ""+e);
+        }
+        return null;
+    }
 }
