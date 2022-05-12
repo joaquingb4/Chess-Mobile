@@ -8,6 +8,7 @@
     tools:context=".ActivityBoard">
 
     <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/gridLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -729,8 +730,7 @@
             android:tag="h7"
             app:layout_column="7"
             app:layout_row="1"
-            app:srcCompat="@drawable/ic_launcher_foreground">
-        </ImageView>
+            app:srcCompat="@drawable/ic_launcher_foreground"></ImageView>
 
         <ImageView
             android:id="@+id/box64"
@@ -741,8 +741,37 @@
             android:tag="h8"
             app:layout_column="7"
             app:layout_row="0"
-            app:srcCompat="@drawable/ic_launcher_foreground">
-        </ImageView>
+            app:srcCompat="@drawable/ic_launcher_foreground"></ImageView>
+    </androidx.gridlayout.widget.GridLayout>
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/PieceSelectionGrid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/CoronationOptionView1"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            app:layout_column="0"
+            app:layout_row="0"
+            app:srcCompat="@drawable/whitetower" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            app:layout_column="1"
+            app:layout_row="0"
+            app:srcCompat="@drawable/whitehorse" />
     </androidx.gridlayout.widget.GridLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

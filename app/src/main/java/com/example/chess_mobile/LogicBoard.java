@@ -233,4 +233,21 @@ public class LogicBoard implements Cloneable {
             return true;
         }
     }
+    public void pawnCoronation(){
+        //Obtenemos la primera línea de cada jugador
+        ArrayList<Box> firstLinesWhite = new ArrayList<>();
+        ArrayList<Box> firstLinesBlack = new ArrayList<>();
+        for (int i = 0; i < board.length; i++) {
+            firstLinesWhite.add(board[0][i]);
+        }
+        for (int i = 0; i < board.length; i++) {
+            firstLinesBlack.add(board[7][i]);
+        }
+        for (int i = 0; i < board.length; i++) {
+            if (!board[0][i].isEmpty() && board[0][i].getPiece().getName().equals("Pawn")){
+                Toast
+            }
+        }
+
+    }
 }
