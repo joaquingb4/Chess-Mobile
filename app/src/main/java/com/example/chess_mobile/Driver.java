@@ -206,18 +206,9 @@ public class Driver {
         LogicBoard copyLogicBoard = null;
         Box boxToMove = logicBoard.getBoard()[x][y];
         for (int i = 0; i < possibilesMoves.size(); i++) {
-            Box[][] copyBoard = new Box[8][8];
-            for (int j = 0; j < board.length; j++) {
-                for (int k = 0; k < board[j].length; k++) {
-                    copyBoard[j][k] = (Box) board[j][k].clone();
-                }
-            }
-            copyLogicBoard = (LogicBoard) logicBoard.clone();
-            copyLogicBoard.setBoard(copyBoard);
-            copyLogicBoard.setBoard(board.clone());
-            Box copyKing = copyLogicBoard.getKing(board[x][y].getPiece().getColor());
-            copyLogicBoard.move(copyLogicBoard.getBox(board[x][y].getName()), copyLogicBoard.getBox(possibilesMoves.get(i).getName()));
-            if (!copyLogicBoard.boxInDanger(copyKing)){
+            boolean valid = logicBoard.simulation(boxToMove, possibilesMoves.get(i));
+
+            if (valid){
                 allowedMoves.add(possibilesMoves.get(i));
             }
         }

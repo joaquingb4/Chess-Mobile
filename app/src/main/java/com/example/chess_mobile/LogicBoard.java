@@ -218,14 +218,19 @@ public class LogicBoard implements Cloneable {
         return null;
     }
     public boolean simulation(Box boxA, Box boxB){
-        boolean//ESTOY AQUÍ BORRAR CLONE
+        //ESTOY AQUÍ BORRAR CLONE
         Piece pieceA = boxA.getPiece();
         Piece pieceB = boxB.getPiece();
         boxB.setPiece(boxA.getPiece());
         boxA.setPiece(null);
         if (boxInDanger(getKing(pieceA.getColor()))){
-
+            boxA.setPiece(pieceA);
+            boxB.setPiece(pieceB);
+            return false;
+        }else{
+            boxA.setPiece(pieceA);
+            boxB.setPiece(pieceB);
+            return true;
         }
-        return boxInDanger(getKing(pieceA.getColor()));
     }
 }
