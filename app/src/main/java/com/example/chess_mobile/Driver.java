@@ -1,32 +1,74 @@
 package com.example.chess_mobile;
 
-import static com.example.chess_mobile.Tools.BoardTools.getImageView;
-import static com.example.chess_mobile.Tools.TranslationTools.getContraryColor;
-
-import android.graphics.Color;
 import android.util.Log;
-import android.widget.ImageView;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
 import com.example.chess_mobile.ChessPieces.King;
 import com.example.chess_mobile.ChessPieces.Pawn;
 import com.example.chess_mobile.ChessPieces.Piece;
 import com.example.chess_mobile.ChessPieces.Queen;
 import com.example.chess_mobile.ChessPieces.Tower;
-//Pueente entre ActivityBoard y Board
+//Esta clase Son el conjunto de instrucciones
+// con las que el VisualBoard y el LogicBoard se comunican
 public class Driver {
-    //Attributes
-    //Crea un tablero lógico
-    LogicBoard logicBoard = new LogicBoard();
-    Box[][] board = logicBoard.getBoard();
-    ArrayList<Box> potentialMovesList = new ArrayList<>();
+    //_______________________      [ATTRIBUTES]      _____________________________
+    private LogicBoard logicBoard = new LogicBoard();
+    private Box[][] board = logicBoard.getBoard();
+    private ArrayList<Box> potentialMovesList = new ArrayList<>();
     private Box lastCLickedBox = null;
     private Box kingIncheck = null;
-
-    //Getters And Setters
+    private Box pawnPromoted = null;
     private boolean turn = true;
+    //_______________________      [GETTERS&&SETTERS]      _____________________________
+
+    public LogicBoard getLogicBoard() {
+        return logicBoard;
+    }
+
+    public void setLogicBoard(LogicBoard logicBoard) {
+        this.logicBoard = logicBoard;
+    }
+
+    public Box[][] getBoard() {
+        return board;
+    }
+
+    public void setBoard(Box[][] board) {
+        this.board = board;
+    }
+
+    public ArrayList<Box> getPotentialMovesList() {
+        return potentialMovesList;
+    }
+
+    public void setPotentialMovesList(ArrayList<Box> potentialMovesList) {
+        this.potentialMovesList = potentialMovesList;
+    }
+
+    public Box getKingIncheck() {
+        return kingIncheck;
+    }
+
+    public void setKingIncheck(Box kingIncheck) {
+        this.kingIncheck = kingIncheck;
+    }
+
+    public boolean isTurn() {
+        return turn;
+    }
+
+    public void setTurn(boolean turn) {
+        this.turn = turn;
+    }
+
+    public Box getPawnPromoted() {
+        return pawnPromoted;
+    }
+
+    public void setPawnPromoted(Box pawnPromoted) {
+        this.pawnPromoted = pawnPromoted;
+    }
+
+
     public Box getLastCLickedBox(){
         return lastCLickedBox;
     }
@@ -34,7 +76,7 @@ public class Driver {
     public void setLastCLickedBox(Box lastCLickedBox) {
         this.lastCLickedBox = lastCLickedBox;
     }
-    //Functions
+    //_______________________      [FUNCTIONS]      _____________________________
 
     public void clickDesition(Box clickedBox) throws CloneNotSupportedException {
         printBoxInfo(clickedBox);
@@ -55,7 +97,6 @@ public class Driver {
             }
             logicBoard.setNoCapturable();//Me he quedado [AQUÍ]
             potentialMovesList.clear();
-            //ERROR ES NECESARIO QUE EL REY SE QUEDE ILUMINADO SI ESTÁ AMENAZADO
         }
     }
 
@@ -172,9 +213,8 @@ public class Driver {
         logicBoard.move(boxOrigin, boxDestiny);
         //Última casilla es NUll
         lastCLickedBox = null;
+            setPawnPromoted(logicBoard.pawnPromotion());
     }
-
-
     //Cambia el estado del turno cuando se lo llama
     public void changeTurn (){
         if (turn){

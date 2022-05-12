@@ -746,7 +746,7 @@
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/PieceSelectionGrid"
-        android:layout_width="wrap_content"
+        android:layout_width="141dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginTop="50dp"
@@ -758,7 +758,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/CoronationOptionView1"
+            android:id="@+id/PromotionOptionView1"
             android:layout_width="47dp"
             android:layout_height="47dp"
             app:layout_column="0"
@@ -766,12 +766,21 @@
             app:srcCompat="@drawable/whitetower" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/PromotionOptionView2"
             android:layout_width="47dp"
             android:layout_height="47dp"
             app:layout_column="1"
             app:layout_row="0"
             app:srcCompat="@drawable/whitehorse" />
+
+        <ImageView
+            android:id="@+id/PromotionOptionView3"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            app:layout_column="2"
+            app:layout_row="0"
+            app:srcCompat="@drawable/whitequeen" />
+
     </androidx.gridlayout.widget.GridLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

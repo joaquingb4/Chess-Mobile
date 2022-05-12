@@ -11,7 +11,8 @@ import com.example.chess_mobile.ChessPieces.Piece;
 import java.util.ArrayList;
 
 public class LogicBoard implements Cloneable {
-    //Attributes
+    //_______________________      [ATTRIBUTES]      _____________________________
+
     private Box[][] board = new Box[8][8];
     private Box whiteKing = null;
     private Box blackKing = null;
@@ -24,7 +25,7 @@ public class LogicBoard implements Cloneable {
         this.board = board;
         buildBoxes();
     }
-    //Getters And Setters
+    //_______________________      [GETTERS&&SETTERS]      _____________________________
     public Box[][] getBoard() {
         return board;
     }
@@ -206,17 +207,9 @@ public class LogicBoard implements Cloneable {
         blackKing.setCapturable(boxInDanger(blackKing));
         Log.i("INFO", ""+whiteKing.getCapturable());
         Log.i("INFO", ""+blackKing.getCapturable());
+
     }
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        //learner.eduCourse = (LogicBoard) eduCourse.clone();
-        try{
-            return super.clone();
-        }catch (CloneNotSupportedException e){
-            Log.i("INFO", ""+e);
-        }
-        return null;
-    }
+
     public boolean simulation(Box boxA, Box boxB){
         //ESTOY AQUÍ BORRAR CLONE
         Piece pieceA = boxA.getPiece();
@@ -233,21 +226,22 @@ public class LogicBoard implements Cloneable {
             return true;
         }
     }
-    public void pawnCoronation(){
+    //Devuelve una casilla si hay una casilla final o inicial que contenga un peón
+    public Box pawnPromotion(){
         //Obtenemos la primera línea de cada jugador
-        ArrayList<Box> firstLinesWhite = new ArrayList<>();
-        ArrayList<Box> firstLinesBlack = new ArrayList<>();
+        ArrayList<Box> firstLines = new ArrayList<>();
         for (int i = 0; i < board.length; i++) {
-            firstLinesWhite.add(board[0][i]);
+            firstLines.add(board[i][0]);
+            firstLines.add(board[i][7]);
         }
-        for (int i = 0; i < board.length; i++) {
-            firstLinesBlack.add(board[7][i]);
-        }
-        for (int i = 0; i < board.length; i++) {
-            if (!board[0][i].isEmpty() && board[0][i].getPiece().getName().equals("Pawn")){
-                Toast
+        //Las recorremos y si hay un peón devolvemos la casilla
+        for (int i = 0; i < firstLines.size(); i++) {
+            Box box = firstLines.get(i);
+            if (!firstLines.get(i).isEmpty() && firstLines.get(i).getPiece().getName().equals("Pawn")){
+                 return box;
             }
         }
-
+        return null;
     }
+
 }

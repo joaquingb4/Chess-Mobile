@@ -6,8 +6,8 @@ import android.util.Log;
 
 import com.example.chess_mobile.ChessPieces.Piece;
 
-public class Box implements Cloneable {
-   //Attibutes
+public class Box  {
+    //_______________________      [ATTRIBUTES]      _____________________________
     final private String name;
     private Piece piece = null;
     private boolean capturable = false;
@@ -72,43 +72,18 @@ public class Box implements Cloneable {
         return (boxName.charAt(1) - '0')-1;
     }
 
-    //____________________________________
-
-    //Methods
+    //_______________________      [ATTRIBUTES]      _____________________________
 
     //Devuelve si la casilla está vacía
     public boolean isEmpty(){
         return this.piece == null;
     }
-    /*
-    //Recibe una posición y devuelve su equivalente en nombre de casilla
-    public static String translatePositionToName(int x ,int y){
-        if (Tools.isInsideTheBoard(x, y)){
-            //char firstCh = abc.charAt(x);
-            //char secondCh = y+1;
-            return abc[x]+""+(y+1);
-        }else{
-            return null;
-        }
-    }
 
-     */
     //DEVUELVE UNA COORDENADA DENTRO DEL ARRAY ENCONTRADA POR EL NOMBRE DE
     //LA CASILLA
     public static int getPositionOfABox(String boxName){
         int x = getInt(boxName.charAt(0));
         int y = boxName.charAt(1) - '0';
         return (x *10)+(y-1);
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        //learner.eduCourse = (LogicBoard) eduCourse.clone();
-        try{
-            return super.clone();
-        }catch (CloneNotSupportedException e){
-            Log.i("INFO", ""+e);
-        }
-        return null;
     }
 }

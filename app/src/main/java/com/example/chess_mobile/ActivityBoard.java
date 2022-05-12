@@ -14,19 +14,20 @@ import com.example.chess_mobile.Tools.CalculTools;
 import com.example.chess_mobile.Tools.TranslationTools;
 
 public class ActivityBoard extends AppCompatActivity {
-    //Attributes
-    String colorBlackBoxes = "#855E42";
-    String colorWhiteBoxes = "#FFCB94";
-    String colorMovements = "#33D17A";
-    String colorCheckKing = "#002147";
-    ImageView[][] visualBoxes = new ImageView[8][8];
-    Driver driver = new Driver();
+    //_______________________      [ATTRIBUTES]      _____________________________
+    private String colorBlackBoxes = "#855E42";
+    private String colorWhiteBoxes = "#FFCB94";
+    private String colorMovements = "#33D17A";
+    private String colorCheckKing = "#002147";
+    private ImageView[][] visualBoxes = new ImageView[8][8];
+    private  ImageView[] pawPromotionOptionsArray = new ImageView[3];
+    private Driver driver = new Driver();
 
     //Actualiza la parte visual de las piezas   //POSIBLE FALLO
     public void updateImages(){
         for (int i = 0; i < visualBoxes.length ; i++) {
             for (int u = 0; u < visualBoxes[i].length; u++) {
-                Box box = driver.logicBoard.getBox(i, u);
+                Box box = driver.getLogicBoard().getBox(i, u);
                 visualBoxes[i][u].setImageDrawable(getImage(box));
                 if (box.getCapturable()){
                     BoardTools.getImageView(box, visualBoxes).setBackgroundColor(Color.parseColor(colorMovements));
@@ -39,7 +40,7 @@ public class ActivityBoard extends AppCompatActivity {
 
     public Drawable getImage(Box box){
         if (box.isEmpty()){ //Si está vacío
-            if (driver.potentialMovesList.contains(box)){
+            if (driver.getPotentialMovesList().contains(box)){
                 return getDrawable(R.drawable.punto);
             }else{
                 return null;
@@ -82,6 +83,12 @@ public class ActivityBoard extends AppCompatActivity {
     }
     //Crea la parte visual de las casillas
     public void buildBoxes(){
+        pawPromotionOptionsArray[0] = findViewById(R.id.PromotionOptionView1);
+        pawPromotionOptionsArray[1] = findViewById(R.id.PromotionOptionView2);
+        pawPromotionOptionsArray[2] = findViewById(R.id.PromotionOptionView3);
+        for (int i = 0; i < pawPromotionOptionsArray.length; i++) {
+            pawPromotionOptionsArray[i].setVisibility(View.INVISIBLE);
+        }
         visualBoxes[0][0] = findViewById(R.id.box1);
         visualBoxes[0][1] = findViewById(R.id.box2);
         visualBoxes[0][2] = findViewById(R.id.box3);
@@ -163,12 +170,12 @@ public class ActivityBoard extends AppCompatActivity {
 
     //Pinta el tablero
     public void paintBoard(){
-        for (int x = 0; x < driver.board.length; x++){
-            for (int y = 0; y < driver.board[x].length; y++) {
-                Box logicBox = driver.logicBoard.getBox(x, y);
+        for (int x = 0; x < driver.getBoard().length; x++){
+            for (int y = 0; y < driver.getBoard()[x].length; y++) {
+                Box logicBox = driver.getLogicBoard().getBox(x, y);
                 View visualBox = visualBoxes[x][y];
                 if (logicBox.getCapturable()){
-                    if (logicBox.equals(driver.logicBoard.getKing("black")) || logicBox.equals(driver.logicBoard.getKing("white"))){
+                    if (logicBox.equals(driver.getLogicBoard().getKing("black")) || logicBox.equals(driver.getLogicBoard().getKing("white"))){
                         visualBoxes[x][y].setBackgroundColor(Color.parseColor(colorCheckKing));
                     }else{
                         visualBox.setBackgroundColor(Color.parseColor(colorMovements));
@@ -201,7 +208,7 @@ public class ActivityBoard extends AppCompatActivity {
 
         buildBoxes();
 
-        driver.logicBoard.buildBoxes();
+        driver.getLogicBoard().buildBoxes();
         driver.buildPieces();
         updateImages();
     }
@@ -212,52 +219,46 @@ public class ActivityBoard extends AppCompatActivity {
         updateImages();
         paintBoard();//PARA LIMPIAR LAS INDICACIONES
         Box clickedBox = driver.getBox(view.getTag().toString());
-        Box[][] board = driver.board;
+        Box[][] board = driver.getBoard();
         //Mostramos datos de la casilla
         //Sí el cache no esta vacío//AQUÍ
         driver.clickDesition(clickedBox);
         updateImages();
         paintBoard();
+        checkEvents();
     }
-    /*
-    public void searchPostions(Box[][] board, int x, int y){
-        updateImages();
-        //Obtengo la casilla con ello
-        Box box = driver.board[x][y];
-        Piece piece = box.getPiece();
-
-        if (box.isEmpty()){
-            Log.i("ERROR","Casilla vacía, no hay movimientos");
-        }else{
-            if (!driver.checkClickTurn(box.getPiece())){
-                Log.i("INFO","TURNO: "+driver.turn);
-                return;
-            }
-             piece = box.getPiece();
-            //Posiciones posibles
-            ArrayList<Box> casillas = piece.getAvailableMoves(board, x, y);
-            if (casillas.isEmpty()){
-                Log.i("Alerta: ", "No hay movimientos disponibles");
-            }else {
-                for (Box boxes : casillas) {
-                    ImageView imageView = Tools.getImageView(boxes, visualBoxes);
-                    if (boxes.getPiece() == null) {
-                        Log.i("icono", "funciona");
-                        imageView.setImageDrawable(getDrawable(R.drawable.punto));
-                    } else {
-                        imageView.setBackgroundColor(Color.parseColor(colorMovements));//SE REPINTA CON EL UPDATE DE ABAJO
-                    }
-                }
-            }
-            driver.cache = casillas;
-            driver.setLastClickedBox(box);
-            //Repintamos el tablero
-            Log.i("Info", "Acabo de buscar posiciones");
-            updateImages();
+    //Comprueba si se ha ejecutado un evento y lo realiza
+    private void checkEvents() {
+        Box box  = driver.getLogicBoard().pawnPromotion();
+        Log.i("INFO", ""+ (box!=null));
+        if (box != null){
+            showPromotionOptions(true);
+            setColorPromotionOption(box.getPiece().getColor());
+        }else {
+            showPromotionOptions(false);
         }
     }
-*/
-    //
 
+    private void setColorPromotionOption(String color) {
+        for (int i = 0; i < pawPromotionOptionsArray.length; i++) {
+            if (color.equals("white")) {
+                pawPromotionOptionsArray[i].setBackgroundColor(Color.parseColor(colorWhiteBoxes));
+            }else {
+                pawPromotionOptionsArray[i].setBackgroundColor(Color.parseColor(colorBlackBoxes));
+            }
+        }
+    }
+
+    private void showPromotionOptions(boolean option) {
+        int code;
+        if (option)
+            code = 0;
+        else
+            code = 4;
+
+        for (int i = 0; i < pawPromotionOptionsArray.length; i++) {
+            pawPromotionOptionsArray[i].setVisibility(code);
+        }
+    }
 
 }
