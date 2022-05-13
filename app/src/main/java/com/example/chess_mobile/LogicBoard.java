@@ -6,11 +6,13 @@ import  static  com.example.chess_mobile.Tools.CalculTools.getContraryBoolean;
 
 import android.util.Log;
 
+import com.example.chess_mobile.ChessPieces.King;
 import com.example.chess_mobile.ChessPieces.Piece;
 
 import java.util.ArrayList;
 
-public class LogicBoard implements Cloneable {
+//Tablero lógico con dos reyes por defecto
+public class LogicBoard {
     //_______________________      [ATTRIBUTES]      _____________________________
 
     private Box[][] board = new Box[8][8];
@@ -18,12 +20,20 @@ public class LogicBoard implements Cloneable {
     private Box blackKing = null;
 
     //Builder
+    //Constructor con tablero por defecto
     public LogicBoard(){
         buildBoxes();
+        board[7][0].setPiece(new King("white"));
+        board[7][7].setPiece(new King("black"));
+        updateBoardStatus();
     }
+    //Constructor con tablero externo
     public LogicBoard(Box[][] board){
         this.board = board;
         buildBoxes();
+        board[7][0].setPiece(new King("white"));
+        board[7][7].setPiece(new King("black"));
+        updateBoardStatus();
     }
     //_______________________      [GETTERS&&SETTERS]      _____________________________
     public Box[][] getBoard() {
@@ -78,24 +88,6 @@ public class LogicBoard implements Cloneable {
         }
         return null;
     }
-    //Devuelve un rey, si es que alguno se encuentra amenzado
-    public Box getKingOnCheck(){
-        Box blacKking = getKing("black");
-        Box whiteKing = getKing("white");
-
-        boolean blacKkingIsOnCheck = boxInDanger(blacKking);
-        boolean whiteKingIsOnCheck = boxInDanger(whiteKing);
-
-        if (!blacKkingIsOnCheck && !whiteKingIsOnCheck)  {
-            return null;
-        }else{
-            if (whiteKingIsOnCheck){
-                return whiteKing;
-            }else{
-                return blacKking;
-            }
-        }
-    }
     //Busco si una casilla apunta a esta pieza
     public boolean boxInDanger(Box box){
         if (box.isEmpty()){
@@ -146,15 +138,6 @@ public class LogicBoard implements Cloneable {
         }
         return false;
     }
-    //Todas las casillas las vuelve no capturables
-    public void setAllBoxesNotCapturable(){
-        for (int x = 0; x < board.length; x++){
-            for (int y = 0; y < board[x].length; y++) {
-                board[x][y].setCapturable(false);
-            }
-        }
-    }
-
     //OPERATIONS
     public void move(Box boxOrigin, Box boxDestiny){
         if (!boxOrigin.isEmpty()){

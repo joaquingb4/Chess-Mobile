@@ -10,18 +10,18 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.chess_mobile.Tools.BoardTools;
-import com.example.chess_mobile.Tools.CalculTools;
-import com.example.chess_mobile.Tools.TranslationTools;
 
 public class ActivityBoard extends AppCompatActivity {
     //_______________________      [ATTRIBUTES]      _____________________________
-    private String colorBlackBoxes = "#855E42";
-    private String colorWhiteBoxes = "#FFCB94";
+    private String colorBlackBoxes = "#737373";
+    private String colorWhiteBoxes = "#ffffff";
     private String colorMovements = "#33D17A";
     private String colorCheckKing = "#002147";
+    private String pawnPromotionOptionsColor = "#F5F5DC";
     private ImageView[][] visualBoxes = new ImageView[8][8];
-    private  ImageView[] pawPromotionOptionsArray = new ImageView[3];
-    private Driver driver = new Driver();
+    private  ImageView[] pawPromotionOptionsArrayWhite = new ImageView[3];
+    private  ImageView[] pawPromotionOptionsArrayBlack = new ImageView[2];
+    private Driver driver;
 
     //Actualiza la parte visual de las piezas   //POSIBLE FALLO
     public void updateImages(){
@@ -83,11 +83,19 @@ public class ActivityBoard extends AppCompatActivity {
     }
     //Crea la parte visual de las casillas
     public void buildBoxes(){
-        pawPromotionOptionsArray[0] = findViewById(R.id.PromotionOptionView1);
-        pawPromotionOptionsArray[1] = findViewById(R.id.PromotionOptionView2);
-        pawPromotionOptionsArray[2] = findViewById(R.id.PromotionOptionView3);
-        for (int i = 0; i < pawPromotionOptionsArray.length; i++) {
-            pawPromotionOptionsArray[i].setVisibility(View.INVISIBLE);
+        pawPromotionOptionsArrayWhite[0] = findViewById(R.id.whiteOptionsPromotion1);
+        pawPromotionOptionsArrayWhite[1] = findViewById(R.id.whiteOptionsPromotion2);
+        pawPromotionOptionsArrayWhite[2] = findViewById(R.id.whiteOptionsPromotion3);
+
+        pawPromotionOptionsArrayBlack[0] = findViewById(R.id.blackOptionsPromotion1);
+        pawPromotionOptionsArrayBlack[1] = findViewById(R.id.blackOptionsPromotion2);
+        for (int i = 0; i < pawPromotionOptionsArrayWhite.length; i++) {
+            pawPromotionOptionsArrayWhite[i].setVisibility(View.INVISIBLE);
+            pawPromotionOptionsArrayWhite[i].setBackgroundColor(Color.parseColor(pawnPromotionOptionsColor));
+        }
+        for (int i = 0; i < pawPromotionOptionsArrayBlack.length; i++) {
+            pawPromotionOptionsArrayBlack[i].setVisibility(View.INVISIBLE);
+            pawPromotionOptionsArrayBlack[i].setBackgroundColor(Color.parseColor(pawnPromotionOptionsColor));
         }
         visualBoxes[0][0] = findViewById(R.id.box1);
         visualBoxes[0][1] = findViewById(R.id.box2);
@@ -190,25 +198,14 @@ public class ActivityBoard extends AppCompatActivity {
             }
         }
     }
-    //Pintar la casilla del rey
-    /*
-    public void paintKingState(String color){
-        View viewKing = Tools.getImageView(driver.getKing(color), visualBoxes);
-        if (driver.kingISInCheck(color)){
-            viewKing.setBackgroundColor(Color.parseColor(colorCheckKing));
-        }
-    }
-
-     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
-
+        driver = new Driver();
         buildBoxes();
-
-        driver.getLogicBoard().buildBoxes();
+        //Hace que el tablero lógico cree las casillas
         driver.buildPieces();
         updateImages();
     }
@@ -232,33 +229,28 @@ public class ActivityBoard extends AppCompatActivity {
         Box box  = driver.getLogicBoard().pawnPromotion();
         Log.i("INFO", ""+ (box!=null));
         if (box != null){
-            showPromotionOptions(true);
-            setColorPromotionOption(box.getPiece().getColor());
+            showPromotionOptions(box.getPiece().getColor());
         }else {
-            showPromotionOptions(false);
+            hidePromotionOptions();
         }
     }
-
-    private void setColorPromotionOption(String color) {
-        for (int i = 0; i < pawPromotionOptionsArray.length; i++) {
-            if (color.equals("white")) {
-                pawPromotionOptionsArray[i].setBackgroundColor(Color.parseColor(colorWhiteBoxes));
-            }else {
-                pawPromotionOptionsArray[i].setBackgroundColor(Color.parseColor(colorBlackBoxes));
+    //Oculta las opciones de promoción del peón
+    public void hidePromotionOptions(){
+        for (int i = 0; i < pawPromotionOptionsArrayBlack.length; i++) {
+            pawPromotionOptionsArrayBlack[i].setVisibility(View.INVISIBLE);
+        }
+    }
+    //Muestra las opciones de promoción del peón
+    private void showPromotionOptions(String color) {
+        int code;
+        if (color.equals("white")) {
+            for (int i = 0; i < pawPromotionOptionsArrayWhite.length; i++) {
+                pawPromotionOptionsArrayWhite[i].setVisibility(View.VISIBLE);
+            }
+        }else {
+            for (int i = 0; i < pawPromotionOptionsArrayBlack.length; i++) {
+                pawPromotionOptionsArrayBlack[i].setVisibility(View.VISIBLE);
             }
         }
     }
-
-    private void showPromotionOptions(boolean option) {
-        int code;
-        if (option)
-            code = 0;
-        else
-            code = 4;
-
-        for (int i = 0; i < pawPromotionOptionsArray.length; i++) {
-            pawPromotionOptionsArray[i].setVisibility(code);
-        }
-    }
-
 }

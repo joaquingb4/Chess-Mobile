@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/goodOrange"
+    android:background="@color/DefaultColorBackground"
     tools:context=".ActivityBoard">
 
     <androidx.gridlayout.widget.GridLayout
@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.377">
+        app:layout_constraintVertical_bias="0.477">
 
         <ImageView
             android:id="@+id/box1"
@@ -745,28 +745,51 @@
     </androidx.gridlayout.widget.GridLayout>
 
     <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/PieceSelectionGrid"
-        android:layout_width="141dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/PieceSlecteionGridBlack"
+        android:layout_width="94dp"
+        android:layout_height="47dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout"
+        app:layout_constraintVertical_bias="0">
 
         <ImageView
-            android:id="@+id/PromotionOptionView1"
+            android:id="@+id/blackOptionsPromotion1"
             android:layout_width="47dp"
             android:layout_height="47dp"
             app:layout_column="0"
             app:layout_row="0"
-            app:srcCompat="@drawable/whitetower" />
+            app:srcCompat="@drawable/blacktower" />
 
         <ImageView
-            android:id="@+id/PromotionOptionView2"
+            android:id="@+id/blackOptionsPromotion2"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            app:layout_column="1"
+            app:layout_row="0"
+            app:srcCompat="@drawable/blackhorse" />
+
+    </androidx.gridlayout.widget.GridLayout>
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/PieceSelectionGridWhite"
+        android:layout_width="141dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1">
+
+
+        <ImageView
+            android:id="@+id/whiteOptionsPromotion2"
             android:layout_width="47dp"
             android:layout_height="47dp"
             app:layout_column="1"
@@ -774,14 +797,23 @@
             app:srcCompat="@drawable/whitehorse" />
 
         <ImageView
-            android:id="@+id/PromotionOptionView3"
+            android:id="@+id/whiteOptionsPromotion1"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:background="#D81B60"
+            app:layout_column="0"
+            app:layout_row="0"
+            app:srcCompat="@drawable/whitetower" />
+
+        <ImageView
+            android:id="@+id/whiteOptionsPromotion3"
             android:layout_width="47dp"
             android:layout_height="47dp"
             app:layout_column="2"
             app:layout_row="0"
             app:srcCompat="@drawable/whitequeen" />
-
     </androidx.gridlayout.widget.GridLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

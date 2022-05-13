@@ -28,7 +28,9 @@
     <color name="ZumoDeNaranja">#f29724</color>
     <color name="verdeAlcantarilla">#2b6a6c</color>
 
-    <color name="ColorCasillasNegras">#404040</color>
-    <color name="ColorCasillasBlancas">#FFFFFFFF</color>
+    <color name="DefaultColorBackground">#404040</color>
+    <color name="ColorCasillasNegras">#4A1E00</color>
+    <color name="ColorCasillasBlancas">#8F3A00</color>
+    <color name ="DefaultColorPawnPromotionOptions">#D81B60</color>
 
 </resources>

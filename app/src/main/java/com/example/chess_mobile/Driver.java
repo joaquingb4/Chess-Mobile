@@ -200,8 +200,6 @@ public class Driver {
         //for (int i = 0; i < 8; i++) {
         //    getBox(Box.getLetter(i)+"7").setPiece(new Pawn("black"));
         //}
-        getBox("h1").setPiece(new King("white"));
-        getBox("h8").setPiece(new King("black"));
         getBox("g8").setPiece(new Pawn("black"));
         getBox("g7").setPiece(new Pawn("black"));
         getBox("a1").setPiece(new Queen("white"));
