@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.chess_mobile.Tools.BoardTools;
 
@@ -19,8 +20,10 @@ public class ActivityBoard extends AppCompatActivity {
     private String colorCheckKing = "#002147";
     private String pawnPromotionOptionsColor = "#F5F5DC";
     private ImageView[][] visualBoxes = new ImageView[8][8];
-    private  ImageView[] pawPromotionOptionsArrayWhite = new ImageView[3];
-    private  ImageView[] pawPromotionOptionsArrayBlack = new ImageView[2];
+    private ImageView[] pawPromotionOptionsArrayWhite = new ImageView[3];
+    private ImageView[] pawPromotionOptionsArrayBlack = new ImageView[2];
+    private TextView whiteTimer = null;
+    private TextView blackTimer = null;
     private Driver driver;
 
     //Actualiza la parte visual de las piezas   //POSIBLE FALLO
@@ -83,6 +86,9 @@ public class ActivityBoard extends AppCompatActivity {
     }
     //Crea la parte visual de las casillas
     public void buildBoxes(){
+        whiteTimer = findViewById(R.id.txtWhiteTimer);
+        blackTimer = findViewById(R.id.txtBlackTimer);
+
         pawPromotionOptionsArrayWhite[0] = findViewById(R.id.whiteOptionsPromotion1);
         pawPromotionOptionsArrayWhite[1] = findViewById(R.id.whiteOptionsPromotion2);
         pawPromotionOptionsArrayWhite[2] = findViewById(R.id.whiteOptionsPromotion3);
@@ -252,5 +258,14 @@ public class ActivityBoard extends AppCompatActivity {
                 pawPromotionOptionsArrayBlack[i].setVisibility(View.VISIBLE);
             }
         }
+    }
+    //Quita tiempo a los dos contadores
+    public void uptadeTime(){
+
+        int whiteTime = Integer.parseInt(this.whiteTimer.getText().toString())-1;
+        int blacktime = Integer.parseInt(this.blackTimer.getText().toString())-1;
+
+        whiteTimer.setText(whiteTime);
+        blackTimer.setText(blacktime);
     }
 }
