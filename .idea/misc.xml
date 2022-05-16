@@ -7,8 +7,9 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2140625" />
         <entry key="app/src/main/res/layout/activity_board.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.12" />
-        <entry key="app/src/main/res/layout/activity_menu_actinity.xml" value="0.1984375" />
+        <entry key="app/src/main/res/layout/activity_menu_actinity.xml" value="0.2" />
         <entry key="app/src/main/res/layout/board.xml" value="0.25" />
+        <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.22" />
       </map>
     </option>
   </component>
