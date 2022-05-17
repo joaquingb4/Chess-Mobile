@@ -233,7 +233,7 @@ public class Driver {
     }
 
     //BOARD FUNCTIONS
-    public ArrayList<Box> removeNotAllowedMoves(ArrayList<Box> possibilesMoves, int x, int y) throws CloneNotSupportedException {
+    public ArrayList<Box> removeNotAllowedMoves(ArrayList<Box> possibilesMoves, int x, int y)  {
         //Creamos un nuevo logicBoard
         // x y mi equipo
         Box[][] originalBoard = logicBoard.getBoard().clone();

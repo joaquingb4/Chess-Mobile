@@ -25,6 +25,8 @@ public class ActivityBoard extends AppCompatActivity {
     private TextView whiteTimer = null;
     private TextView blackTimer = null;
     private Driver driver;
+    private PlayerTimer whitePlayerTimer = null;
+    private PlayerTimer blackPlayerTimer = null;
 
     //Actualiza la parte visual de las piezas   //POSIBLE FALLO
     public void updateImages(){
@@ -261,7 +263,7 @@ public class ActivityBoard extends AppCompatActivity {
     }
     //Quita tiempo a los dos contadores
     public void uptadeTime(){
-
+        whitePlayerTimer = new PlayerTimer(whiteTimer.getText().toString());
         int whiteTime = Integer.parseInt(this.whiteTimer.getText().toString())-1;
         int blacktime = Integer.parseInt(this.blackTimer.getText().toString())-1;
 
