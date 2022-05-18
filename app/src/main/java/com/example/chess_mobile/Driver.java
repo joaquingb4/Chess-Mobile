@@ -1,5 +1,6 @@
 package com.example.chess_mobile;
 
+import android.app.AlertDialog;
 import android.util.Log;
 import java.util.ArrayList;
 import com.example.chess_mobile.ChessPieces.King;
@@ -18,6 +19,8 @@ public class Driver {
     private Box kingIncheck = null;
     private Box pawnPromoted = null;
     private boolean turn = true;
+
+    //CREAR FUNCIÓN QUE CALCULE TODOS LOS MOVIMIENTOS POSIBLES DE UN TURNO
     //_______________________      [GETTERS&&SETTERS]      _____________________________
 
     public LogicBoard getLogicBoard() {
@@ -118,6 +121,8 @@ public class Driver {
             ArrayList<Box> casillas = piece.getAvailableMoves(board, x, y);
             casillas = removeNotAllowedMoves(casillas, x ,y);
             //Quito las casillas que no me sirvan para salir de un jaque
+
+            //Compruebo si tengo algún movimiento
             if (casillas.isEmpty()){
                 Log.i("Alerta: ", "No hay movimientos disponibles");
             }else {
@@ -222,6 +227,7 @@ public class Driver {
         turn = true;
     }
 
+
     //Devuelve de quíen es el turno
     public boolean checkClickTurn(Piece piece){
         if (turn){
@@ -251,5 +257,19 @@ public class Driver {
             }
         }
         return allowedMoves;
+    }
+    //Calcula si hay movimientos posibles en un turno___Por probar
+    public boolean playerHaveMoves (String color){
+        int totalAvaliableMoves = 0;
+        ArrayList<Box> myPieces = logicBoard.getPlayerBoxes(color);
+        for (int i = 0; i < myPieces.size(); i++) {
+            ArrayList<Box> capturablesBoxes = myPieces.get(i).getPiece().getAvailableMoves(board, myPieces.get(i).getX(), myPieces.get(i).getY());
+            int totalPieceMoves = removeNotAllowedMoves(capturablesBoxes, myPieces.get(i).getX(), myPieces.get(i).getY()).size();
+            totalAvaliableMoves+= totalPieceMoves;
+        }
+        if (totalAvaliableMoves>0)
+            return true;
+        else
+            return false;
     }
 }

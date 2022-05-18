@@ -33,4 +33,10 @@ public class TranslationTools {
         }
         return -1;
     }
+    public static String translateBooleanToColor(boolean color){
+        if (color)
+            return "white";
+        else
+            return "black";
+    }
 }

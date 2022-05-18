@@ -12,7 +12,7 @@ public class PlayerTimer implements Runnable {
         this.minuts = minuts;
         this.seconds = seconds;
     }
-    private PlayerTimer(String time){
+    public PlayerTimer(String time){
         if (time.charAt(0)=='0')
         this.minuts = minuts;
         this.seconds = seconds;

@@ -1,7 +1,11 @@
 package com.example.chess_mobile;
 
+import static com.example.chess_mobile.Tools.TranslationTools.getContraryColor;
+import static com.example.chess_mobile.Tools.TranslationTools.translateBooleanToColor;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -11,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.chess_mobile.Tools.BoardTools;
+import com.example.chess_mobile.Tools.TranslationTools;
 
 public class ActivityBoard extends AppCompatActivity {
     //_______________________      [ATTRIBUTES]      _____________________________
@@ -97,6 +102,7 @@ public class ActivityBoard extends AppCompatActivity {
 
         pawPromotionOptionsArrayBlack[0] = findViewById(R.id.blackOptionsPromotion1);
         pawPromotionOptionsArrayBlack[1] = findViewById(R.id.blackOptionsPromotion2);
+
         for (int i = 0; i < pawPromotionOptionsArrayWhite.length; i++) {
             pawPromotionOptionsArrayWhite[i].setVisibility(View.INVISIBLE);
             pawPromotionOptionsArrayWhite[i].setBackgroundColor(Color.parseColor(pawnPromotionOptionsColor));
@@ -231,6 +237,10 @@ public class ActivityBoard extends AppCompatActivity {
         updateImages();
         paintBoard();
         checkEvents();
+        boolean enemyPlayerHaveMoves = driver.playerHaveMoves(getContraryColor(translateBooleanToColor(driver.isTurn())));
+        if (!enemyPlayerHaveMoves){
+            endGame();
+        }
     }
     //Comprueba si se ha ejecutado un evento y lo realiza
     private void checkEvents() {
@@ -246,6 +256,7 @@ public class ActivityBoard extends AppCompatActivity {
     public void hidePromotionOptions(){
         for (int i = 0; i < pawPromotionOptionsArrayBlack.length; i++) {
             pawPromotionOptionsArrayBlack[i].setVisibility(View.INVISIBLE);
+            pawPromotionOptionsArrayWhite[i].setVisibility(View.INVISIBLE);
         }
     }
     //Muestra las opciones de promoción del peón
@@ -254,13 +265,17 @@ public class ActivityBoard extends AppCompatActivity {
         if (color.equals("white")) {
             for (int i = 0; i < pawPromotionOptionsArrayWhite.length; i++) {
                 pawPromotionOptionsArrayWhite[i].setVisibility(View.VISIBLE);
+                Log.i("INFO", "PROMOCIÓN BLANCAS");
             }
         }else {
             for (int i = 0; i < pawPromotionOptionsArrayBlack.length; i++) {
                 pawPromotionOptionsArrayBlack[i].setVisibility(View.VISIBLE);
+                Log.i("INFO", "PROMOCIÓN NEGRAS");
             }
+            //EL BUG ES POR EL COLOR
         }
     }
+
     //Quita tiempo a los dos contadores
     public void uptadeTime(){
         whitePlayerTimer = new PlayerTimer(whiteTimer.getText().toString());
@@ -269,5 +284,12 @@ public class ActivityBoard extends AppCompatActivity {
 
         whiteTimer.setText(whiteTime);
         blackTimer.setText(blacktime);
+    }
+
+    //Acaba la partida--En construcción
+    public void endGame(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("Check");
+        alertDialog.setMessage("No hay movimientos disponibles");
     }
 }
