@@ -1,12 +1,17 @@
 package com.example.chess_mobile.Drivers;
 
+import android.util.Log;
+
 import com.example.chess_mobile.ActivityBoard;
 import com.example.chess_mobile.PlayerTimer;
 
-public class PlayerTimerDriver {
+public class PlayerTimerDriver implements Runnable {
     private PlayerTimer whitePlayerTimer = null;
     private PlayerTimer blackPlayerTimer = null;
-    private boolean running = true;
+    private boolean timerRunningTurn = true;
+    private boolean running = false;
+    private ActivityBoard instance;
+    private Thread thread = new Thread();
 
     public PlayerTimer getWhitePlayerTimer() {
         return whitePlayerTimer;
@@ -24,46 +29,63 @@ public class PlayerTimerDriver {
         this.blackPlayerTimer = blackPlayerTimer;
     }
 
-    public boolean isRunning() {
-        return running;
+    public boolean isTimerRunningTurn() {
+        return timerRunningTurn;
     }
 
-    public void setRunning(boolean running) {
-        this.running = running;
+    public void setTimerRunningTurn(boolean timerRunningTurn) {
+        this.timerRunningTurn = timerRunningTurn;
     }
 
     public PlayerTimerDriver(ActivityBoard instance, int minuts, int seconds){
-        whitePlayerTimer = new PlayerTimer(minuts,seconds, instance);
-        blackPlayerTimer = new PlayerTimer(minuts, seconds, instance);
+        this.instance = instance;
+        whitePlayerTimer = new PlayerTimer(minuts,seconds);
+        blackPlayerTimer = new PlayerTimer(minuts, seconds);
     }
 
     public void changeTurn(){
-        if (running)//Si está corriendo en tiempo de las blancas
-            running = false;
+        if (timerRunningTurn)//Si está corriendo en tiempo de las blancas
+            timerRunningTurn = false;
         else
-            running = true;
-        updateStatus();
+            timerRunningTurn = true;
     }
+    /*
     public void end(){
         whitePlayerTimer.stop();
         blackPlayerTimer.stop();
     }
-    public void start(String color){
 
+     */
+    public void start(String color){
+        running = true;
         if (color.equals("white"))
-            running=true;
+            timerRunningTurn =true;
         else
-            running=false;
-        updateStatus();
+            timerRunningTurn =false;
+        run();
+
     }
 
-    public void updateStatus(){
-        if (running) {
-            whitePlayerTimer.start();
-            blackPlayerTimer.stop();
-        }else {
-            whitePlayerTimer.stop();
-            blackPlayerTimer.start();
+    public void stop (){
+        running=false;
+    }
+
+    @Override
+    public void run() {
+        while (running){
+            try {
+                Thread.sleep(1000);
+                Log.i("INFO", "1sec");
+                if (timerRunningTurn) {
+                    whitePlayerTimer.substraction();
+                    instance.uptadeTime(whitePlayerTimer.getTime(), "white");
+                }else {
+                    blackPlayerTimer.substraction();
+                    instance.uptadeTime(blackPlayerTimer.getTime(), "black");
+                }
+            }catch (Exception e){
+                Log.i("INFO", "THREAD ERROR");
+            }
         }
     }
     //ERROR EN EL TIEMPO

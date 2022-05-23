@@ -2,16 +2,13 @@ package com.example.chess_mobile;
 
 import android.util.Log;
 
-public class PlayerTimer implements Runnable {
+public class PlayerTimer  {
     private int minuts;
     private int seconds;
-    private Thread thread = new Thread(this);
     private boolean threadIsRunnig = false;
-    private ActivityBoard instance;
 
 
-    public PlayerTimer(int minuts, int seconds, ActivityBoard instance){
-        this.instance = instance;
+    public PlayerTimer(int minuts, int seconds ){
         this.minuts = minuts;
         this.seconds = seconds;
     }
@@ -24,7 +21,6 @@ public class PlayerTimer implements Runnable {
     }
     */
 
-
     //Devuelve el tiempo actual del reloj
     public String getTime(){
         String min = convertTime(minuts);
@@ -34,9 +30,6 @@ public class PlayerTimer implements Runnable {
     }
 
     //___________________________[Functions]______________________
-    public void stop (){
-        threadIsRunnig=false;
-    }
 
     public String convertTime(int time){
         if (time < 10)
@@ -59,22 +52,19 @@ public class PlayerTimer implements Runnable {
         }
     }
 
-    public void start(){
-        threadIsRunnig = true;
-        thread.start();
-    }
-
+    /*
     @Override
     public void run() {
         try {
             while (threadIsRunnig) {
                 Thread.sleep(1000);
                 substraction();
-                instance.uptadeTime(convertTime(minuts)+":"+convertTime(seconds));
-
+                //instance.uptadeTime(convertTime(minuts)+":"+convertTime(seconds));
             }
         }catch (Exception e){
             Log.i("INFO", "THREAD ERROR");
         }
     }
+
+     */
 }

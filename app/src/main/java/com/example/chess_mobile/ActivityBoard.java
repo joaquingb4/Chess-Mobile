@@ -284,16 +284,11 @@ public class ActivityBoard extends AppCompatActivity {
     }
 
     //Quita tiempo a los dos contadores
-    public void uptadeTime(String time){
-        whiteTimer.setText(time);
-        blackTimer.setText(time);
-       // whitePlayerTimer = new PlayerTimer(whiteTimer.getText().toString());
-       // blackPlayerTimer = new PlayerTimer(blackTimer.getText().toString());
-       // int whiteTime = Integer.parseInt(this.whiteTimer.getText().toString())-1;
-        //int blacktime = Integer.parseInt(this.blackTimer.getText().toString())-1;
-
-        //whiteTimer.setText(whiteTime);
-        //blackTimer.setText(blacktime);
+    public void uptadeTime(String time, String color){
+        if (color.equals("white"))
+            whiteTimer.setText(time);
+        else
+            blackTimer.setText(time);
     }
 
     //Acaba la partida--En construcción
