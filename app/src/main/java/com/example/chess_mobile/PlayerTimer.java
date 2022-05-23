@@ -7,16 +7,23 @@ public class PlayerTimer implements Runnable {
     private int seconds;
     private Thread thread = new Thread(this);
     private boolean threadIsRunnig = false;
+    private ActivityBoard instance;
 
-    private PlayerTimer(int minuts, int seconds){
+
+    public PlayerTimer(int minuts, int seconds, ActivityBoard instance){
+        this.instance = instance;
         this.minuts = minuts;
         this.seconds = seconds;
     }
-    private PlayerTimer(String time){
+    /*
+    public PlayerTimer(String time, ActivityBoard instance ){
+        this.instance = instance;
         if (time.charAt(0)=='0')
         this.minuts = minuts;
         this.seconds = seconds;
     }
+    */
+
 
     //Devuelve el tiempo actual del reloj
     public String getTime(){
@@ -61,8 +68,10 @@ public class PlayerTimer implements Runnable {
     public void run() {
         try {
             while (threadIsRunnig) {
-                Thread.sleep(1000);
+                Thread.sleep(500);
                 substraction();
+                instance.uptadeTime(convertTime(minuts)+":"+convertTime(seconds));
+
             }
         }catch (Exception e){
             Log.i("INFO", "THREAD ERROR");

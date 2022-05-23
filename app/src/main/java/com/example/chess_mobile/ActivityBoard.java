@@ -90,7 +90,8 @@ public class ActivityBoard extends AppCompatActivity {
     public void buildBoxes(){
         whiteTimer = findViewById(R.id.txtWhiteTimer);
         blackTimer = findViewById(R.id.txtBlackTimer);
-
+        whitePlayerTimer = new PlayerTimer(30,00, this);
+        blackPlayerTimer = new PlayerTimer(30, 00, this);
         pawPromotionOptionsArrayWhite[0] = findViewById(R.id.whiteOptionsPromotion1);
         pawPromotionOptionsArrayWhite[1] = findViewById(R.id.whiteOptionsPromotion2);
         pawPromotionOptionsArrayWhite[2] = findViewById(R.id.whiteOptionsPromotion3);
@@ -178,6 +179,8 @@ public class ActivityBoard extends AppCompatActivity {
         visualBoxes[7][7] = findViewById(R.id.box64);
         //Pintamos el tablero
         paintBoard();
+        whitePlayerTimer.start();
+        blackPlayerTimer.start();
     }
     //AQUÍ
     public void getBoxColor(Box box){
@@ -262,12 +265,15 @@ public class ActivityBoard extends AppCompatActivity {
         }
     }
     //Quita tiempo a los dos contadores
-    public void uptadeTime(){
-        whitePlayerTimer = new PlayerTimer(whiteTimer.getText().toString());
-        int whiteTime = Integer.parseInt(this.whiteTimer.getText().toString())-1;
-        int blacktime = Integer.parseInt(this.blackTimer.getText().toString())-1;
+    public void uptadeTime(String time){
+        whiteTimer.setText(time);
+        blackTimer.setText(time);
+       // whitePlayerTimer = new PlayerTimer(whiteTimer.getText().toString());
+       // blackPlayerTimer = new PlayerTimer(blackTimer.getText().toString());
+       // int whiteTime = Integer.parseInt(this.whiteTimer.getText().toString())-1;
+        //int blacktime = Integer.parseInt(this.blackTimer.getText().toString())-1;
 
-        whiteTimer.setText(whiteTime);
-        blackTimer.setText(blacktime);
+        //whiteTimer.setText(whiteTime);
+        //blackTimer.setText(blacktime);
     }
 }
