@@ -1,6 +1,5 @@
 package com.example.chess_mobile;
 
-import static com.example.chess_mobile.Tools.TranslationTools.getContraryColor;
 import static com.example.chess_mobile.Tools.TranslationTools.translateBooleanToColor;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,27 +13,37 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.chess_mobile.ChessPieces.Horse;
+import com.example.chess_mobile.ChessPieces.Piece;
+import com.example.chess_mobile.ChessPieces.Queen;
+import com.example.chess_mobile.ChessPieces.Tower;
 import com.example.chess_mobile.Drivers.Driver;
 import com.example.chess_mobile.Drivers.PlayerTimerDriver;
 import com.example.chess_mobile.Tools.BoardTools;
 
 public class ActivityBoard extends AppCompatActivity {
     //_______________________      [ATTRIBUTES]      _____________________________
+    //.COLORS
     private String colorBlackBoxes = "#737373";
     private String colorWhiteBoxes = "#ffffff";
     private String colorMovements = "#33D17A";
     private String colorCheckKing = "#002147";
     private String pawnPromotionOptionsColor = "#F5F5DC";
+    //.IMAGESVIEWS
     private ImageView[][] visualBoxes = new ImageView[8][8];
     private ImageView[] pawPromotionOptionsArrayWhite = new ImageView[3];
     private ImageView[] pawPromotionOptionsArrayBlack = new ImageView[2];
+    //.TIMERS
     private TextView whiteTimer = null;
     private TextView blackTimer = null;
+    //.THREAD
+    private Thread driverThread;
+    //.DRIVERS
     private Driver driver;
     private PlayerTimerDriver playerTimerDriver;
-
-
-    //Actualiza la parte visual de las piezas   //POSIBLE FALLO
+    /*
+     Actualiza la parte visual de las piezas
+    */
     public void updateImages(){
         for (int i = 0; i < visualBoxes.length ; i++) {
             for (int u = 0; u < visualBoxes[i].length; u++) {
@@ -98,12 +107,12 @@ public class ActivityBoard extends AppCompatActivity {
         blackTimer = findViewById(R.id.txtBlackTimer);
        // whitePlayerTimer = new PlayerTimer(30,00, this);
        // blackPlayerTimer = new PlayerTimer(30, 00, this);
-        pawPromotionOptionsArrayWhite[0] = findViewById(R.id.whiteOptionsPromotion1);
-        pawPromotionOptionsArrayWhite[1] = findViewById(R.id.whiteOptionsPromotion2);
-        pawPromotionOptionsArrayWhite[2] = findViewById(R.id.whiteOptionsPromotion3);
+        pawPromotionOptionsArrayWhite[0] = findViewById(R.id.optionwt);
+        pawPromotionOptionsArrayWhite[1] = findViewById(R.id.optionwh);
+        pawPromotionOptionsArrayWhite[2] = findViewById(R.id.optionwq);
 
-        pawPromotionOptionsArrayBlack[0] = findViewById(R.id.blackOptionsPromotion1);
-        pawPromotionOptionsArrayBlack[1] = findViewById(R.id.blackOptionsPromotion2);
+        pawPromotionOptionsArrayBlack[0] = findViewById(R.id.optionbt);
+        pawPromotionOptionsArrayBlack[1] = findViewById(R.id.optionbh);
 
         for (int i = 0; i < pawPromotionOptionsArrayWhite.length; i++) {
             pawPromotionOptionsArrayWhite[i].setVisibility(View.INVISIBLE);
@@ -222,18 +231,20 @@ public class ActivityBoard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
         driver = new Driver();
-        playerTimerDriver = new PlayerTimerDriver(this, 30, 00);
-
         buildBoxes();
         //Hace que el tablero lógico cree las casillas
         driver.buildPieces();
         updateImages();
-        playerTimerDriver.start("white");
+
+        playerTimerDriver = new PlayerTimerDriver(this, "white" , 30, 00);
+        driverThread = new Thread(playerTimerDriver);
+        driverThread.start();
     }
 
     //Write on the log the box clicked
     //QUIERO HACER UN REFACTOR AQUÍ
-    public void clickBoard(View view) throws CloneNotSupportedException {
+    public void clickBoard(View view)  {
+        boolean turn = driver.getTurn();
         updateImages();
         paintBoard();//PARA LIMPIAR LAS INDICACIONES
         Box clickedBox = driver.getBox(view.getTag().toString());
@@ -244,11 +255,37 @@ public class ActivityBoard extends AppCompatActivity {
         updateImages();
         paintBoard();
         checkEvents();
-        boolean enemyPlayerHaveMoves = driver.playerHaveMoves(getContraryColor(translateBooleanToColor(driver.isTurn())));
+        boolean enemyPlayerHaveMoves = driver.playerHaveMoves(translateBooleanToColor(driver.getTurn()));
+        Log.i("INFO", "FUNCIONA "+ enemyPlayerHaveMoves);
         if (!enemyPlayerHaveMoves){
+
             endGame();
         }
+        if (driver.getTurn() != turn)
+            playerTimerDriver.changeTurn();
     }
+    //ME QUEDO AQUÍ
+    public void clickPawnPromotionOption(View view){
+        String tag = view.getTag().toString();
+        String color;
+        if (tag.charAt(tag.length()-2)=='w')
+            color= "white";
+        else
+            color = "black";
+
+        switch (tag.charAt(tag.length()-1)){
+            case ('t'):
+                new Tower(color);
+                break;
+            case ('h'):
+                new Horse(color);
+                break;
+            case ('q'):
+                new Queen(color);
+                break;
+        }
+    }
+
     //Comprueba si se ha ejecutado un evento y lo realiza
     private void checkEvents() {
         Box box  = driver.getLogicBoard().pawnPromotion();
@@ -293,8 +330,19 @@ public class ActivityBoard extends AppCompatActivity {
 
     //Acaba la partida--En construcción
     public void endGame(){
+        showAlertDialogGameOver();
+        playerTimerDriver.stop();
+    }
+
+    public void showAlertDialogGameOver(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle("Check");
         alertDialog.setMessage("No hay movimientos disponibles");
+        alertDialog.create();
+        alertDialog.show();
     }
+    //FALTA PROMOCOCIÓN DEL  PEÓN
+    //ENROQUE
+    //PEÓN LATERAL
+    //gUARDAR PARTIDA
 }

@@ -1,17 +1,30 @@
 package com.example.chess_mobile.Drivers;
 
+import static com.example.chess_mobile.Tools.TranslationTools.translateBooleanToColor;
+import static com.example.chess_mobile.Tools.TranslationTools.translateColorToBoolean;
+
 import android.util.Log;
 
 import com.example.chess_mobile.ActivityBoard;
 import com.example.chess_mobile.PlayerTimer;
 
 public class PlayerTimerDriver implements Runnable {
+    //_______________________      [ATTRIBUTES]      _____________________________
+
     private PlayerTimer whitePlayerTimer = null;
     private PlayerTimer blackPlayerTimer = null;
     private boolean timerRunningTurn = true;
-    private boolean running = false;
+    private boolean running = true;
     private ActivityBoard instance;
-    private Thread thread = new Thread();
+    //_______________________      [CONSTRUCTOR]      _____________________________
+
+    public PlayerTimerDriver(ActivityBoard instance, String color,  int minuts, int seconds){
+        this.instance = instance;
+        this.timerRunningTurn = translateColorToBoolean(color);
+        whitePlayerTimer = new PlayerTimer(minuts,seconds);
+        blackPlayerTimer = new PlayerTimer(minuts, seconds);
+    }
+    //_______________________      [GETTERS&SETTERS]      _____________________________
 
     public PlayerTimer getWhitePlayerTimer() {
         return whitePlayerTimer;
@@ -36,34 +49,13 @@ public class PlayerTimerDriver implements Runnable {
     public void setTimerRunningTurn(boolean timerRunningTurn) {
         this.timerRunningTurn = timerRunningTurn;
     }
-
-    public PlayerTimerDriver(ActivityBoard instance, int minuts, int seconds){
-        this.instance = instance;
-        whitePlayerTimer = new PlayerTimer(minuts,seconds);
-        blackPlayerTimer = new PlayerTimer(minuts, seconds);
-    }
+    //_______________________      [FUNCTIONS]      _____________________________
 
     public void changeTurn(){
         if (timerRunningTurn)//Si está corriendo en tiempo de las blancas
             timerRunningTurn = false;
         else
             timerRunningTurn = true;
-    }
-    /*
-    public void end(){
-        whitePlayerTimer.stop();
-        blackPlayerTimer.stop();
-    }
-
-     */
-    public void start(String color){
-        running = true;
-        if (color.equals("white"))
-            timerRunningTurn =true;
-        else
-            timerRunningTurn =false;
-        run();
-
     }
 
     public void stop (){

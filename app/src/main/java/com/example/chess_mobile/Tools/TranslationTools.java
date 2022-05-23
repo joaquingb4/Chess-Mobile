@@ -39,4 +39,10 @@ public class TranslationTools {
         else
             return "black";
     }
+    public static boolean translateColorToBoolean(String color){
+        if (color.equals("white"))
+            return true;
+        else
+            return false;
+    }
 }

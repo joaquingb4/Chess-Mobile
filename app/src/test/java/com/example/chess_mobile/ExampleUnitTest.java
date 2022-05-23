@@ -17,7 +17,7 @@ public class ExampleUnitTest {
     @Before
     public  void primero(){
         driver = new Driver();
-        driver.buildBoxes();
+       // driver.buildBoxes();
         driver.buildPieces();
     }
     //Prueba de la dunción "translate" y "tagToArrayNotation"

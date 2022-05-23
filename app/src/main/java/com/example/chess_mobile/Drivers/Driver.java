@@ -59,7 +59,7 @@ public class Driver {
         this.kingIncheck = kingIncheck;
     }
 
-    public boolean isTurn() {
+    public boolean getTurn() {
         return turn;
     }
 
@@ -85,7 +85,7 @@ public class Driver {
     }
     //_______________________      [FUNCTIONS]      _____________________________
 
-    public void clickDesition(Box clickedBox) throws CloneNotSupportedException {
+    public void clickDesition(Box clickedBox)  {
         printBoxInfo(clickedBox);
         //Si es que no hay posibles movimientos
         if (potentialMovesList.isEmpty()){
@@ -107,7 +107,7 @@ public class Driver {
         }
     }
 
-    public void searchPostions(Box[][] board, int x, int y) throws CloneNotSupportedException {
+    public void searchPostions(Box[][] board, int x, int y)  {
        // updateImages();
         //Obtengo la casilla con ello
         Box box = board[x][y];
@@ -271,6 +271,7 @@ public class Driver {
             int totalPieceMoves = removeNotAllowedMoves(capturablesBoxes, myPieces.get(i).getX(), myPieces.get(i).getY()).size();
             totalAvaliableMoves+= totalPieceMoves;
         }
+        Log.i("INFO", ":"+color+"::"+totalAvaliableMoves);
         if (totalAvaliableMoves>0)
             return true;
         else

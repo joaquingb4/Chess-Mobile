@@ -746,7 +746,7 @@
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/PieceSlecteionGridBlack"
-        android:layout_width="94dp"
+        android:layout_width="141dp"
         android:layout_height="47dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="20dp"
@@ -759,20 +759,28 @@
         app:layout_constraintVertical_bias="0">
 
         <ImageView
-            android:id="@+id/blackOptionsPromotion1"
+            android:id="@+id/optionbt"
             android:layout_width="47dp"
             android:layout_height="47dp"
+            android:tag="bt"
             app:layout_column="0"
             app:layout_row="0"
             app:srcCompat="@drawable/blacktower" />
 
         <ImageView
-            android:id="@+id/blackOptionsPromotion2"
+            android:id="@+id/optionbh"
             android:layout_width="47dp"
             android:layout_height="47dp"
+            android:tag="bh"
             app:layout_column="1"
             app:layout_row="0"
             app:srcCompat="@drawable/blackhorse" />
+
+        <ImageView
+            android:id="@+id/optionbq"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            app:srcCompat="@drawable/blackqueen" />
 
     </androidx.gridlayout.widget.GridLayout>
 
@@ -789,26 +797,29 @@
 
 
         <ImageView
-            android:id="@+id/whiteOptionsPromotion2"
+            android:id="@+id/optionwh"
             android:layout_width="47dp"
             android:layout_height="47dp"
+            android:tag="wh"
             app:layout_column="1"
             app:layout_row="0"
             app:srcCompat="@drawable/whitehorse" />
 
         <ImageView
-            android:id="@+id/whiteOptionsPromotion1"
+            android:id="@+id/optionwt"
             android:layout_width="47dp"
             android:layout_height="47dp"
-            android:background="#D81B60"
+            android:background="#03A9F4"
+            android:tag="wt"
             app:layout_column="0"
             app:layout_row="0"
             app:srcCompat="@drawable/whitetower" />
 
         <ImageView
-            android:id="@+id/whiteOptionsPromotion3"
+            android:id="@+id/optionwq"
             android:layout_width="47dp"
             android:layout_height="47dp"
+            android:tag="wq"
             app:layout_column="2"
             app:layout_row="0"
             app:srcCompat="@drawable/whitequeen" />
