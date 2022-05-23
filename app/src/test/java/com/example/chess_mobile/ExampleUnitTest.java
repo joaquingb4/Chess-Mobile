@@ -3,6 +3,9 @@ package com.example.chess_mobile;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import com.example.chess_mobile.Drivers.Driver;
+
 /**
  * Example local unit test, which will execute on the development machine (host).
  *

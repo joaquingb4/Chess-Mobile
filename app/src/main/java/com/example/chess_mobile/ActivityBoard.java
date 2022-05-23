@@ -14,8 +14,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.chess_mobile.Drivers.Driver;
+import com.example.chess_mobile.Drivers.PlayerTimerDriver;
 import com.example.chess_mobile.Tools.BoardTools;
-import com.example.chess_mobile.Tools.TranslationTools;
 
 public class ActivityBoard extends AppCompatActivity {
     //_______________________      [ATTRIBUTES]      _____________________________
@@ -30,8 +31,8 @@ public class ActivityBoard extends AppCompatActivity {
     private TextView whiteTimer = null;
     private TextView blackTimer = null;
     private Driver driver;
-    private PlayerTimer whitePlayerTimer = null;
-    private PlayerTimer blackPlayerTimer = null;
+    private PlayerTimerDriver playerTimerDriver;
+
 
     //Actualiza la parte visual de las piezas   //POSIBLE FALLO
     public void updateImages(){
@@ -95,8 +96,8 @@ public class ActivityBoard extends AppCompatActivity {
     public void buildBoxes(){
         whiteTimer = findViewById(R.id.txtWhiteTimer);
         blackTimer = findViewById(R.id.txtBlackTimer);
-        whitePlayerTimer = new PlayerTimer(30,00, this);
-        blackPlayerTimer = new PlayerTimer(30, 00, this);
+       // whitePlayerTimer = new PlayerTimer(30,00, this);
+       // blackPlayerTimer = new PlayerTimer(30, 00, this);
         pawPromotionOptionsArrayWhite[0] = findViewById(R.id.whiteOptionsPromotion1);
         pawPromotionOptionsArrayWhite[1] = findViewById(R.id.whiteOptionsPromotion2);
         pawPromotionOptionsArrayWhite[2] = findViewById(R.id.whiteOptionsPromotion3);
@@ -185,8 +186,8 @@ public class ActivityBoard extends AppCompatActivity {
         visualBoxes[7][7] = findViewById(R.id.box64);
         //Pintamos el tablero
         paintBoard();
-        whitePlayerTimer.start();
-        blackPlayerTimer.start();
+     //   whitePlayerTimer.start();
+      //  blackPlayerTimer.start();
     }
     //AQUÍ
     public void getBoxColor(Box box){
@@ -221,10 +222,13 @@ public class ActivityBoard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
         driver = new Driver();
+        playerTimerDriver = new PlayerTimerDriver(this, 30, 00);
+
         buildBoxes();
         //Hace que el tablero lógico cree las casillas
         driver.buildPieces();
         updateImages();
+        playerTimerDriver.start("white");
     }
 
     //Write on the log the box clicked

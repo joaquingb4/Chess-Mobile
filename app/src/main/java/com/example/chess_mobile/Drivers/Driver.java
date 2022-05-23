@@ -1,13 +1,17 @@
-package com.example.chess_mobile;
+package com.example.chess_mobile.Drivers;
 
 import android.app.AlertDialog;
 import android.util.Log;
 import java.util.ArrayList;
+
+import com.example.chess_mobile.Box;
 import com.example.chess_mobile.ChessPieces.King;
 import com.example.chess_mobile.ChessPieces.Pawn;
 import com.example.chess_mobile.ChessPieces.Piece;
 import com.example.chess_mobile.ChessPieces.Queen;
 import com.example.chess_mobile.ChessPieces.Tower;
+import com.example.chess_mobile.LogicBoard;
+
 //Esta clase Son el conjunto de instrucciones
 // con las que el VisualBoard y el LogicBoard se comunican
 public class Driver {

@@ -68,7 +68,7 @@ public class PlayerTimer implements Runnable {
     public void run() {
         try {
             while (threadIsRunnig) {
-                Thread.sleep(500);
+                Thread.sleep(1000);
                 substraction();
                 instance.uptadeTime(convertTime(minuts)+":"+convertTime(seconds));
 
