@@ -4,18 +4,21 @@ import android.app.AlertDialog;
 import android.util.Log;
 import java.util.ArrayList;
 
+import com.example.chess_mobile.ActivityBoard;
 import com.example.chess_mobile.Box;
+import com.example.chess_mobile.ChessPieces.Horse;
 import com.example.chess_mobile.ChessPieces.King;
 import com.example.chess_mobile.ChessPieces.Pawn;
 import com.example.chess_mobile.ChessPieces.Piece;
 import com.example.chess_mobile.ChessPieces.Queen;
 import com.example.chess_mobile.ChessPieces.Tower;
 import com.example.chess_mobile.LogicBoard;
-
-//Esta clase Son el conjunto de instrucciones
-// con las que el VisualBoard y el LogicBoard se comunican
+/**
+ * Clase que controla el tablero lógico
+ */
 public class Driver {
-    //_______________________      [ATTRIBUTES]      _____________________________
+    /**_______________________      [ATTRIBUTES]      _____________________________
+     */
     private LogicBoard logicBoard = new LogicBoard();
     private Box[][] board = logicBoard.getBoard();
     private ArrayList<Box> potentialMovesList = new ArrayList<>();
@@ -23,10 +26,9 @@ public class Driver {
     private Box kingIncheck = null;
     private Box pawnPromoted = null;
     private boolean turn = true;
-
-    //CREAR FUNCIÓN QUE CALCULE TODOS LOS MOVIMIENTOS POSIBLES DE UN TURNO
-    //_______________________      [GETTERS&&SETTERS]      _____________________________
-
+    private ActivityBoard instace;
+    /**_______________________      [GETTERS&&SETTERS]      _____________________________
+     */
     public LogicBoard getLogicBoard() {
         return logicBoard;
     }
@@ -83,8 +85,9 @@ public class Driver {
     public void setLastCLickedBox(Box lastCLickedBox) {
         this.lastCLickedBox = lastCLickedBox;
     }
-    //_______________________      [FUNCTIONS]      _____________________________
-
+    /**_______________________      [FUNCTIONS]      _____________________________
+     * Recibe el click del tablero gráfico y ejecuta las acciones correspondientes
+     */
     public void clickDesition(Box clickedBox)  {
         printBoxInfo(clickedBox);
         //Si es que no hay posibles movimientos
@@ -95,6 +98,14 @@ public class Driver {
         }else{
             //Si es así ejecuta un movimiento
             if (potentialMovesList.contains(clickedBox)){
+                if (lastCLickedBox.getPiece().getName().equals("Pawn")&&
+                clickedBox.getY()==0&&clickedBox.getY()==7) {
+                    cancel();
+                    //instace.showPromotionOptions(lastCLickedBox.getPiece().getColor());
+                    enableSelectPawnPromotion(lastCLickedBox.getPiece().getColor());
+
+                    return;
+                }
                 move(lastCLickedBox, clickedBox);//CAPTURA //POSIBLE ERROR
                 changeTurn();
             //Sino vacía la lista de posibles movimientos y busca posiciones
@@ -102,11 +113,44 @@ public class Driver {
                 potentialMovesList.clear();
                 searchPostions(board, clickedBox.getX(), clickedBox.getY());
             }
-            logicBoard.setNoCapturable();//Me he quedado [AQUÍ]
-            potentialMovesList.clear();
+            cancel();
+        }
+    }
+    //ME QUEDO AQUÍ:
+    //PROBLEMA: NO SÉ COMO PASARLE A ESTA FUCNIÓN LA CASILLA DE PROMOCIÓN
+    //POSIBLE SOLUCIÓN <LASTCLCIKEDBOX SI QUE ES LA CASILLA DE PROMOCIÓN>
+    public void selectionPawnPromotionTree(String tag){
+        String color;
+        if (tag.charAt(tag.length()-2)=='w')
+            color= "white";
+        else
+            color = "black";
+
+        switch (tag.charAt(tag.length()-1)){
+            case ('t'):
+                new Tower(color);
+                break;
+            case ('h'):
+                new Horse(color);
+                break;
+            case ('q'):
+                new Queen(color);
+                break;
         }
     }
 
+    /**
+     * Marca todas las casillas no capturables y vacía la lista de posibles movimientos
+     */
+    public void cancel() {
+        logicBoard.setNoCapturable();//Me he quedado [AQUÍ]
+        potentialMovesList.clear();
+    }
+    /**
+     * Busca movientos en una determinada casilla
+     * - solo devuleve movimientos en los que el rey no
+     *  acabe o siga en jaque
+     */
     public void searchPostions(Box[][] board, int x, int y)  {
        // updateImages();
         //Obtengo la casilla con ello
@@ -145,13 +189,16 @@ public class Driver {
             Log.i("Info", "Acabo de buscar posiciones");
         }
     }
-
+    /**
+     * IMPRIME POR PANTALLA LA INFO DE UNA CASILLA
+     */
     public void printBoxInfo(Box clickedBox){
         Log.i("Info", " Has hecho click en la casilla: " + clickedBox.getName()+
                 ", Que tiene un ["+ getBoxPieceName(clickedBox.getName())+"]");
     }
-
-    //Devulve el nombre de la pieza, si es que tiene
+    /**
+     * Devulve el nombre de la pieza, si es que tiene
+     */
     public String getBoxPieceName(String boxName){
         Box box = getBox(boxName);
         if (!getBox(boxName).isEmpty()){
@@ -160,14 +207,17 @@ public class Driver {
             return "empty";
         }
     }
-    //Devuelve una casilla determinada
+    /**
+     * Devuelve una casilla determinada
+     */
     public Box getBox(String boxName){
         int x = Box.unknownBoxGetX(boxName);
         int y = Box.unknownBoxGetY(boxName);
         return board[x][y];
     }
-
-    //Pone la piezas
+    /**
+     * Construye las piezas del tablero por defecto
+     */
     public void buildPieces(){
         //A---1||  columna - fila
         //Towers-----------
@@ -214,7 +264,9 @@ public class Driver {
         getBox("a1").setPiece(new Queen("white"));
     }
 
-    //Mueve una pieza a una posición
+    /**
+     * Mueve una pieza a una posición
+     */
     public void move(Box boxOrigin, Box boxDestiny){
         //Me muevo
         logicBoard.move(boxOrigin, boxDestiny);
@@ -222,7 +274,9 @@ public class Driver {
         lastCLickedBox = null;
             setPawnPromoted(logicBoard.pawnPromotion());
     }
-    //Cambia el estado del turno cuando se lo llama
+    /**
+     * Cambia el turno cuando se lo llama
+     */
     public void changeTurn (){
         if (turn){
             turn = false;
@@ -230,9 +284,9 @@ public class Driver {
         }
         turn = true;
     }
-
-
-    //Devuelve de quíen es el turno
+    /**
+     * Devuelve de quien es el turno
+     */
     public boolean checkClickTurn(Piece piece){
         if (turn){
             Log.i("INFO", "Turno de las [blancas]");
@@ -242,7 +296,13 @@ public class Driver {
         return piece.getColor().equals("black");
     }
 
-    //BOARD FUNCTIONS
+    /**
+     * QUITA LOS MOVIMENTOS NO VALIDOS DE LA LISTA DE MOVIMENTOS DE UNA PIEZA
+     * @param possibilesMoves : LISTA DE MOVIMENTOS
+     * @param x :posición x de la pieza
+     * @param y : posición y de la pieza
+     * @return : ArrayList de las casillas a las que es válido que me mueva
+     */
     public ArrayList<Box> removeNotAllowedMoves(ArrayList<Box> possibilesMoves, int x, int y)  {
         //Creamos un nuevo logicBoard
         // x y mi equipo
@@ -263,6 +323,12 @@ public class Driver {
         return allowedMoves;
     }
     //Calcula si hay movimientos posibles en un turno___Por probar
+
+    /**
+     * DEVUELVE TRUE O FALSE EN BASE A SI UN JUGADOR TIENE MOVIMENTOS DISPONIBLES
+     * @param color : Color del jugador
+     * @return
+     */
     public boolean playerHaveMoves (String color){
         int totalAvaliableMoves = 0;
         ArrayList<Box> myPieces = logicBoard.getPlayerBoxes(color);
@@ -277,4 +343,6 @@ public class Driver {
         else
             return false;
     }
+
+
 }

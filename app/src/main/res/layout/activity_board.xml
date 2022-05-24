@@ -762,6 +762,7 @@
             android:id="@+id/optionbt"
             android:layout_width="47dp"
             android:layout_height="47dp"
+            android:onClick="clickPawnPromotionOption"
             android:tag="bt"
             app:layout_column="0"
             app:layout_row="0"
@@ -771,6 +772,7 @@
             android:id="@+id/optionbh"
             android:layout_width="47dp"
             android:layout_height="47dp"
+            android:onClick="clickPawnPromotionOption"
             android:tag="bh"
             app:layout_column="1"
             app:layout_row="0"
@@ -780,6 +782,7 @@
             android:id="@+id/optionbq"
             android:layout_width="47dp"
             android:layout_height="47dp"
+            android:onClick="clickPawnPromotionOption"
             app:srcCompat="@drawable/blackqueen" />
 
     </androidx.gridlayout.widget.GridLayout>
@@ -800,6 +803,7 @@
             android:id="@+id/optionwh"
             android:layout_width="47dp"
             android:layout_height="47dp"
+            android:onClick="clickPawnPromotionOption"
             android:tag="wh"
             app:layout_column="1"
             app:layout_row="0"
@@ -810,6 +814,7 @@
             android:layout_width="47dp"
             android:layout_height="47dp"
             android:background="#03A9F4"
+            android:onClick="clickPawnPromotionOption"
             android:tag="wt"
             app:layout_column="0"
             app:layout_row="0"
@@ -819,6 +824,7 @@
             android:id="@+id/optionwq"
             android:layout_width="47dp"
             android:layout_height="47dp"
+            android:onClick="clickPawnPromotionOption"
             android:tag="wq"
             app:layout_column="2"
             app:layout_row="0"

@@ -267,23 +267,7 @@ public class ActivityBoard extends AppCompatActivity {
     //ME QUEDO AQUÍ
     public void clickPawnPromotionOption(View view){
         String tag = view.getTag().toString();
-        String color;
-        if (tag.charAt(tag.length()-2)=='w')
-            color= "white";
-        else
-            color = "black";
-
-        switch (tag.charAt(tag.length()-1)){
-            case ('t'):
-                new Tower(color);
-                break;
-            case ('h'):
-                new Horse(color);
-                break;
-            case ('q'):
-                new Queen(color);
-                break;
-        }
+        driver.selectionPawnPromotionTree(tag);
     }
 
     //Comprueba si se ha ejecutado un evento y lo realiza
@@ -304,7 +288,7 @@ public class ActivityBoard extends AppCompatActivity {
         }
     }
     //Muestra las opciones de promoción del peón
-    private void showPromotionOptions(String color) {
+    public void showPromotionOptions(String color) {
         int code;
         if (color.equals("white")) {
             for (int i = 0; i < pawPromotionOptionsArrayWhite.length; i++) {
