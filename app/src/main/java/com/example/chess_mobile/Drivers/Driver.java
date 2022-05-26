@@ -26,7 +26,13 @@ public class Driver {
     private Box kingIncheck = null;
     private Box pawnPromoted = null;
     private boolean turn = true;
-    private ActivityBoard instace;
+    private ActivityBoard instance;
+    /**_______________________      [BUILDER]      _____________________________
+     */
+    public Driver(ActivityBoard instance, boolean turn){
+        this.instance = instance;
+        this.turn = turn;
+    }
     /**_______________________      [GETTERS&&SETTERS]      _____________________________
      */
     public LogicBoard getLogicBoard() {
@@ -77,7 +83,6 @@ public class Driver {
         this.pawnPromoted = pawnPromoted;
     }
 
-
     public Box getLastCLickedBox(){
         return lastCLickedBox;
     }
@@ -85,9 +90,13 @@ public class Driver {
     public void setLastCLickedBox(Box lastCLickedBox) {
         this.lastCLickedBox = lastCLickedBox;
     }
-    /**_______________________      [FUNCTIONS]      _____________________________
-     * Recibe el click del tablero gráfico y ejecuta las acciones correspondientes
+    /**
+     * _______________________      [FUNCTIONS]      _____________________________
      */
+
+ /**
+  * Recibe el click del tablero gráfico y ejecuta las acciones correspondientes
+  * */
     public void clickDesition(Box clickedBox)  {
         printBoxInfo(clickedBox);
         //Si es que no hay posibles movimientos
@@ -98,12 +107,11 @@ public class Driver {
         }else{
             //Si es así ejecuta un movimiento
             if (potentialMovesList.contains(clickedBox)){
-                if (lastCLickedBox.getPiece().getName().equals("Pawn")&&
-                clickedBox.getY()==0&&clickedBox.getY()==7) {
+                if (lastCLickedBox.getPiece().getName().equals("Pawn") &&
+                clickedBox.getY() == 0 && clickedBox.getY() == 7) {
                     cancel();
                     //instace.showPromotionOptions(lastCLickedBox.getPiece().getColor());
-                    enableSelectPawnPromotion(lastCLickedBox.getPiece().getColor());
-
+                    instance.showPromotionOptions(lastCLickedBox.getPiece().getColor());
                     return;
                 }
                 move(lastCLickedBox, clickedBox);//CAPTURA //POSIBLE ERROR
@@ -116,9 +124,15 @@ public class Driver {
             cancel();
         }
     }
+
     //ME QUEDO AQUÍ:
     //PROBLEMA: NO SÉ COMO PASARLE A ESTA FUCNIÓN LA CASILLA DE PROMOCIÓN
     //POSIBLE SOLUCIÓN <LASTCLCIKEDBOX SI QUE ES LA CASILLA DE PROMOCIÓN>
+
+    /**
+     * Decide que pieza devolver en base a su tag
+     * -Solo funciona con las opciones de promoción
+     */
     public void selectionPawnPromotionTree(String tag){
         String color;
         if (tag.charAt(tag.length()-2)=='w')
@@ -128,17 +142,35 @@ public class Driver {
 
         switch (tag.charAt(tag.length()-1)){
             case ('t'):
-                new Tower(color);
+                getAPawnOnPromotion().setPiece(new Tower(color));
+                instance.updateImages();
                 break;
             case ('h'):
-                new Horse(color);
+                getAPawnOnPromotion().setPiece(new Horse(color));
+                instance.updateImages();
                 break;
             case ('q'):
-                new Queen(color);
+                getAPawnOnPromotion().setPiece(new Queen(color));
+                instance.updateImages();
                 break;
         }
     }
 
+    public Box getAPawnOnPromotion(){
+        for (int x = 0; x < board.length; x++) {
+            Box box = board[x][0];
+            if (!box.isEmpty())
+                if (box.getPiece().getName().equals("Pawn"))
+                    return box;
+        }
+        for (int y = 0; y < board.length; y++) {
+            Box box = board[y][7];
+            if (!box.isEmpty())
+                if (box.getPiece().getName().equals("Pawn"))
+                    return box;
+        }
+        return null;
+    }
     /**
      * Marca todas las casillas no capturables y vacía la lista de posibles movimientos
      */
@@ -322,6 +354,7 @@ public class Driver {
         }
         return allowedMoves;
     }
+
     //Calcula si hay movimientos posibles en un turno___Por probar
 
     /**
@@ -343,6 +376,4 @@ public class Driver {
         else
             return false;
     }
-
-
 }

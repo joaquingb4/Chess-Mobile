@@ -16,7 +16,7 @@ public class ExampleUnitTest {
     //Inicio un "driver" para hacer pruebas
     @Before
     public  void primero(){
-        driver = new Driver();
+       // driver = new Driver();
        // driver.buildBoxes();
         driver.buildPieces();
     }

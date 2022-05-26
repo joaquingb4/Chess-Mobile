@@ -1,5 +1,10 @@
 package com.example.chess_mobile;
 
+import static com.example.chess_mobile.Configuration.Constants.COLOR_BLACK_BOXES;
+import static com.example.chess_mobile.Configuration.Constants.COLOR_CHECK_KING;
+import static com.example.chess_mobile.Configuration.Constants.COLOR_MOVEMENTS;
+import static com.example.chess_mobile.Configuration.Constants.COLOR_PROMOTION_OPTIONS;
+import static com.example.chess_mobile.Configuration.Constants.COLOR_WHITE_BOXES;
 import static com.example.chess_mobile.Tools.TranslationTools.translateBooleanToColor;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,16 +28,10 @@ import com.example.chess_mobile.Tools.BoardTools;
 
 public class ActivityBoard extends AppCompatActivity {
     //_______________________      [ATTRIBUTES]      _____________________________
-    //.COLORS
-    private String colorBlackBoxes = "#737373";
-    private String colorWhiteBoxes = "#ffffff";
-    private String colorMovements = "#33D17A";
-    private String colorCheckKing = "#002147";
-    private String pawnPromotionOptionsColor = "#F5F5DC";
     //.IMAGESVIEWS
     private ImageView[][] visualBoxes = new ImageView[8][8];
     private ImageView[] pawPromotionOptionsArrayWhite = new ImageView[3];
-    private ImageView[] pawPromotionOptionsArrayBlack = new ImageView[2];
+    private ImageView[] pawPromotionOptionsArrayBlack = new ImageView[3];
     //.TIMERS
     private TextView whiteTimer = null;
     private TextView blackTimer = null;
@@ -50,7 +49,7 @@ public class ActivityBoard extends AppCompatActivity {
                 Box box = driver.getLogicBoard().getBox(i, u);
                 visualBoxes[i][u].setImageDrawable(getImage(box));
                 if (box.getCapturable()){
-                    BoardTools.getImageView(box, visualBoxes).setBackgroundColor(Color.parseColor(colorMovements));
+                    BoardTools.getImageView(box, visualBoxes).setBackgroundColor(Color.parseColor(COLOR_MOVEMENTS));
                 }else {
 
                 }
@@ -113,14 +112,15 @@ public class ActivityBoard extends AppCompatActivity {
 
         pawPromotionOptionsArrayBlack[0] = findViewById(R.id.optionbt);
         pawPromotionOptionsArrayBlack[1] = findViewById(R.id.optionbh);
+        pawPromotionOptionsArrayBlack[2] = findViewById(R.id.optionbq);
 
         for (int i = 0; i < pawPromotionOptionsArrayWhite.length; i++) {
             pawPromotionOptionsArrayWhite[i].setVisibility(View.INVISIBLE);
-            pawPromotionOptionsArrayWhite[i].setBackgroundColor(Color.parseColor(pawnPromotionOptionsColor));
+            pawPromotionOptionsArrayWhite[i].setBackgroundColor(Color.parseColor(COLOR_PROMOTION_OPTIONS));
         }
         for (int i = 0; i < pawPromotionOptionsArrayBlack.length; i++) {
             pawPromotionOptionsArrayBlack[i].setVisibility(View.INVISIBLE);
-            pawPromotionOptionsArrayBlack[i].setBackgroundColor(Color.parseColor(pawnPromotionOptionsColor));
+            pawPromotionOptionsArrayBlack[i].setBackgroundColor(Color.parseColor(COLOR_PROMOTION_OPTIONS));
         }
         visualBoxes[0][0] = findViewById(R.id.box1);
         visualBoxes[0][1] = findViewById(R.id.box2);
@@ -195,8 +195,6 @@ public class ActivityBoard extends AppCompatActivity {
         visualBoxes[7][7] = findViewById(R.id.box64);
         //Pintamos el tablero
         paintBoard();
-     //   whitePlayerTimer.start();
-      //  blackPlayerTimer.start();
     }
     //AQUÍ
     public void getBoxColor(Box box){
@@ -211,15 +209,15 @@ public class ActivityBoard extends AppCompatActivity {
                 View visualBox = visualBoxes[x][y];
                 if (logicBox.getCapturable()){
                     if (logicBox.equals(driver.getLogicBoard().getKing("black")) || logicBox.equals(driver.getLogicBoard().getKing("white"))){
-                        visualBoxes[x][y].setBackgroundColor(Color.parseColor(colorCheckKing));
+                        visualBoxes[x][y].setBackgroundColor(Color.parseColor(COLOR_CHECK_KING));
                     }else{
-                        visualBox.setBackgroundColor(Color.parseColor(colorMovements));
+                        visualBox.setBackgroundColor(Color.parseColor(COLOR_MOVEMENTS));
                     }
                 }else {
                     if (logicBox.getColor()){
-                        visualBox.setBackgroundColor(Color.parseColor(colorBlackBoxes));
+                        visualBox.setBackgroundColor(Color.parseColor(COLOR_BLACK_BOXES));
                     }else {
-                        visualBox.setBackgroundColor(Color.parseColor(colorWhiteBoxes));
+                        visualBox.setBackgroundColor(Color.parseColor(COLOR_WHITE_BOXES));
                     }
                 }
             }
@@ -230,7 +228,7 @@ public class ActivityBoard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
-        driver = new Driver();
+        driver = new Driver(this, true);
         buildBoxes();
         //Hace que el tablero lógico cree las casillas
         driver.buildPieces();
@@ -325,7 +323,8 @@ public class ActivityBoard extends AppCompatActivity {
         alertDialog.create();
         alertDialog.show();
     }
-    //FALTA PROMOCOCIÓN DEL  PEÓN
+
+    //FALTA PROMOCOCIÓN DEL  PEÓN  ACABADO
     //ENROQUE
     //PEÓN LATERAL
     //gUARDAR PARTIDA
