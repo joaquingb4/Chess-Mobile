@@ -252,7 +252,7 @@ public class ActivityBoard extends AppCompatActivity {
         driver.clickDesition(clickedBox);
         updateImages();
         paintBoard();
-        checkEvents();
+       // checkEvents();
         boolean enemyPlayerHaveMoves = driver.playerHaveMoves(translateBooleanToColor(driver.getTurn()));
         Log.i("INFO", "FUNCIONA "+ enemyPlayerHaveMoves);
         if (!enemyPlayerHaveMoves){
@@ -266,6 +266,7 @@ public class ActivityBoard extends AppCompatActivity {
     public void clickPawnPromotionOption(View view){
         String tag = view.getTag().toString();
         driver.selectionPawnPromotionTree(tag);
+        hidePromotionOptions();
     }
 
     //Comprueba si se ha ejecutado un evento y lo realiza

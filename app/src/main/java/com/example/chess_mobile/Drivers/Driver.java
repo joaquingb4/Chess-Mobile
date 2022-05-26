@@ -107,11 +107,12 @@ public class Driver {
         }else{
             //Si es así ejecuta un movimiento
             if (potentialMovesList.contains(clickedBox)){
-                if (lastCLickedBox.getPiece().getName().equals("Pawn") &&
-                clickedBox.getY() == 0 && clickedBox.getY() == 7) {
+                if ((lastCLickedBox.getPiece().getName().equals("Pawn")) && (lastCLickedBox.getY() == 6 || lastCLickedBox.getY() == 1)
+                        && (clickedBox.getY() == 0 || clickedBox.getY() == 7)) {
                     cancel();
                     //instace.showPromotionOptions(lastCLickedBox.getPiece().getColor());
                     instance.showPromotionOptions(lastCLickedBox.getPiece().getColor());
+                    move(lastCLickedBox, clickedBox);
                     return;
                 }
                 move(lastCLickedBox, clickedBox);//CAPTURA //POSIBLE ERROR
@@ -142,15 +143,15 @@ public class Driver {
 
         switch (tag.charAt(tag.length()-1)){
             case ('t'):
-                getAPawnOnPromotion().setPiece(new Tower(color));
+                lastCLickedBox.setPiece(new Tower(color));
                 instance.updateImages();
                 break;
             case ('h'):
-                getAPawnOnPromotion().setPiece(new Horse(color));
+                lastCLickedBox.setPiece(new Horse(color));
                 instance.updateImages();
                 break;
             case ('q'):
-                getAPawnOnPromotion().setPiece(new Queen(color));
+                lastCLickedBox.setPiece(new Queen(color));
                 instance.updateImages();
                 break;
         }
@@ -177,6 +178,7 @@ public class Driver {
     public void cancel() {
         logicBoard.setNoCapturable();//Me he quedado [AQUÍ]
         potentialMovesList.clear();
+        instance.hidePromotionOptions();
     }
     /**
      * Busca movientos en una determinada casilla
