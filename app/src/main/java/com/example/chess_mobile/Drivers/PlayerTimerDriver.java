@@ -70,16 +70,22 @@ public class PlayerTimerDriver implements Runnable {
                 Log.i("INFO", "1sec");
                 if (timerRunningTurn) {
                     whitePlayerTimer.substraction();
+                    instance.runOnUiThread(new Runnable() {
+                        public void run() {
                     instance.uptadeTime(whitePlayerTimer.getTime(), "white");
+                        }});
+
                 }else {
                     blackPlayerTimer.substraction();
-                    instance.uptadeTime(blackPlayerTimer.getTime(), "black");
-                }
+                    instance.runOnUiThread(new Runnable() {
+                        public void run() {
+                            instance.uptadeTime(blackPlayerTimer.getTime(), "black");
+                    }});
+            }
                 if (whitePlayerTimer.getTime().equals("00:00") || blackPlayerTimer.getTime().equals("00:00"))
-                    //((ActivityBoard)instance).endGame();
                 instance.runOnUiThread(new Runnable() {
                     public void run() {
-                        instance.endGame();
+                        instance.endGame("Victory by time", translateBooleanToColor(instance.getDriver().getTurn())+" losses by time ");
                     }});
                     //instance.endGame();
             }catch (Exception e){

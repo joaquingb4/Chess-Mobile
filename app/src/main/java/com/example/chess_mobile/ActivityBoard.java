@@ -5,6 +5,7 @@ import static com.example.chess_mobile.Configuration.Constants.COLOR_CHECK_KING;
 import static com.example.chess_mobile.Configuration.Constants.COLOR_MOVEMENTS;
 import static com.example.chess_mobile.Configuration.Constants.COLOR_PROMOTION_OPTIONS;
 import static com.example.chess_mobile.Configuration.Constants.COLOR_WHITE_BOXES;
+import static com.example.chess_mobile.Tools.TranslationTools.getContraryColor;
 import static com.example.chess_mobile.Tools.TranslationTools.translateBooleanToColor;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +41,9 @@ public class ActivityBoard extends AppCompatActivity {
     //.DRIVERS
     private Driver driver;
     private PlayerTimerDriver playerTimerDriver;
-
+    public Driver getDriver() {
+        return driver;
+    }
     /*
      Actualiza la parte visual de las piezas
     */
@@ -257,7 +260,7 @@ public class ActivityBoard extends AppCompatActivity {
         boolean enemyPlayerHaveMoves = driver.playerHaveMoves(translateBooleanToColor(driver.getTurn()));
         Log.i("INFO", "FUNCIONA "+ enemyPlayerHaveMoves);
         if (!enemyPlayerHaveMoves){
-            endGame();
+            endGame("Checkmate", "King "+ getContraryColor(translateBooleanToColor(driver.getTurn()))+" is in check");
         }
         if (driver.getTurn() != turn)
             playerTimerDriver.changeTurn();
@@ -312,19 +315,19 @@ public class ActivityBoard extends AppCompatActivity {
     }
 
     //Acaba la partida--En construcción
-    public void endGame(){
+    public void endGame(String title, String message ){
         driver.cancel();
         updateImages();
         paintBoard();
         driver.setGameOver(true);
         playerTimerDriver.stop();
-        showAlertDialogGameOver();
+        showAlertDialogGameOver(title, message);
     }
 
-    public void showAlertDialogGameOver(){
+    public void showAlertDialogGameOver(String title, String message){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("Check");
-        alertDialog.setMessage("No hay movimientos disponibles");
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
         alertDialog.create();
         alertDialog.show();
     }

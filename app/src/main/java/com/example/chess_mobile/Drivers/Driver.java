@@ -285,13 +285,12 @@ public class Driver {
         //getBox("c3").setPiece(new Horse("black"));
 
         //Bishops-----------
-        /*
+
         getBox("c1").setPiece(new Bishop("white"));
         getBox("f1").setPiece(new Bishop("white"));
         getBox("c8").setPiece(new Bishop("black"));
         getBox("f8").setPiece(new Bishop("black"));
         //getBox("e4").setPiece(new Bishop("white"));
-        */
 
         //Queens-----------
         getBox("d1").setPiece(new Queen("white"));
@@ -395,6 +394,7 @@ public class Driver {
         else
             return false;
     }
+    /*
     //Falta modificar el move para que cambie la variables firstMove
     //________________________________________________
     public ArrayList<Box> checkSpecialMoves(Box box){
@@ -404,52 +404,81 @@ public class Driver {
         Piece piece = box.getPiece();
         switch (piece.getName()){
             case "King":
-                return canEnroll();
-                break;
+                return canEnroll(box);
             case "Tower":
-                return canEnroll();
-                break;
+                return canEnroll(box);
         }
+        return null;
     }
-
+    //Añadir el setFirst move = false en move()
     //Devuelve las casillas con las que rey puede enrocar
-    public ArrayList<Box> canEnroque(Box[][] board, Box kingBox){
-        String color = kingBox.getPiece().getColor();
-        int positionY;
+    public ArrayList<Box> canEnroll(Box box){
+        Box kingBox;
+        int postionY;
+        String color = box.getPiece().getColor();
         ArrayList<Box> towers = new ArrayList();
-        ArrayList<Box> towersWithoutMoves = new ArrayList<>();
-        //¿Es de abajo o de arriba?
-        if (!firstMove){
+        if (box.getPiece().getName().equals("King")){
+            kingBox = box;
+            towers = getEnroqueTowers(kingBox);
+        }else {
+            kingBox = logicBoard.getKing(color);
+        }
+        if (!kingBox.getPiece().isFirstMovement())
             return null;
-        }
-        if (color.equals("white"))
-            positionY = 0;
-        else
-            positionY = 7;
-        //Obtengo todas torres de mi fila
-        for (int i = 0; i < board.length; i++) {
-            Box box = board[i][positionY];
-            if (!box.isEmpty()){
-                if (box.getPiece().getName().equals("Tower") && box.getPiece().getColor().equals(color){
-                    towers.add(box);
-                }
+        //Ya tengo la s torres y el rey y se que es su primer movimiento
+        ArrayList<Box> positionsToMove = new ArrayList<>();
+        for (int i = 0; i < towers.size(); i++) {
+            if (getBoxEnroque(kingBox, towers.get(i))!=null){
+                positionsToMove.add(getBoxEnroque(kingBox, towers.get(i)));
             }
         }
-        //Compruebo que hay alguna
-        if (!towers.isEmpty()){
-            for (int i = 0; i < towers.size(); i++) {
-                if (towers.get(i).getPiece().isFirstMovement()){
-                    towersWithoutMoves.add(towers.get(i))
-                }
-            }
-        }
-        //Esta despejado el camino
-        if (firstMove){
 
-            for (int i = 0; i < board.length; i++) {
-                board[i][positionY].
-            }
-            if ()
-        }
     }
+
+    /**
+     *En base un rey se devuelven sus torres si cumplen los requisitos para un enroque
+     */
+    /*
+    public ArrayList<Box> getEnroqueTowers(Box kingBox) {
+        ArrayList<Box> towers = new ArrayList<>();
+        Box rightTower = board[0][kingBox.getY()];
+        Box leftTower = board[7][kingBox.getY()];
+
+        if (rightTower.isEmpty() && rightTower.getPiece().getName().equals("Tower") && rightTower.getPiece().isFirstMovement()){
+            towers.add(rightTower);
+        }
+        if (leftTower.isEmpty() && leftTower.getPiece().getName().equals("Tower") && leftTower.getPiece().isFirstMovement()){
+            towers.add(leftTower);
+        }
+        return towers;
+    }
+    public Box getBoxEnroque(Box kingBox, Box towerBox){
+        int Y = kingBox.getY();
+        int kingX = kingBox.getX();
+        int towerX = towerBox.getX();
+        int i = 1;
+        boolean allowed = true;
+        Box finalBox = null;
+        if (towerX>kingX)
+            i=i*-1;
+
+        for (int x = kingX+i; x != towerX; x+=i) {
+            Box box = board[x][Y];
+            if (!box.isEmpty()){
+                allowed=false;
+            }
+            if (x==1||x==2){
+                if (logicBoard.boxInDanger(box)){
+                    allowed=false;
+                    finalBox = box;
+                }
+            }
+        }
+
+        if (allowed)
+            return finalBox;
+        else
+            return null;
+    }
+    */
 }
