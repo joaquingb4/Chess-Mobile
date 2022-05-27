@@ -238,7 +238,7 @@ public class ActivityBoard extends AppCompatActivity {
         driver.buildPieces();
         updateImages();
 
-        playerTimerDriver = new PlayerTimerDriver(this, "white" , 0, 5);
+        playerTimerDriver = new PlayerTimerDriver(this, "white" , 5, 0);
         driverThread = new Thread(playerTimerDriver);
         driverThread.start();
     }

@@ -16,7 +16,7 @@ public class PlayerTimer  {
     public String getTime(){
         return time;
     }
-    //___________________________[Functions]______________________
+    //___________________________[Functions]_________________________
 
     public String convertTime(int time){
         if (time < 10)
