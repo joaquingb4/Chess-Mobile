@@ -15,6 +15,8 @@ public class Tower extends Piece {
     //Attributes
     private final String name = "Tower";
     private String color;
+    private boolean firstMove = false;
+
 
     //Methods
     public Tower(String color) {
@@ -40,6 +42,20 @@ public class Tower extends Piece {
     public String setColor() {
         return this.color;
     }
+
+    @Override
+    public boolean isFirstMovement() {
+        return false;
+    }
+
+    public boolean isFirstMove() {
+        return firstMove;
+    }
+
+    public void setFirstMove(boolean firstMove) {
+        this.firstMove = firstMove;
+    }
+
 
     //Devuelve un ArrayList con las casillas posibles
     public ArrayList<Box> getAvailableMoves(Box[][] board, int x, int y) {

@@ -45,4 +45,7 @@ public class TranslationTools {
         else
             return false;
     }
+    public static char translateIntToLetter(int i){
+        return abc[i];
+    }
 }

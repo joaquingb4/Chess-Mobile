@@ -40,6 +40,7 @@ public class ActivityBoard extends AppCompatActivity {
     //.DRIVERS
     private Driver driver;
     private PlayerTimerDriver playerTimerDriver;
+
     /*
      Actualiza la parte visual de las piezas
     */
@@ -234,7 +235,7 @@ public class ActivityBoard extends AppCompatActivity {
         driver.buildPieces();
         updateImages();
 
-        playerTimerDriver = new PlayerTimerDriver(this, "white" , 30, 00);
+        playerTimerDriver = new PlayerTimerDriver(this, "white" , 0, 5);
         driverThread = new Thread(playerTimerDriver);
         driverThread.start();
     }
@@ -256,7 +257,6 @@ public class ActivityBoard extends AppCompatActivity {
         boolean enemyPlayerHaveMoves = driver.playerHaveMoves(translateBooleanToColor(driver.getTurn()));
         Log.i("INFO", "FUNCIONA "+ enemyPlayerHaveMoves);
         if (!enemyPlayerHaveMoves){
-
             endGame();
         }
         if (driver.getTurn() != turn)
@@ -313,8 +313,12 @@ public class ActivityBoard extends AppCompatActivity {
 
     //Acaba la partida--En construcción
     public void endGame(){
-        showAlertDialogGameOver();
+        driver.cancel();
+        updateImages();
+        paintBoard();
+        driver.setGameOver(true);
         playerTimerDriver.stop();
+        showAlertDialogGameOver();
     }
 
     public void showAlertDialogGameOver(){

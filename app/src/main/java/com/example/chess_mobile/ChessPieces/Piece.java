@@ -8,6 +8,7 @@ public abstract class Piece {
     //Attributes
     private String name;
     private String color;
+    private boolean firstMovement;
 
     //Methods
     public abstract String getName();
@@ -15,6 +16,8 @@ public abstract class Piece {
     public abstract String getColor();
 
     public abstract String setColor();
+
+    public abstract boolean isFirstMovement();
 
     public abstract ArrayList<Box> getAvailableMoves(Box[][] board, int x, int y);
 }

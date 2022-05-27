@@ -37,6 +37,11 @@ public class Bishop extends Piece {
         return this.color;
     }
 
+    @Override
+    public boolean isFirstMovement() {
+        return false;
+    }
+
     //Devuelve un ArrayList con las casillas posibles
     @Override
     public ArrayList<Box> getAvailableMoves(Box[][] board, int x, int y) {

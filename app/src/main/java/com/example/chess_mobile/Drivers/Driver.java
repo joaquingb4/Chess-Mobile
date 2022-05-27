@@ -1,11 +1,14 @@
 package com.example.chess_mobile.Drivers;
 
+import static com.example.chess_mobile.Tools.TranslationTools.translateIntToLetter;
+
 import android.app.AlertDialog;
 import android.util.Log;
 import java.util.ArrayList;
-
+import com.example.chess_mobile.Tools.TranslationTools.*;
 import com.example.chess_mobile.ActivityBoard;
 import com.example.chess_mobile.Box;
+import com.example.chess_mobile.ChessPieces.Bishop;
 import com.example.chess_mobile.ChessPieces.Horse;
 import com.example.chess_mobile.ChessPieces.King;
 import com.example.chess_mobile.ChessPieces.Pawn;
@@ -27,6 +30,8 @@ public class Driver {
     private Box pawnPromoted = null;
     private boolean turn = true;
     private ActivityBoard instance;
+    //.CONDITIONS
+    private boolean isGameOver = false;
     /**_______________________      [BUILDER]      _____________________________
      */
     public Driver(ActivityBoard instance, boolean turn){
@@ -90,6 +95,10 @@ public class Driver {
     public void setLastCLickedBox(Box lastCLickedBox) {
         this.lastCLickedBox = lastCLickedBox;
     }
+
+    public void setGameOver(boolean gameOver) {
+        isGameOver = gameOver;
+    }
     /**
      * _______________________      [FUNCTIONS]      _____________________________
      */
@@ -107,12 +116,14 @@ public class Driver {
         }else{
             //Si es así ejecuta un movimiento
             if (potentialMovesList.contains(clickedBox)){
+                //Comprueba si hay un peón que entre en promoción
                 if ((lastCLickedBox.getPiece().getName().equals("Pawn")) && (lastCLickedBox.getY() == 6 || lastCLickedBox.getY() == 1)
                         && (clickedBox.getY() == 0 || clickedBox.getY() == 7)) {
                     cancel();
-                    //instace.showPromotionOptions(lastCLickedBox.getPiece().getColor());
                     instance.showPromotionOptions(lastCLickedBox.getPiece().getColor());
-                    move(lastCLickedBox, clickedBox);
+                    //move(lastCLickedBox, clickedBox);
+                    setPawnPromoted(lastCLickedBox);
+                    setLastCLickedBox(clickedBox);
                     return;
                 }
                 move(lastCLickedBox, clickedBox);//CAPTURA //POSIBLE ERROR
@@ -143,15 +154,18 @@ public class Driver {
 
         switch (tag.charAt(tag.length()-1)){
             case ('t'):
-                lastCLickedBox.setPiece(new Tower(color));
+                move(pawnPromoted, lastCLickedBox);
+                pawnPromoted.setPiece(new Tower(color));
                 instance.updateImages();
                 break;
             case ('h'):
-                lastCLickedBox.setPiece(new Horse(color));
+                move(pawnPromoted, lastCLickedBox);
+                pawnPromoted.setPiece(new Horse(color));
                 instance.updateImages();
                 break;
             case ('q'):
-                lastCLickedBox.setPiece(new Queen(color));
+                move(pawnPromoted, lastCLickedBox);
+                pawnPromoted.setPiece(new Queen(color));
                 instance.updateImages();
                 break;
         }
@@ -178,6 +192,7 @@ public class Driver {
     public void cancel() {
         logicBoard.setNoCapturable();//Me he quedado [AQUÍ]
         potentialMovesList.clear();
+        setPawnPromoted(null);
         instance.hidePromotionOptions();
     }
     /**
@@ -194,7 +209,7 @@ public class Driver {
         if (box.isEmpty()){
             Log.i("ERROR","Casilla vacía, no hay movimientos");
         }else{
-            if (!checkClickTurn(box.getPiece())){
+            if (!checkClickTurn(box.getPiece()) || isGameOver){
                 Log.i("INFO","TURNO: "+turn);
                 return;
             }
@@ -256,12 +271,12 @@ public class Driver {
         //A---1||  columna - fila
         //Towers-----------
         getBox("a1").setPiece(new Tower("white"));
-        //getBox("h1").setPiece(new Tower("white"));
-        //getBox("a8").setPiece(new Tower("black"));
-        //getBox("h8").setPiece(new Tower("black"));
+        getBox("h1").setPiece(new Tower("white"));
+        getBox("a8").setPiece(new Tower("black"));
+        getBox("h8").setPiece(new Tower("black"));
       //  getBox("d4").setPiece(new Tower("white"));
         //Horses-----------
-        /*
+
         getBox("b1").setPiece(new Horse("white"));
         getBox("g1").setPiece(new Horse("white"));
         getBox("b8").setPiece(new Horse("black"));
@@ -270,11 +285,13 @@ public class Driver {
         //getBox("c3").setPiece(new Horse("black"));
 
         //Bishops-----------
+        /*
         getBox("c1").setPiece(new Bishop("white"));
         getBox("f1").setPiece(new Bishop("white"));
         getBox("c8").setPiece(new Bishop("black"));
         getBox("f8").setPiece(new Bishop("black"));
         //getBox("e4").setPiece(new Bishop("white"));
+        */
 
         //Queens-----------
         getBox("d1").setPiece(new Queen("white"));
@@ -285,14 +302,14 @@ public class Driver {
         getBox("e1").setPiece(new King("white"));
         getBox("e8").setPiece(new King("black"));
 
-         */
+
         //Pawns------------
-        //for (int i = 0; i < 8; i++) {
-         //   getBox(Box.getLetter(i)+"2").setPiece(new Pawn("white"));
-        //}
-        //for (int i = 0; i < 8; i++) {
-        //    getBox(Box.getLetter(i)+"7").setPiece(new Pawn("black"));
-        //}
+        for (int i = 0; i < 8; i++) {
+            getBox(translateIntToLetter(i)+"2").setPiece(new Pawn("white"));
+        }
+        for (int i = 0; i < 8; i++) {
+            getBox(translateIntToLetter(i)+"7").setPiece(new Pawn("black"));
+        }
         getBox("g8").setPiece(new Pawn("black"));
         getBox("g7").setPiece(new Pawn("black"));
         getBox("a1").setPiece(new Queen("white"));
@@ -377,5 +394,62 @@ public class Driver {
             return true;
         else
             return false;
+    }
+    //Falta modificar el move para que cambie la variables firstMove
+    //________________________________________________
+    public ArrayList<Box> checkSpecialMoves(Box box){
+        //Se que no está vacío
+        if (box.isEmpty())
+            return null;
+        Piece piece = box.getPiece();
+        switch (piece.getName()){
+            case "King":
+                return canEnroll();
+                break;
+            case "Tower":
+                return canEnroll();
+                break;
+        }
+    }
+
+    //Devuelve las casillas con las que rey puede enrocar
+    public ArrayList<Box> canEnroque(Box[][] board, Box kingBox){
+        String color = kingBox.getPiece().getColor();
+        int positionY;
+        ArrayList<Box> towers = new ArrayList();
+        ArrayList<Box> towersWithoutMoves = new ArrayList<>();
+        //¿Es de abajo o de arriba?
+        if (!firstMove){
+            return null;
+        }
+        if (color.equals("white"))
+            positionY = 0;
+        else
+            positionY = 7;
+        //Obtengo todas torres de mi fila
+        for (int i = 0; i < board.length; i++) {
+            Box box = board[i][positionY];
+            if (!box.isEmpty()){
+                if (box.getPiece().getName().equals("Tower") && box.getPiece().getColor().equals(color){
+                    towers.add(box);
+                }
+            }
+        }
+        //Compruebo que hay alguna
+        if (!towers.isEmpty()){
+            for (int i = 0; i < towers.size(); i++) {
+                if (towers.get(i).getPiece().isFirstMovement()){
+                    towersWithoutMoves.add(towers.get(i))
+                }
+            }
+        }
+        //Esta despejado el camino
+        if (firstMove){
+
+            for (int i = 0; i < board.length; i++) {
+                board[i][positionY].
+            }
+            if ()
+        }
     }
 }

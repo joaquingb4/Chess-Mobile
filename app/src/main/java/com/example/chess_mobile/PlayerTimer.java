@@ -1,10 +1,9 @@
 package com.example.chess_mobile;
 
-import android.util.Log;
-
 public class PlayerTimer  {
     private int minuts;
     private int seconds;
+    private String time;
     private boolean threadIsRunnig = false;
 
 
@@ -12,23 +11,11 @@ public class PlayerTimer  {
         this.minuts = minuts;
         this.seconds = seconds;
     }
-    /*
-    public PlayerTimer(String time, ActivityBoard instance ){
-        this.instance = instance;
-        if (time.charAt(0)=='0')
-        this.minuts = minuts;
-        this.seconds = seconds;
-    }
-    */
 
     //Devuelve el tiempo actual del reloj
     public String getTime(){
-        String min = convertTime(minuts);
-        String sec = convertTime(seconds);
-
-        return min+":"+sec;
+        return time;
     }
-
     //___________________________[Functions]______________________
 
     public String convertTime(int time){
@@ -50,21 +37,11 @@ public class PlayerTimer  {
         }else{
             seconds-=1;
         }
+        setTime(minuts, seconds);
+
+    }
+    public void setTime(int min, int sec){
+        time = convertTime(min)+":"+convertTime(sec);
     }
 
-    /*
-    @Override
-    public void run() {
-        try {
-            while (threadIsRunnig) {
-                Thread.sleep(1000);
-                substraction();
-                //instance.uptadeTime(convertTime(minuts)+":"+convertTime(seconds));
-            }
-        }catch (Exception e){
-            Log.i("INFO", "THREAD ERROR");
-        }
-    }
-
-     */
 }

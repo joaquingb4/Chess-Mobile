@@ -16,6 +16,7 @@ public class King extends Piece {
     //Attributes
     private final String name = "King";
     private String color;
+    private boolean firstMove = false;
     //Methods
     public King(String color){
         this.color = color;
@@ -39,6 +40,10 @@ public class King extends Piece {
         return this.color;
     }
 
+    @Override
+    public boolean isFirstMovement() {
+        return firstMove;
+    }
     @Override
     //Devuelve un ArrayList con las casillas posibles
     public ArrayList<Box> getAvailableMoves(Box[][] board, int x, int y) {
@@ -82,4 +87,5 @@ public class King extends Piece {
         }
         return boxes;
     }
+
 }

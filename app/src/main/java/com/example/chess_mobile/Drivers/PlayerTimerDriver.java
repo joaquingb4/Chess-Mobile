@@ -75,8 +75,16 @@ public class PlayerTimerDriver implements Runnable {
                     blackPlayerTimer.substraction();
                     instance.uptadeTime(blackPlayerTimer.getTime(), "black");
                 }
+                if (whitePlayerTimer.getTime().equals("00:00") || blackPlayerTimer.getTime().equals("00:00"))
+                    //((ActivityBoard)instance).endGame();
+                instance.runOnUiThread(new Runnable() {
+                    public void run() {
+                        instance.endGame();
+                    }});
+                    //instance.endGame();
             }catch (Exception e){
                 Log.i("INFO", "THREAD ERROR");
+                Log.i("INFO",""+e);
             }
         }
     }

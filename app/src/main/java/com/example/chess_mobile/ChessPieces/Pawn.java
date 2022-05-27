@@ -38,6 +38,11 @@ public class Pawn extends Piece {
     }
 
     @Override
+    public boolean isFirstMovement() {
+        return false;
+    }
+
+    @Override
     //Devuelve un ArrayList con las casillas posibles
     
     public ArrayList<Box> getAvailableMoves(Box[][] board, int x, int y) {
